@@ -1,0 +1,24 @@
+html, body {
+    height: 100%;
+}
+
+.page-background {
+    height: 100vh;
+    /* fallback for old browsers */
+    background: #eeedf7;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(238,237,247,0.5), rgba(235,235,255,0.5));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(238,237,247,0.5), rgba(235,235,255,0.5))
+    
+}
+
+.page-background input::placeholder {
+    opacity: 0.35;
+}
+
+.card {
+    min-width: 50%;
+}
