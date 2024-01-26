@@ -1,18 +1,31 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from "./views/Home";
-import Login from "./views/Login";
+import { createBrowserRouter } from 'react-router-dom';
+import AuthLayout from './views/authentication/AuthLayout';
+import Dashboard from './views/home/Dashboard';
+import Login from './views/authentication/Login';
+import ResetPassword from './views/authentication/ResetPassword';
+import ResetPasswordMsg from './views/authentication/ResetPasswordMsg';
 
 export const routes = createBrowserRouter([
   {
-    path: "/dashboard",
-    element: <Home />,
+    path: '/login',
+    element: <AuthLayout children={<Login />} route={'/home/dashboard'} />,
   },
   {
-    path: "/login",
-    element: <Login />,
+    path: '/',
+    element: <AuthLayout children={<Login />} route={'/home/dashboard'} />,
   },
   {
-    path: "/",
-    element: <Login />,
+    path: '/resetpassword',
+    element: (
+      <AuthLayout children={<ResetPassword />} route={'/resetpasswordmsg'} />
+    ),
+  },
+  {
+    path: '/resetpasswordmsg',
+    element: <AuthLayout children={<ResetPasswordMsg />} route={'/'} />,
+  },
+  {
+    path: '/home/dashboard',
+    element: <Dashboard />,
   },
 ]);

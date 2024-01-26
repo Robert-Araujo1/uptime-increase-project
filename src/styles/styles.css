@@ -20,5 +20,6 @@ html, body {
 }
 
 .card {
-    min-width: 50%;
+    min-width: 40vw;
+    max-width: 70vw;
 }

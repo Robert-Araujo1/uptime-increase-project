@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import "./styles/styles.css"
 import { routes } from './routes';
 import { RouterProvider } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import './styles/styles.css';
+import './i18n/i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={routes}/>
+    <RouterProvider router={routes} />
   </React.StrictMode>
 );
 
