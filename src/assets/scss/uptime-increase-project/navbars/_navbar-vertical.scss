@@ -1,0 +1,7 @@
+.navbar-vertical {
+    box-shadow: $navbar-vertical-box-shadow; 
+
+    .nav-item {
+        padding-left: $navbar-padding-horizontal;
+    }
+}

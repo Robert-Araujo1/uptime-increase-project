@@ -14,6 +14,10 @@ export default {
           'If the email... matches an already registered account, you will receive a link to recover your password in your inbox (or spam).',
         backBtn: 'Back',
       },
+      signUp: {
+        confirmPassword: 'Confirm password',
+        signUpBtn: 'Register',
+      },
     },
   },
 };
