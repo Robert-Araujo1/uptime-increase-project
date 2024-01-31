@@ -9,36 +9,48 @@ function HomeLayout() {
     <>
       <div className='container-fluid'>
         <div className='row flex-nowrap'>
-          {/* --------------------- START OF SIDEBAR ---------------------- */}
-          <div className='col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-body-tertiary navbar-vertical'>
-            <div className='d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100'>
-              <a
-                href='/'
-                className='d-flex align-items-center pt-2 pb-3 mb-md-0 me-md-auto text-primary-emphasis text-decoration-none'>
-                <span className='fs-5 d-none d-sm-inline'>Menu</span>
-              </a>
-              <ul
-                className='nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start'
-                id='menu'>
-                <li className='nav-item'>
-                  <a href='#' className='nav-link align-middle px-0'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      width='24'
-                      height='24'
-                      fill='currentColor'
-                      className='bi bi-graph-up-arrow'
-                      viewBox='0 0 16 16'>
-                      <path
-                        fill-rule='evenodd'
-                        d='M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5'
-                      />
-                    </svg>{' '}
-                    <span className='ms-1 d-none d-sm-inline'>Dashboard</span>
-                  </a>
-                </li>
-              </ul>
-              <hr />
+          {/* --------------------- START OF OFFCANVAS ---------------------- */}
+          <div
+            class='offcanvas offcanvas-end'
+            tabindex='-1'
+            id='offcanvasContent'
+            aria-labelledby='offcanvasLabel'>
+            <div class='offcanvas-header'>
+              <h5 class='offcanvas-title' id='offcanvasLabel'>
+                Menu
+              </h5>
+              <button
+                type='button'
+                class='btn-close'
+                data-bs-dismiss='offcanvas'
+                aria-label='Close'></button>
+            </div>
+            <div class='offcanvas-body'>
+              <div className='menu-list d-flex align-items-start flex-column mb-3'>
+                <ul
+                  className='nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start'
+                  id='menu'>
+                  <li className='nav-item'>
+                    <a
+                      href='/home/dashboard'
+                      className='nav-link align-middle px-0'>
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24'
+                        height='24'
+                        fill='currentColor'
+                        className='bi bi-graph-up-arrow'
+                        viewBox='0 0 16 16'>
+                        <path
+                          fill-rule='evenodd'
+                          d='M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5'
+                        />
+                      </svg>{' '}
+                      <span className='ms-1 d-sm-inline'>Dashboard</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
               <div className='dropdown pb-4'>
                 <a
                   href='#'
@@ -53,22 +65,12 @@ function HomeLayout() {
                     height='30'
                     className='rounded-circle'
                   />
-                  <span className='d-none d-sm-inline mx-1'>user</span>
+                  <span className='d-sm-inline mx-1'>user</span>
                 </a>
                 <ul className='dropdown-menu dropdown-menu-dark text-small shadow'>
                   <li>
                     <a className='dropdown-item' href='#'>
-                      New project...
-                    </a>
-                  </li>
-                  <li>
-                    <a className='dropdown-item' href='#'>
                       Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a className='dropdown-item' href='#'>
-                      Profile
                     </a>
                   </li>
                   <li>
@@ -83,42 +85,75 @@ function HomeLayout() {
               </div>
             </div>
           </div>
-          {/* --------------------- END OF SIDEBAR ---------------------- */}
+          {/* --------------------- END OF OFFCANVAS ---------------------- */}
 
           {/* --------------------- START OF CONTENT ---------------------- */}
           <div className='col py-3 px-3 page-background'>
-            <div className='row page-title'>
-              <h4 className='fw-light'>Dashboard</h4>
-            </div>
-            <div className='main-content'>
-              <div className='insights'>
-                <div className='row'>
-                  <InsightCard
-                    cardTitle={'Atendidos'}
-                    insightIcon={
-                      <FaClipboardCheck color='rgb(255, 255, 255)' size={20} />
-                    }
-                    backgroundIcon={'#198754'}
-                  />
-                  <InsightCard
-                    backgroundIcon={'#0d6efd'}
-                    cardTitle={'Em atendimento'}
-                    insightIcon={
-                      <GrInProgress color='rgb(255, 255, 255)' size={20} />
-                    }
-                  />
-                  <InsightCard
-                    backgroundIcon={'#dc3545'}
-                    cardTitle={'Não atendidos'}
-                    insightIcon={
-                      <BsClipboard2XFill color='rgb(255, 255, 255)' size={20} />
-                    }
-                  />
-                </div>
+            <div className='row page-header'>
+              <div className='col d-flex align-items-center'>
+                <h4 className='fw-light'>Dashboard</h4>
               </div>
-              <div className='table-downtime-machines'>
-                <div className='row'>
-                  <DowntimeTable />
+              <div className='col text-end'>
+                <button
+                  className='navbar-toggler'
+                  type='button'
+                  data-bs-toggle='offcanvas'
+                  data-bs-target='#offcanvasContent'
+                  aria-controls='offcanvasContent'
+                  aria-expanded='false'
+                  aria-label='Toggle sidebar'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='24'
+                    height='24'
+                    fill='currentColor'
+                    class='bi bi-list'
+                    viewBox='0 0 16 16'>
+                    <path
+                      fill-rule='evenodd'
+                      d='M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5'
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div className='container-fluid'>
+              <div className='row'>
+                <div className='insights py-4'>
+                  <div className='row'>
+                    <InsightCard
+                      cardTitle={'Atendidos'}
+                      insightIcon={
+                        <FaClipboardCheck
+                          color='rgb(255, 255, 255)'
+                          size={20}
+                        />
+                      }
+                      backgroundIcon={'#198754'}
+                    />
+                    <InsightCard
+                      backgroundIcon={'#0d6efd'}
+                      cardTitle={'Em atendimento'}
+                      insightIcon={
+                        <GrInProgress color='rgb(255, 255, 255)' size={20} />
+                      }
+                    />
+                    <InsightCard
+                      backgroundIcon={'#dc3545'}
+                      cardTitle={'Não atendidos'}
+                      insightIcon={
+                        <BsClipboard2XFill
+                          color='rgb(255, 255, 255)'
+                          size={20}
+                        />
+                      }
+                    />
+                  </div>
+                </div>
+                <div className='table-downtime-machines'>
+                  <div className='row'>
+                    <DowntimeTable />
+                  </div>
                 </div>
               </div>
             </div>
