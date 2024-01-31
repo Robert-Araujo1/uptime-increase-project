@@ -6,6 +6,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Box from '@mui/material/Box';
 
 function createData(customer, machinePin, location, downtimeDays, dtc) {
   return { customer, machinePin, location, downtimeDays, dtc };
@@ -24,35 +30,90 @@ const rows = [
 
 export default function () {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size='small' aria-label='a downtime table'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Customer</TableCell>
-            <TableCell align='right'>Machine PIN</TableCell>
-            <TableCell align='right'>Localização</TableCell>
-            <TableCell align='right'>Downtime days</TableCell>
-            <TableCell align='right'>DTC</TableCell>
-            <TableCell align='right'>Status</TableCell>
-            <TableCell align='right'>Note</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.customer}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell component='th' scope='row'>
-                {row.customer}
-              </TableCell>
-              <TableCell align='right'>{row.machinePin}</TableCell>
-              <TableCell align='right'>{row.location}</TableCell>
-              <TableCell align='right'>{row.downtimeDays}</TableCell>
-              <TableCell align='right'>{row.dtc}</TableCell>
+    <Paper>
+      <Box>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography
+            variant='h7'
+            id='tableTitle'
+            component='div'
+            fontWeight='bold'>
+            Machines
+          </Typography>
+          <Tooltip title='Filter List'>
+            <IconButton>
+              <FilterListIcon />
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
+      </Box>
+
+      <TableContainer component={Paper} sx={{ maxHeight: 350 }}>
+        <Table size='small' aria-label='a downtime table'>
+          <TableHead>
+            <TableRow>
+              <TableCell>Customer</TableCell>
+              <TableCell align='center'>Machine PIN</TableCell>
+              <TableCell align='center'>Localização</TableCell>
+              <TableCell align='center'>Downtime days</TableCell>
+              <TableCell align='center'>DTC</TableCell>
+              <TableCell align='center'>Status</TableCell>
+              <TableCell align='center'>Note</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.customer}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell component='th' scope='row'>
+                  {row.customer}
+                </TableCell>
+                <TableCell align='center'>{row.machinePin}</TableCell>
+                <TableCell align='center'>{row.location}</TableCell>
+                <TableCell align='center'>{row.downtimeDays}</TableCell>
+                <TableCell align='center'>{row.dtc}</TableCell>
+                <TableCell align='center'>
+                  <StatusSelection />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 }
+
+const StatusSelection = () => {
+  return (
+    <div class='dropdow'>
+      <a
+        class='btn btn-secondary dropdown-toggle btn-sm'
+        href='#'
+        role='button'
+        data-bs-toggle='dropdown'
+        aria-expanded='false'>
+        Selecione o status
+      </a>
+
+      <ul class='dropdown-menu dropdown-menu-lg-end'>
+        <li>
+          <a class='dropdown-item' href='#'>
+            Atendido
+          </a>
+        </li>
+        <li>
+          <a class='dropdown-item' href='#'>
+            Em atendimento
+          </a>
+        </li>
+        <li>
+          <a class='dropdown-item' href='#'>
+            Não atendido
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
+};

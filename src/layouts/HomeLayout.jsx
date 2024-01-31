@@ -1,6 +1,3 @@
-import { FaClipboardCheck } from 'react-icons/fa';
-import { GrInProgress } from 'react-icons/gr';
-import { BsClipboard2XFill } from 'react-icons/bs';
 import InsightCard from '../components/InsightCard';
 import DowntimeTable from '../components/DowntimeTable';
 
@@ -121,38 +118,34 @@ function HomeLayout() {
               <div className='row'>
                 <div className='insights py-4'>
                   <div className='row'>
-                    <InsightCard
-                      cardTitle={'Atendidos'}
-                      insightIcon={
-                        <FaClipboardCheck
-                          color='rgb(255, 255, 255)'
-                          size={20}
-                        />
-                      }
-                      backgroundIcon={'#198754'}
-                    />
-                    <InsightCard
-                      backgroundIcon={'#0d6efd'}
-                      cardTitle={'Em atendimento'}
-                      insightIcon={
-                        <GrInProgress color='rgb(255, 255, 255)' size={20} />
-                      }
-                    />
-                    <InsightCard
-                      backgroundIcon={'#dc3545'}
-                      cardTitle={'Não atendidos'}
-                      insightIcon={
-                        <BsClipboard2XFill
-                          color='rgb(255, 255, 255)'
-                          size={20}
-                        />
-                      }
-                    />
+                    <div className='col'>
+                      <InsightCard cardTitle='Atendidos' iconStyle='started' />
+                    </div>
+                    <div className='col'>
+                      <InsightCard
+                        cardTitle='Em atendimento'
+                        iconStyle='in-progress'
+                      />
+                    </div>
+                    <div className='col'>
+                      <InsightCard
+                        cardTitle='Não atendidos'
+                        iconStyle='not-started'
+                      />
+                    </div>
+                    <div className='col'>
+                      <InsightCard
+                        cardTitle='Total de equipamentos'
+                        iconStyle={'total'}
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className='table-downtime-machines'>
+                <div className='machines-content'>
                   <div className='row'>
-                    <DowntimeTable />
+                    <div className='col'>
+                      <DowntimeTable />
+                    </div>
                   </div>
                 </div>
               </div>
