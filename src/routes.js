@@ -30,7 +30,9 @@ export const routes = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <HomeLayout />,
-    children: [{ path: '/home/dashboard', element: <HomeLayout /> }],
+    element: <HomeLayout view={<Dashboard />} />,
+    children: [
+      { path: '/home/dashboard', element: <HomeLayout view={<Dashboard />} /> },
+    ],
   },
 ]);
