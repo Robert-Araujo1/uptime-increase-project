@@ -15,7 +15,7 @@ export default () => {
           data-bs-dismiss='offcanvas'
           aria-label='Close'></button>
       </div>
-      <div class='offcanvas-body'>
+      <div class='offcanvas-body d-flex flex-column align-items-start'>
         <div className='menu-list d-flex align-items-start flex-column mb-3'>
           <ul
             className='nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start'
@@ -39,7 +39,7 @@ export default () => {
             </li>
           </ul>
         </div>
-        <div className='dropdown pb-4'>
+        <div className='dropdown pb-4 mt-auto'>
           <a
             href='#'
             className='d-flex align-items-center text-primary-emphasis text-decoration-none dropdown-toggle'
