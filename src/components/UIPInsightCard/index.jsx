@@ -14,7 +14,7 @@ export default function ({ cardTitle, iconStyle }) {
         maxWidth: '100%',
         minWidth: 250,
         marginBottom: 2,
-        boxShadow: '3px 3px 10px 0 rgba(136, 152, 170, .15) !important',
+        boxShadow: '3px 3px 6px 0 rgba(136, 152, 170, .25) !important',
       }}>
       <CardContent>
         <UIPCardIcon background={gradientBackground} icon={icon} />
@@ -44,7 +44,7 @@ const UIPCardIcon = ({ background, icon }) => {
       alignItems='center'
       sx={{
         borderRadius: '0.3rem',
-        boxShadow: '3px 3px 10px 0 rgba(136, 152, 170, .15) !important',
+        boxShadow: '4px 4px 10px 0 rgba(136, 152, 170, 0.3) !important',
 
         background: background,
       }}>
