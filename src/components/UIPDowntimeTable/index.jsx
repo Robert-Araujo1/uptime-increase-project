@@ -48,7 +48,7 @@ export default function () {
         </Toolbar>
       </Box>
 
-      <TableContainer component={Paper} sx={{ maxHeight: 350 }}>
+      <TableContainer component={Paper} sx={{ height: 300 }}>
         <Table size='small' aria-label='a downtime table'>
           <TableHead>
             <TableRow>

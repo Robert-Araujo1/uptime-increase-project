@@ -1,5 +1,6 @@
 import UIPInsightCard from '../../../components/UIPInsightCard';
 import UIPDowntimeTable from '../../../components/UIPDowntimeTable';
+import UIPMap from '../../../components/UIPMap';
 
 function Dashboard() {
   const cardsInfo = [
@@ -15,7 +16,7 @@ function Dashboard() {
         <div className='insights py-4'>
           <div className='row'>
             {cardsInfo.map(({ cardTitle, iconStyle }) => (
-              <div className='col'>
+              <div key={cardTitle} className='col'>
                 <UIPInsightCard cardTitle={cardTitle} iconStyle={iconStyle} />
               </div>
             ))}
@@ -23,8 +24,11 @@ function Dashboard() {
         </div>
         <div className='machines-content'>
           <div className='row'>
-            <div className='col'>
+            <div className='col mb-4'>
               <UIPDowntimeTable />
+            </div>
+            <div className='col-xxl-4'>
+              <UIPMap />
             </div>
           </div>
         </div>
