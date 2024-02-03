@@ -2,12 +2,15 @@ import CredentialInput from './components/CredentialInput';
 import ButtonBox from './components/ButtonBox';
 import i18next from '../../i18n/i18n';
 import { useNavigate } from 'react-router-dom';
+import ButtonText from './components/ButtonText';
 
 function Login() {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate('/home/dashboard');
+    setTimeout(() => {
+      navigate('/home/dashboard');
+    }, 2000);
   };
   return (
     <form method='POST' onSubmit={handleSubmit}>
@@ -22,13 +25,15 @@ function Login() {
         lbl={i18next.t('auth.login.password')}
       />
       <div className='form-group mt-4 d-flex justify-content-center flex-column align-items-center'>
-        <ButtonBox text={i18next.t('auth.login.loginBtn')} />
-        <a href='/resetpassword' className='link-underline-light pt-4'>
-          {i18next.t('auth.login.forgotPasswordBtn')}
-        </a>
-        <a href='/signup' className='link-underline-light pt-2'>
-          {i18next.t('auth.login.signUpBtn')}
-        </a>
+        <ButtonBox
+          idBtn='confirm-login-btn'
+          text={i18next.t('auth.login.loginBtn')}
+        />
+        <ButtonText
+          text={i18next.t('auth.login.forgotPasswordBtn')}
+          href='/resetpassword'
+        />
+        <ButtonText text={i18next.t('auth.login.signUpBtn')} href='/signup' />
       </div>
     </form>
   );

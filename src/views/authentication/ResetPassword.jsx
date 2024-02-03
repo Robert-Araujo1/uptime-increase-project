@@ -18,7 +18,10 @@ function ResetPassword() {
         lbl={'Email'}
       />
       <div className='form-group mt-4 d-flex justify-content-center flex-column align-items-center'>
-        <ButtonBox text={i18next.t('auth.resetPassword.resetPasswordBtn')} />
+        <ButtonBox
+          idBtn='confirm-reset-btn'
+          text={i18next.t('auth.resetPassword.resetPasswordBtn')}
+        />
         <ButtonText
           text={i18next.t('auth.resetPassword.backBtn')}
           href={'/login'}

@@ -28,7 +28,10 @@ function SignUp() {
         lbl={i18next.t('auth.signUp.confirmPassword')}
       />
       <div className='form-group mt-4 d-flex justify-content-center flex-column align-items-center'>
-        <ButtonBox text={i18next.t('auth.signUp.signUpBtn')} />
+        <ButtonBox
+          id='confirm-sign-up-btn'
+          text={i18next.t('auth.signUp.signUpBtn')}
+        />
         <ButtonText
           text={i18next.t('auth.resetPassword.backBtn')}
           href={'/login'}
