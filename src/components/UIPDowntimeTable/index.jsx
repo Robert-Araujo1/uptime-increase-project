@@ -24,21 +24,28 @@ const rows = [
   createData('Customer 1', '1BZ524KAVJD000000', 'Recife, PE', 6, 'Nenhum'),
   createData(
     'Customer 2',
-    '1BZ310PXHJD000000',
+    '1BZ310PXHJD000001',
     'Maceió, AL',
     5,
     'AMARELO TCU 000525.00'
   ),
   createData(
     'Customer 3',
-    '1BZ310PXHJD000000',
+    '1BZ310PXHJD000002',
     'Maceió, AL',
     5,
     'AMARELO TCU 000525.00'
   ),
   createData(
     'Customer 4',
-    '1BZ310PXHJD000000',
+    '1BZ310PXHJD000003',
+    'Maceió, AL',
+    5,
+    'AMARELO TCU 000525.00'
+  ),
+  createData(
+    'Customer 5',
+    '1BZ310PXHJD000004',
     'Maceió, AL',
     5,
     'AMARELO TCU 000525.00'
@@ -46,7 +53,7 @@ const rows = [
 ];
 
 export default function UIPDowntimeTable() {
-  const [rowsPerPage, setRowsPerPage] = React.useState(4);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -92,16 +99,16 @@ export default function UIPDowntimeTable() {
               : rows
             ).map((row) => (
               <StyledTableRow
-                key={row.customer}
+                key={row.machinePin}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <StyledTableCell component='th' scope='row' width='30%'>
+                <StyledTableCell component='th' scope='row'>
                   {row.customer}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
                   {row.machinePin}
                 </StyledTableCell>
                 <StyledTableCell align='center'>{row.location}</StyledTableCell>
-                <StyledTableCell align='center' width='20%'>
+                <StyledTableCell align='center'>
                   {row.downtimeDays}
                 </StyledTableCell>
                 <StyledTableCell align='center'>{row.dtc}</StyledTableCell>
@@ -129,6 +136,7 @@ export default function UIPDowntimeTable() {
                 rowsPerPage={rowsPerPage}
                 rowsPerPageOptions={[]}
                 page={page}
+                labelDisplayedRows={displayedRowsText}
                 onPageChange={handlePageChange}
                 ActionsComponent={TablePaginationActions}
               />
@@ -138,4 +146,10 @@ export default function UIPDowntimeTable() {
       </TableContainer>
     </Paper>
   );
+}
+
+function displayedRowsText(page) {
+  return `${page.from}-${page.to === -1 ? page.count : page.to} 
+  ${i18next.t('home.dashboard.prepositionTablePagination')} 
+  ${page.count}`;
 }

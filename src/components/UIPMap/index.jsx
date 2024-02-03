@@ -5,11 +5,11 @@ import Paper from '@mui/material/Paper';
 import 'leaflet/dist/leaflet.css';
 
 export default () => {
-  const position = [-9.135222194454002, -41.903822968196536];
+  const position = [-9.135222194454002, -39.903822968196536];
 
   return (
     <Paper>
-      <Box height={350} paddingY={1} paddingX={1}>
+      <Box height={440} paddingY={1} paddingX={1}>
         <MapContainer
           style={{
             height: '100%',

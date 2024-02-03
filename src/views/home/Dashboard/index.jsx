@@ -8,18 +8,22 @@ function Dashboard() {
     {
       cardTitle: i18next.t('home.dashboard.completedType'),
       iconStyle: 'started',
+      cardValue: 21,
     },
     {
       cardTitle: i18next.t('home.dashboard.inProgressType'),
       iconStyle: 'in-progress',
+      cardValue: 3,
     },
     {
       cardTitle: i18next.t('home.dashboard.notStartedType'),
       iconStyle: 'not-started',
+      cardValue: 1,
     },
     {
       cardTitle: i18next.t('home.dashboard.amountEquipCardTitle'),
       iconStyle: 'total',
+      cardValue: 25,
     },
   ];
 
@@ -28,9 +32,13 @@ function Dashboard() {
       <div className='row'>
         <div className='insights py-4'>
           <div className='row'>
-            {cardsInfo.map(({ cardTitle, iconStyle }) => (
+            {cardsInfo.map(({ cardTitle, iconStyle, cardValue }) => (
               <div key={cardTitle} className='col'>
-                <UIPInsightCard cardTitle={cardTitle} iconStyle={iconStyle} />
+                <UIPInsightCard
+                  cardTitle={cardTitle}
+                  iconStyle={iconStyle}
+                  cardValue={cardValue}
+                />
               </div>
             ))}
           </div>
@@ -40,7 +48,7 @@ function Dashboard() {
             <div className='col mb-4'>
               <UIPDowntimeTable />
             </div>
-            <div className='col-xxl-4'>
+            <div className='col-xxl-3'>
               <UIPMap />
             </div>
           </div>

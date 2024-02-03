@@ -4,8 +4,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import selectIconStyle from './selectIconStyle';
+import i18next from '../../i18n/i18n';
 
-export default function ({ cardTitle, iconStyle }) {
+export default function ({ cardTitle, iconStyle, cardValue }) {
   const [gradientBackground, icon] = selectIconStyle(iconStyle);
 
   return (
@@ -14,6 +15,7 @@ export default function ({ cardTitle, iconStyle }) {
         maxWidth: '100%',
         minWidth: 250,
         marginBottom: 2,
+        borderRadius: '1rem',
         boxShadow: '3px 3px 6px 0 rgba(136, 152, 170, .25) !important',
       }}>
       <CardContent>
@@ -24,13 +26,73 @@ export default function ({ cardTitle, iconStyle }) {
           gutterBottom>
           {cardTitle}
         </Typography>
-        <Typography variant='h6' component='div' sx={{ textAlign: 'end' }}>
-          {'cardValue'}
+        <Typography
+          fontWeight='bold'
+          variant='h5'
+          component='div'
+          sx={{ textAlign: 'end' }}>
+          {cardValue}
         </Typography>
+        <hr style={{ color: '#A2A2A2' }} />
+        <Box px={2}>
+          {iconStyle == 'started' ? (
+            <>
+              <ValueTypo value='+27%' />{' '}
+              <LabelTypo
+                label={i18next.t('home.dashboard.completedCardStatisticLabel')}
+              />
+            </>
+          ) : iconStyle == 'in-progress' ? (
+            <>
+              <LabelTypo
+                label={i18next.t('home.dashboard.inProgressCardStatisticLabel')}
+              />
+              <ValueTypo value='32h' />
+            </>
+          ) : iconStyle == 'not-started' ? (
+            <>
+              <LabelTypo
+                label={i18next.t('home.dashboard.notStartedCardStatisticLabel')}
+              />
+              <ValueTypo value='1,5h' />
+            </>
+          ) : (
+            <>
+              <ValueTypo value='+14%' />{' '}
+              <LabelTypo
+                label={i18next.t('home.dashboard.totalEquipCardStatisticLabel')}
+              />
+            </>
+          )}
+        </Box>
       </CardContent>
     </Card>
   );
 }
+
+const LabelTypo = ({ label }) => {
+  return (
+    <Typography
+      color='#A2A2A2'
+      component='span'
+      fontWeight='lighter'
+      fontSize='small'>
+      {label}
+    </Typography>
+  );
+};
+
+const ValueTypo = ({ value }) => {
+  return (
+    <Typography
+      component='span'
+      color='green'
+      fontWeight='bold'
+      fontSize='small'>
+      &nbsp;{value}
+    </Typography>
+  );
+};
 
 const UIPCardIcon = ({ background, icon }) => {
   return (
