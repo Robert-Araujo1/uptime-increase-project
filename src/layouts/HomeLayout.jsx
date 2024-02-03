@@ -9,7 +9,7 @@ function HomeLayout({ view }) {
           <UIPHomeOffcanvas />
           {/* --------------------- START OF CONTENT ---------------------- */}
           <div className='col py-3 px-3 page-background'>
-            <UIPHomeHeader />
+            <UIPHomeHeader headerTitle={'Dashboard'} />
             {view}
           </div>
           {/* --------------------- END OF CONTENT ---------------------- */}

@@ -10,14 +10,14 @@ function selectIconStyle(iconStyle) {
   switch (iconStyle) {
     case 'started':
       gradientBackground =
-        'linear-gradient(150deg, rgba(148,218,185,1) 0%, rgba(25,135,84,1) 100%)';
+        'linear-gradient(195deg, rgba(24,161,66,1) 0%, rgba(8,115,7,1) 100%)';
       icon = (
         <AssignmentTurnedInIcon sx={{ color: '#ffffff' }} fontSize='medium' />
       );
       break;
     case 'in-progress':
       gradientBackground =
-        'linear-gradient(150deg, rgba(171,202,246,1) 0%, rgba(13,110,253,1) 100%)';
+        'linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232))';
       icon = <WatchLaterIcon sx={{ color: '#ffffff' }} fontSize='medium' />;
       break;
     case 'not-started':
@@ -27,7 +27,7 @@ function selectIconStyle(iconStyle) {
       break;
     case 'total':
       gradientBackground =
-        'linear-gradient(150deg, rgba(246,222,148,1) 0%, rgba(255,193,7,1) 100%)';
+        'linear-gradient(195deg, rgba(250,180,45,1) 0%, rgba(235,159,22,1) 100%)';
       icon = <ConstructionIcon sx={{ color: '#ffffff' }} fontSize='medium' />;
       break;
     default:

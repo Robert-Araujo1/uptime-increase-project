@@ -1,8 +1,10 @@
-export default () => {
+export default ({ headerTitle }) => {
   return (
     <div className='row page-header'>
       <div className='col d-flex align-items-center'>
-        <h4 className='fw-light'>Dashboard</h4>
+        <h4 className='fw-light' style={{ color: '#2D4A5D' }}>
+          {headerTitle}
+        </h4>
       </div>
       <div className='col text-end'>
         <button

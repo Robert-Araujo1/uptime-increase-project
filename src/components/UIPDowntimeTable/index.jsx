@@ -15,42 +15,15 @@ import UIPTableToolbar from './UIPTableToolbar';
 import { StyledTableCell, StyledTableRow } from './tableStyles';
 import StatusSelection from './StatusSelection';
 import i18next from '../../i18n/i18n';
+import { machines } from '../../assets/data/machines/machines';
 
 function createData(customer, machinePin, location, downtimeDays, dtc) {
   return { customer, machinePin, location, downtimeDays, dtc };
 }
 
-const rows = [
-  createData('Customer 1', '1BZ524KAVJD000000', 'Recife, PE', 6, 'Nenhum'),
-  createData(
-    'Customer 2',
-    '1BZ310PXHJD000001',
-    'Maceió, AL',
-    5,
-    'AMARELO TCU 000525.00'
-  ),
-  createData(
-    'Customer 3',
-    '1BZ310PXHJD000002',
-    'Maceió, AL',
-    5,
-    'AMARELO TCU 000525.00'
-  ),
-  createData(
-    'Customer 4',
-    '1BZ310PXHJD000003',
-    'Maceió, AL',
-    5,
-    'AMARELO TCU 000525.00'
-  ),
-  createData(
-    'Customer 5',
-    '1BZ310PXHJD000004',
-    'Maceió, AL',
-    5,
-    'AMARELO TCU 000525.00'
-  ),
-];
+const rows = machines.map((machine) =>
+  createData(machine[0], machine[1], machine[2], machine[3], machine[4])
+);
 
 export default function UIPDowntimeTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);

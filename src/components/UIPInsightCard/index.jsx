@@ -30,7 +30,7 @@ export default function ({ cardTitle, iconStyle, cardValue }) {
           fontWeight='bold'
           variant='h5'
           component='div'
-          sx={{ textAlign: 'end' }}>
+          sx={{ textAlign: 'end', color: '#3B5363' }}>
           {cardValue}
         </Typography>
         <hr style={{ color: '#A2A2A2' }} />
