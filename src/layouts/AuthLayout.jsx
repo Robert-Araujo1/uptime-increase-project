@@ -1,6 +1,6 @@
 import brazilFlag from '../assets/images/brazil.png';
 import usFlag from '../assets/images/united-states.png';
-import FlagBtn from '../components/FlagBtn';
+import FlagsBtns from '../components/FlagsBtns';
 
 function AuthLayout(props) {
   return (
@@ -10,8 +10,7 @@ function AuthLayout(props) {
         <div className='card-body'>{props.children}</div>
       </div>
       <div className='footer mt-4'>
-        <FlagBtn lang={'pt'} srcFlag={brazilFlag} altFlag={'Brazil Flag'} />
-        <FlagBtn lang={'us'} srcFlag={usFlag} altFlag={'United States Flag'} />
+        <FlagsBtns />
       </div>
     </div>
   );

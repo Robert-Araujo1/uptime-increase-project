@@ -14,6 +14,7 @@ import TablePaginationActions from './TablePaginationActions';
 import UIPTableToolbar from './UIPTableToolbar';
 import { StyledTableCell, StyledTableRow } from './tableStyles';
 import StatusSelection from './StatusSelection';
+import i18next from '../../i18n/i18n';
 
 function createData(customer, machinePin, location, downtimeDays, dtc) {
   return { customer, machinePin, location, downtimeDays, dtc };
@@ -62,13 +63,27 @@ export default function UIPDowntimeTable() {
         <Table size='small' aria-label='a downtime table'>
           <TableHead>
             <TableRow>
-              <StyledTableCell>Customer</StyledTableCell>
-              <StyledTableCell align='center'>Machine PIN</StyledTableCell>
-              <StyledTableCell align='center'>Localização</StyledTableCell>
-              <StyledTableCell align='center'>Downtime days</StyledTableCell>
-              <StyledTableCell align='center'>DTC</StyledTableCell>
-              <StyledTableCell align='center'>Status</StyledTableCell>
-              <StyledTableCell align='center'>Note</StyledTableCell>
+              <StyledTableCell>
+                {i18next.t('home.dashboard.customerCol')}
+              </StyledTableCell>
+              <StyledTableCell align='center'>
+                {i18next.t('home.dashboard.machinePinCol')}
+              </StyledTableCell>
+              <StyledTableCell align='center'>
+                {i18next.t('home.dashboard.locationCol')}
+              </StyledTableCell>
+              <StyledTableCell align='center'>
+                {i18next.t('home.dashboard.downtimeDaysCol')}
+              </StyledTableCell>
+              <StyledTableCell align='center'>
+                {i18next.t('home.dashboard.failureCol')}
+              </StyledTableCell>
+              <StyledTableCell align='center'>
+                {i18next.t('home.dashboard.statusCol')}
+              </StyledTableCell>
+              <StyledTableCell align='center'>
+                {i18next.t('home.dashboard.noteCol')}
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -1,13 +1,26 @@
 import UIPInsightCard from '../../../components/UIPInsightCard';
 import UIPDowntimeTable from '../../../components/UIPDowntimeTable';
 import UIPMap from '../../../components/UIPMap';
+import i18next from '../../../i18n/i18n';
 
 function Dashboard() {
   const cardsInfo = [
-    { cardTitle: 'Atendidos', iconStyle: 'started' },
-    { cardTitle: 'Em atendimento', iconStyle: 'in-progress' },
-    { cardTitle: 'Não atendidos', iconStyle: 'not-started' },
-    { cardTitle: 'Total de equipamentos', iconStyle: 'total' },
+    {
+      cardTitle: i18next.t('home.dashboard.completedType'),
+      iconStyle: 'started',
+    },
+    {
+      cardTitle: i18next.t('home.dashboard.inProgressType'),
+      iconStyle: 'in-progress',
+    },
+    {
+      cardTitle: i18next.t('home.dashboard.notStartedType'),
+      iconStyle: 'not-started',
+    },
+    {
+      cardTitle: i18next.t('home.dashboard.amountEquipCardTitle'),
+      iconStyle: 'total',
+    },
   ];
 
   return (

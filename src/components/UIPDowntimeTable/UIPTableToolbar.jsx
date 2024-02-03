@@ -8,6 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import i18next from '../../i18n/i18n';
 
 export default () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -27,23 +28,29 @@ export default () => {
         id='tableTitle'
         component='div'
         fontWeight='bold'>
-        Machines
+        {i18next.t('home.dashboard.tableTitle')}
       </Typography>
       <Box>
-        <Tooltip title='Filtro' sx={{ marginX: 2 }}>
+        <Tooltip
+          title={i18next.t('home.dashboard.filterBtnName')}
+          sx={{ marginX: 2 }}>
           <IconButton>
             <FilterListIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title='Mais'>
+        <Tooltip title={i18next.t('home.dashboard.moreVertBtnName')}>
           <IconButton onClick={handleClick}>
             <MoreVertIcon />
           </IconButton>
         </Tooltip>
       </Box>
       <Menu open={open} anchorEl={anchorEl} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>Adicionar equipamento</MenuItem>
-        <MenuItem onClick={handleClose}>Exportar</MenuItem>
+        <MenuItem onClick={handleClose}>
+          {i18next.t('home.dashboard.addEquipOption')}
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          {i18next.t('home.dashboard.exportOption')}
+        </MenuItem>
       </Menu>
     </Toolbar>
   );
