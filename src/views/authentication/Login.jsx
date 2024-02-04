@@ -15,11 +15,13 @@ function Login() {
   return (
     <form method='POST' onSubmit={handleSubmit}>
       <CredentialInput
+        id={'email-field'}
         type={'email'}
         placeholder={'uptimeincreaseproject@domain.com'}
         lbl={'Email'}
       />
       <CredentialInput
+        id={'password-field'}
         type={'password'}
         placeholder={'************'}
         lbl={i18next.t('auth.login.password')}

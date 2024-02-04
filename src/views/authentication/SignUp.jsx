@@ -13,23 +13,26 @@ function SignUp() {
   return (
     <form method='POST' onSubmit={handleSubmit}>
       <CredentialInput
+        id={'email-field'}
         type={'email'}
         placeholder={'uptimeincreaseproject@domain.com'}
         lbl={'Email'}
       />
       <CredentialInput
+        id={'password-field'}
         type={'password'}
         placeholder={'************'}
         lbl={i18next.t('auth.login.password')}
       />
       <CredentialInput
+        id={'confirm-password-field'}
         type={'password'}
         placeholder={'************'}
         lbl={i18next.t('auth.signUp.confirmPassword')}
       />
       <div className='form-group mt-4 d-flex justify-content-center flex-column align-items-center'>
         <ButtonBox
-          id='confirm-sign-up-btn'
+          idBtn='confirm-sign-up-btn'
           text={i18next.t('auth.signUp.signUpBtn')}
         />
         <ButtonText

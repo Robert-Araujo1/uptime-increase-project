@@ -1,9 +1,9 @@
-export default ({ type, placeholder, lbl }) => {
+export default ({ type, placeholder, lbl, id }) => {
   return (
     <div className='form-group mb-3'>
       <label className='form-label fw-light'>{lbl}</label>
       <input
-        id={type}
+        id={id}
         type={type}
         className='form-control'
         placeholder={placeholder}

@@ -1,17 +1,29 @@
-import UIPLoadingEffect from '../../../components/UIPLoadingEffect';
-import { renderToString } from 'react-dom/server';
-
 export default ({ text, idBtn }) => {
   return (
     <button
       id={idBtn}
       type='submit'
-      className='btn btn-outline-primary w-50'
+      className='btn btn-outline-primary w-75 '
       onClick={() => {
-        var buttonContent = document.getElementById(idBtn);
-        buttonContent.innerHTML = renderToString(<UIPLoadingEffect />);
+        const formDoc = document.querySelector('form');
+        if (!formDoc.checkValidity()) return;
+
+        const buttonContent = document.getElementById(idBtn);
+
+        buttonContent
+          .getElementsByClassName('loading-spinner')[0]
+          .classList.add('spinner-border', 'spinner-border-sm', 'mx-2');
+
+        buttonContent.getElementsByClassName('text-btn')[0].innerHTML =
+          'Loading';
       }}>
-      {text}
+      <div className='d-flex flex-row justify-content-center align-items-center'>
+        <span
+          className='loading-spinner'
+          role='status'
+          aria-hidden='true'></span>
+        <span className='text-btn'>{text}</span>
+      </div>
     </button>
   );
 };

@@ -13,6 +13,7 @@ function ResetPassword() {
   return (
     <form method='POST' onSubmit={handleSubmit}>
       <CredentialInput
+        id={'email-field'}
         type={'email'}
         placeholder={'uptimeincreaseproject@domain.com'}
         lbl={'Email'}
