@@ -10,12 +10,14 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import TablePaginationActions from './TablePaginationActions';
+import TablePaginationActions from './utils/TablePaginationActions';
 import UIPTableToolbar from './UIPTableToolbar';
-import { StyledTableCell, StyledTableRow } from './tableStyles';
-import StatusSelection from './StatusSelection';
+import { StyledTableCell, StyledTableRow } from './utils/tableStyles';
+import StatusSelection from './utils/StatusSelection';
 import i18next from '../../i18n/i18n';
 import { machines } from '../../assets/data/machines/machines';
+import UIPPolygonMarker from './UIPPolygonMarker';
+import { columnNames } from './constants';
 
 function createData(customer, machinePin, location, downtimeDays, dtc) {
   return { customer, machinePin, location, downtimeDays, dtc };
@@ -38,44 +40,39 @@ export default function UIPDowntimeTable() {
   return (
     <Paper>
       <UIPTableToolbar />
-
       <TableContainer component={Paper} sx={{ height: 370, marginTop: 1 }}>
         <Table size='small' aria-label='a downtime table'>
           <TableHead>
             <TableRow>
-              <StyledTableCell>
-                {i18next.t('home.dashboard.customerCol')}
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                {i18next.t('home.dashboard.machinePinCol')}
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                {i18next.t('home.dashboard.locationCol')}
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                {i18next.t('home.dashboard.downtimeDaysCol')}
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                {i18next.t('home.dashboard.failureCol')}
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                {i18next.t('home.dashboard.statusCol')}
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                {i18next.t('home.dashboard.noteCol')}
-              </StyledTableCell>
+              {columnNames.map((columnName, index) => (
+                <StyledTableCell
+                  key={index}
+                  align={index === 0 ? 'left' : 'center'}>
+                  {columnName}
+                </StyledTableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
               ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : rows
-            ).map((row) => (
+            ).map((row, index) => (
               <StyledTableRow
                 key={row.machinePin}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <StyledTableCell component='th' scope='row'>
-                  {row.customer}
+                <StyledTableCell
+                  component='th'
+                  scope='row'
+                  sx={{ minWidth: '14rem' }}>
+                  <div className='first-column'>
+                    <span>{row.customer}</span>
+                    {index == 0 || index == 3 ? (
+                      <UIPPolygonMarker text={'Manual'} />
+                    ) : (
+                      <UIPPolygonMarker text={'Auto'} />
+                    )}
+                  </div>
                 </StyledTableCell>
                 <StyledTableCell align='center'>
                   {row.machinePin}

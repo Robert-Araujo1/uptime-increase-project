@@ -12,4 +12,31 @@ $insight-card-box-shadow: 2px 2px 2px 0 rgba(136, 152, 170, .15) !important;
 
 // Screens
 $small-size-screen: 300px;
-$medium-size-screen: 700px
+$medium-size-screen: 700px;
+
+
+
+// Polygon Markers
+
+// Colors
+$manual-marker-color: rgb(161, 172, 255, .3);
+$manual-marker-color-text: rgb(42, 54, 144);
+
+// Size
+$polygon-shape: polygon(12% 0%, 100% 0%, 100% 100%, 12% 100%, 0% 50%);
+$marker-min-width: 5.7rem;
+$marker-height: 1.4rem;
+
+// Spacing
+$marker-margin-left: 20px;
+$marker-padding-right: 7px;
+
+// Border
+$marker-border-end-radius: 5px;
+
+// Circle
+$circle-width: 10px;
+$circle-height: 10px;
+$circle-border-radius: 10px;
+$circle-border-width: 2px;
+$circle-margin-left: 10px;

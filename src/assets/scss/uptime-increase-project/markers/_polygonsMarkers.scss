@@ -1,0 +1,39 @@
+
+.manual-polygon-marker {
+    background: rgb(161, 172, 255, .3);
+    color: rgb(42, 54, 144);
+}
+
+.auto-polygon-marker {
+    background: rgb(191, 135, 224, .3);
+    color: rgb(106, 42, 144);
+}
+
+.polygon-marker {
+    min-width: $marker-min-width;
+    height: $marker-height;
+    margin-left: $marker-margin-left;
+    text-align: end;
+    display: flex;
+    font-weight: bold;
+    padding-right: $marker-padding-right;
+    justify-content: center;
+    align-items: center;
+    clip-path: $polygon-shape;
+    border-end-end-radius: $marker-border-end-radius;
+    border-start-end-radius: $marker-border-end-radius;
+
+}
+
+.polygon-marker span { width: 50%; padding-left: 7px }
+
+.circle-marker {
+    width: $circle-width;
+    height: $circle-height;
+    border-radius: $circle-border-radius;
+    border-color: rgb(255,255,255, .8);
+    border-width: $circle-border-width;
+    border-style: solid;
+    background-color: rgb(255, 255, 255, .2);
+  }
+

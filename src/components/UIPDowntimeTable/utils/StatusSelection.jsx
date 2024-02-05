@@ -1,4 +1,4 @@
-import i18next from '../../i18n/i18n';
+import i18next from '../../../i18n/i18n';
 
 export default () => {
   return (
