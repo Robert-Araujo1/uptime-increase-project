@@ -1,6 +1,11 @@
+
 .auth-card {
-        min-width: 40vw;
-        max-width: 70vw;
+        @media screen and (min-width: $small-size-screen) {
+                min-width: 90vw;
+        }
+        @media screen and (min-width: $medium-size-screen) {
+                min-width: 500px;
+        }
 }
 
 .insight-card {

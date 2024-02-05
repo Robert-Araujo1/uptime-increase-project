@@ -99,8 +99,8 @@ const UIPCardIcon = ({ background, icon }) => {
     <Box
       position={'absolute'}
       mt={-3}
-      width='3rem'
-      height='3rem'
+      width='3.5rem'
+      height='3.5rem'
       display='flex'
       justifyContent='center'
       alignItems='center'
