@@ -14,7 +14,7 @@ export default () => {
           height='30'
           className='rounded-circle'
         />
-        <span className='d-sm-inline mx-1'>user</span>
+        <span className='d-sm-inline mx-1'>John Doe</span>
       </a>
       <ul className='dropdown-menu dropdown-menu-dark text-small shadow'>
         <li>

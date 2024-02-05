@@ -3,7 +3,7 @@ export default ({ text, idBtn }) => {
     <button
       id={idBtn}
       type='submit'
-      className='btn btn-outline-primary w-75 '
+      className='btn btn-outline-primary w-50'
       onClick={() => {
         const formDoc = document.querySelector('form');
         if (!formDoc.checkValidity()) return;
