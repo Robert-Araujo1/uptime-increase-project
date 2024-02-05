@@ -15,13 +15,15 @@ import UIPTableToolbar from './UIPTableToolbar';
 import { StyledTableCell, StyledTableRow } from './utils/tableStyles';
 import StatusSelection from './utils/StatusSelection';
 import i18next from '../../i18n/i18n';
-import { machines } from '../../assets/data/machines/machines';
+import generateRandomMachines from '../../assets/data/machines/machines';
 import UIPPolygonMarker from './UIPPolygonMarker';
 import { columnNames } from './constants';
 
 function createData(customer, machinePin, location, downtimeDays, dtc) {
   return { customer, machinePin, location, downtimeDays, dtc };
 }
+
+const machines = generateRandomMachines();
 
 const rows = machines.map((machine) =>
   createData(machine[0], machine[1], machine[2], machine[3], machine[4])

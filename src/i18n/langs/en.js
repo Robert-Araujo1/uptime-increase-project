@@ -43,6 +43,33 @@ export default {
         inProgressCardStatisticLabel: 'Average service time:',
         notStartedCardStatisticLabel: 'Average response time:',
         totalEquipCardStatisticLabel: 'last month',
+        customer: 'Customer',
+        charts: {
+          averageServiceTimeChart: {
+            title: 'Average Monthly Time',
+            description: 'Service',
+          },
+          equiptPerStateChart: {
+            title: 'Quantity Per States',
+            description: 'Equipments',
+          },
+          completedServiceChart: {
+            title: 'Monthly Quantity',
+            description: 'Completed',
+          },
+        },
+      },
+    },
+    genericsWords: {
+      none: 'None',
+      months: {
+        jan: 'January',
+        feb: 'February',
+        mar: 'March',
+        apr: 'April',
+        may: 'May',
+        jun: 'June',
+        jul: 'July',
       },
     },
   },

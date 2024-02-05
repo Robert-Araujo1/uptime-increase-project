@@ -3,181 +3,20 @@ import {
   generateRandomPinMachine,
   getRandomValue,
 } from '../utils/dataManipulation';
+import i18next from '../../../i18n/i18n';
 
-export const machines = [
-  [
-    'Cliente 1',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 2',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 3',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 4',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 5',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 6',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 7',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 8',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 9',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 10',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 11',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 12',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 13',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 14',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 15',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 16',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 17',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 18',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 19',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 20',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 21',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 22',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 23',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 24',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-  [
-    'Cliente 25',
-    generateRandomPinMachine(),
-    getRandomCity(),
-    getRandomValue(5, 10),
-    'Nenhum',
-  ],
-];
+export default function generateRandomMachines() {
+  var machines = [];
+
+  for (let index = 1; index < 26; index++) {
+    machines.push([
+      i18next.t('home.dashboard.customer') + ' ' + index,
+      generateRandomPinMachine(),
+      getRandomCity(),
+      getRandomValue(5, 10),
+      i18next.t('genericsWords.none'),
+    ]);
+  }
+
+  return machines;
+}

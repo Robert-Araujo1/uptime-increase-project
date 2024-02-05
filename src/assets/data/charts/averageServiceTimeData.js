@@ -1,5 +1,7 @@
+import { months } from './constants';
+
 export default {
-  labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+  labels: months,
   datasets: [
     {
       label: 'Tempo médio (h)',
