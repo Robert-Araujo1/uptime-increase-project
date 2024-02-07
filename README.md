@@ -2,7 +2,8 @@
 
 ![version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) 
 ![under-construction](https://img.shields.io/static/v1.svg?message=Under%20construction&label=🚧&color=FF9900)
-![react-version](https://img.shields.io/badge/React%20v18.2.0-8A2BE2) 
+![react-version](https://img.shields.io/badge/React%20v18.2.0-0074a6) 
+![bootstrap](https://img.shields.io/badge/Bootstrap%205-9461fb) 
 
 <img src="https://github.com/Robert-Araujo1/uptime-increase-project/assets/102763637/5834b0b0-63ea-4117-b7e1-a2398282de9d)" alt="dashboard preview">
 
