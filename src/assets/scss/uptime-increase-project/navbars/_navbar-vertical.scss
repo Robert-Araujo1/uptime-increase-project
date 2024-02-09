@@ -5,3 +5,8 @@
         padding-left: $navbar-padding-horizontal;
     }
 }
+
+.nav-pills .nav-link:hover {
+    background-color: var(--bs-nav-pills-link-active-bg);
+    color: var(--bs-nav-pills-link-active-color);
+}

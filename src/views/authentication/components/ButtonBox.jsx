@@ -3,7 +3,7 @@ export default ({ text, idBtn }) => {
     <button
       id={idBtn}
       type='submit'
-      className='btn btn-outline-primary w-100'
+      className='auth-btn btn btn-outline-primary w-100'
       onClick={() => {
         const formDoc = document.querySelector('form');
         if (!formDoc.checkValidity()) return;
@@ -14,8 +14,7 @@ export default ({ text, idBtn }) => {
           .getElementsByClassName('loading-spinner')[0]
           .classList.add('spinner-border', 'spinner-border-sm', 'mx-2');
 
-        buttonContent.getElementsByClassName('text-btn')[0].innerHTML =
-          'Loading';
+        buttonContent.getElementsByClassName('text-btn')[0].innerHTML = '';
       }}>
       <div className='d-flex flex-row justify-content-center align-items-center'>
         <span
