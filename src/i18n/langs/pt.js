@@ -11,7 +11,7 @@ export default {
         resetPasswordBtn: 'Recuperar senha',
         resetPasswordTitle: 'Recuperação de senha',
         resetPasswordText:
-          'Se o email ... corresponder a uma conta já cadastrada, você receberá na sua caixa de entrada (ou spam) um link de recuperação da sua senha.',
+          'Se o email {{email}} corresponder a uma conta já cadastrada, você receberá na sua caixa de entrada (ou spam) um link de recuperação da sua senha.',
         backBtn: 'Voltar',
       },
       signUp: {

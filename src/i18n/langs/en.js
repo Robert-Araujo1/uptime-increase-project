@@ -11,7 +11,7 @@ export default {
         resetPasswordBtn: 'Restore password',
         resetPasswordTitle: 'Password recovery',
         resetPasswordText:
-          'If the email... matches an already registered account, you will receive a link to recover your password in your inbox (or spam).',
+          'If the email {{email}} matches an already registered account, you will receive a link to recover your password in your inbox (or spam).',
         backBtn: 'Back',
       },
       signUp: {

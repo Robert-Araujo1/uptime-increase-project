@@ -29,6 +29,7 @@ function SignUp() {
         type={'password'}
         placeholder={'************'}
         lbl={i18next.t('auth.signUp.confirmPassword')}
+        onCopyPaste={(e) => e.preventDefault()}
       />
       <div className='form-group mt-4 d-flex justify-content-center flex-column align-items-center'>
         <ButtonBox
