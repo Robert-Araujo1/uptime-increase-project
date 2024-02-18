@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import UIPMarker from './UIPMarker';
 import { geoCoordinates } from '../../assets/data/cities/geoJson';
 import 'leaflet/dist/leaflet.css';
+import FullScreenBtn from './FullscreenBtn';
 
 export default () => {
   const position = [-9.135222194454002, -39.903822968196536];
@@ -35,6 +36,7 @@ export default () => {
                 position={coordinate}></Marker>
             ))
           )}
+          <FullScreenBtn />
         </MapContainer>
       </Box>
     </Paper>
