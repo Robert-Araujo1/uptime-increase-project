@@ -1,4 +1,5 @@
 /**
+ * (Github Issue #75 leaflet.fullscreen)
  * So far (Feb 17 2024), Fullscreen API is not available with safari on iPhones.
  * Maybe in the future this will be fixed.
  */
