@@ -11,7 +11,7 @@
 ## Description
 <p>Uptime Increase Project (UIP) is a responsive and multilanguage dashboard developed in React 18 with Bootstrap as a concept to the idea of monitoring construction machines downtime situation, based on operations data extracted from an internal API.
 
-In other words, when a machine is broken when it is operating, the machine stops (of course!). This dashboard helps the dealer identify this broken machine (like others too), inducing a fast contact with the machine's owner and closing a deal, in a fast way with no delays!</p>
+In other words, when a machine is broken when it is operating, the machine stops (of course!). This dashboard helps the dealer identify this broken machine (like others too), inducing a fast contact with the machine's owner and closing a deal.</p>
 
 ## Run the project
 
