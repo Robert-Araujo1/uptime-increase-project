@@ -5,6 +5,7 @@ export const columnNames = [
   i18next.t('home.dashboard.machinePinCol'),
   i18next.t('home.dashboard.locationCol'),
   i18next.t('home.dashboard.downtimeDaysCol'),
+  'Identificado em',
   i18next.t('home.dashboard.failureCol'),
   i18next.t('home.dashboard.statusCol'),
   i18next.t('home.dashboard.noteCol'),

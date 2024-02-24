@@ -45,3 +45,13 @@ export function generateRandomPinMachine() {
   var sufix = getRandomValue(1, 999999).toString().padStart(6, '0');
   return `${getRandomPrefix() + midPinMachine() + sufix}`;
 }
+
+export function generateRandomDate() {
+  const startDate = new Date('2024-01-01');
+  const endDate = new Date('2024-02-23');
+  const timeDiff = endDate.getTime() - startDate.getTime();
+  const randomTime = Math.random() * timeDiff;
+  const randomDate = new Date(startDate.getTime() + randomTime);
+
+  return randomDate.toLocaleDateString();
+}

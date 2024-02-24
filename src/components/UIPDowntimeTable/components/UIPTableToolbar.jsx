@@ -50,15 +50,10 @@ export default () => {
           {i18next.t('home.dashboard.tableTitle')}
         </Typography>
         <Box>
-          <Tooltip title={'Pesquisa'} sx={{ backgroundColor: searchBtnBg }}>
-            <IconButton onClick={toggleSearchFieldVisibility}>
-              <SearchIcon />
-            </IconButton>
-          </Tooltip>
           <Tooltip
             title={i18next.t('home.dashboard.filterBtnName')}
-            sx={{ marginX: 2 }}>
-            <IconButton>
+            sx={{ marginX: 2, backgroundColor: searchBtnBg }}>
+            <IconButton onClick={toggleSearchFieldVisibility}>
               <FilterListIcon />
             </IconButton>
           </Tooltip>
@@ -85,7 +80,7 @@ export default () => {
           onChange={(event) => setFilter({ search: event.target.value })}
         />
       </Box>
-      <Box>
+      <Box sx={{ display: display, ...stdStyle }}>
         <FilterSelect
           values={[
             'Em qualquer data',
@@ -119,5 +114,6 @@ const stdStyle = {
   width: '100%',
   alignItems: 'center',
   justifyContent: 'center',
+  flexWrap: 'wrap',
   marginY: 1,
 };

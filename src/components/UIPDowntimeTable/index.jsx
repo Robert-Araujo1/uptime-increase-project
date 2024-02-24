@@ -20,14 +20,28 @@ import UIPPolygonMarker from './components/UIPPolygonMarker';
 import { columnNames } from './constants';
 import { TableFilterContext } from '../../contexts/dashboard';
 
-function createData(customer, machinePin, location, downtimeDays, dtc) {
-  return { customer, machinePin, location, downtimeDays, dtc };
+function createData(
+  customer,
+  machinePin,
+  location,
+  downtimeDays,
+  dtc,
+  insertDate
+) {
+  return { customer, machinePin, location, downtimeDays, dtc, insertDate };
 }
 
 const machines = generateRandomMachines();
 
 const machinesList = machines.map((machine) =>
-  createData(machine[0], machine[1], machine[2], machine[3], machine[4])
+  createData(
+    machine[0],
+    machine[1],
+    machine[2],
+    machine[3],
+    machine[4],
+    machine[5]
+  )
 );
 
 export default function UIPDowntimeTable() {
@@ -110,6 +124,9 @@ export default function UIPDowntimeTable() {
                   </StyledTableCell>
                   <StyledTableCell align='center'>
                     {row.downtimeDays}
+                  </StyledTableCell>
+                  <StyledTableCell align='center'>
+                    {row.insertDate}
                   </StyledTableCell>
                   <StyledTableCell align='center'>{row.dtc}</StyledTableCell>
                   <StyledTableCell align='center'>

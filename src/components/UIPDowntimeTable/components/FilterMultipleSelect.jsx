@@ -7,7 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
 
 export default ({ values, inputLabel, labelId, selectId }) => {
-  const [valuesSelected, setValuesSelected] = useState([]);
+  const [valuesSelected, setValuesSelected] = useState(values);
 
   const handleChange = (event) => {
     const {
@@ -22,7 +22,7 @@ export default ({ values, inputLabel, labelId, selectId }) => {
   };
 
   return (
-    <FormControl sx={{ m: 1, width: 200 }}>
+    <FormControl sx={{ m: 1, minWidth: 120 }}>
       <InputLabel size='small' id={labelId}>
         {inputLabel}
       </InputLabel>
@@ -34,7 +34,13 @@ export default ({ values, inputLabel, labelId, selectId }) => {
         value={valuesSelected}
         onChange={handleChange}
         size='small'
-        renderValue={(selected) => selected.join(', ')}>
+        renderValue={(selected) =>
+          selected.length < 2
+            ? selected
+            : selected.length === values.length
+              ? 'Todos'
+              : 'Vários'
+        }>
         <MenuItem value={'all'}>
           <Checkbox
             checked={

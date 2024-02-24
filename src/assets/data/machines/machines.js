@@ -2,6 +2,7 @@ import {
   getRandomCity,
   generateRandomPinMachine,
   getRandomValue,
+  generateRandomDate,
 } from '../utils/dataManipulation';
 import i18next from '../../../i18n/i18n';
 
@@ -15,6 +16,7 @@ export default function generateRandomMachines() {
       getRandomCity(),
       getRandomValue(5, 10),
       i18next.t('genericsWords.none'),
+      generateRandomDate(),
     ]);
   }
 
