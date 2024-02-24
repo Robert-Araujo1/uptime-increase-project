@@ -5,6 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
+import i18next from '../../../i18n/i18n';
 
 export default ({ values, inputLabel, labelId, selectId }) => {
   const [valuesSelected, setValuesSelected] = useState(values);
@@ -38,8 +39,8 @@ export default ({ values, inputLabel, labelId, selectId }) => {
           selected.length < 2
             ? selected
             : selected.length === values.length
-              ? 'Todos'
-              : 'Vários'
+              ? i18next.t('home.dashboard.filter.allItem')
+              : i18next.t('home.dashboard.filter.severalItemsSelected')
         }>
         <MenuItem value={'all'}>
           <Checkbox
@@ -50,7 +51,7 @@ export default ({ values, inputLabel, labelId, selectId }) => {
               valuesSelected.length > 0 && valuesSelected.length < values.length
             }
           />
-          <ListItemText primary={'Todos'} />
+          <ListItemText primary={i18next.t('home.dashboard.filter.allItem')} />
         </MenuItem>
         {values.map((value) => (
           <MenuItem key={value} value={value}>

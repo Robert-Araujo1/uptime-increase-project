@@ -5,8 +5,22 @@ export const columnNames = [
   i18next.t('home.dashboard.machinePinCol'),
   i18next.t('home.dashboard.locationCol'),
   i18next.t('home.dashboard.downtimeDaysCol'),
-  'Identificado em',
+  i18next.t('home.dashboard.identifiedInCol'),
   i18next.t('home.dashboard.failureCol'),
   i18next.t('home.dashboard.statusCol'),
   i18next.t('home.dashboard.noteCol'),
+];
+
+export const dateFilterItems = [
+  i18next.t('home.dashboard.filter.anyDateItem'),
+  i18next.t('home.dashboard.filter.lastWeekItem'),
+  i18next.t('home.dashboard.filter.lastMonthItem'),
+  i18next.t('home.dashboard.filter.lastHalfYearItem'),
+  i18next.t('home.dashboard.filter.customItem'),
+];
+
+export const statusFilterItems = [
+  i18next.t('home.dashboard.completedType'),
+  i18next.t('home.dashboard.inProgressType'),
+  i18next.t('home.dashboard.notStartedType'),
 ];
