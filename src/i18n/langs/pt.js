@@ -32,7 +32,7 @@ export default {
         downtimeDaysCol: 'Dias de Inatividade',
         failureCol: 'DTC',
         statusCol: 'Status',
-        noteCol: 'Observação',
+        actionsCol: 'Ações',
         identifiedInCol: 'Identificado em',
         prepositionTablePagination: 'de',
         filterBtnName: 'Filtrar',

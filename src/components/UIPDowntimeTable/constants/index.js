@@ -6,9 +6,8 @@ export const columnNames = [
   i18next.t('home.dashboard.locationCol'),
   i18next.t('home.dashboard.downtimeDaysCol'),
   i18next.t('home.dashboard.identifiedInCol'),
-  i18next.t('home.dashboard.failureCol'),
   i18next.t('home.dashboard.statusCol'),
-  i18next.t('home.dashboard.noteCol'),
+  i18next.t('home.dashboard.actionsCol'),
 ];
 
 export const dateFilterItems = [

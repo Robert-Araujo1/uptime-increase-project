@@ -16,13 +16,15 @@ export default () => {
       <ul
         className='nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100'
         id='menu'>
-        {items.map((item) => (
-          <NavItem
-            key={item.name}
-            {...item}
-            isActive={location.pathname == item.href ? 'active' : ''}
-          />
-        ))}
+        {items.map((item, index) => {
+          return (
+            <NavItem
+              key={index}
+              {...item}
+              isActive={location.pathname == item.href ? 'active' : ''}
+            />
+          );
+        })}
       </ul>
     </div>
   );

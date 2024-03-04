@@ -1,7 +1,9 @@
-@import "./uptime-increase-project/variables";
+@import "./uptime-increase-project/utils/variables";
 @import "./uptime-increase-project/navbars/navbar-vertical";
-@import "./uptime-increase-project/utilities/backgrounds";
+@import "./uptime-increase-project/utils/backgrounds";
+@import "./uptime-increase-project/utils/mixins";
 @import "./uptime-increase-project/cards/cards";
 @import "./uptime-increase-project/markers/polygonsMarkers";
 @import "./uptime-increase-project/tables/tables";
 @import "./uptime-increase-project/components/buttons";
+@import "./uptime-increase-project/markers/pulsatingDots";

@@ -1,0 +1,20 @@
+
+@include keyframes('2-5', 2.5);
+
+.severity-dtc-dot {
+    width: $dot-size;
+    height: $dot-size;
+    border-radius: $dot-radius;
+    position: fixed;
+    margin-bottom: $dot-mb;
+    z-index: 1;
+
+    > div {
+        animation: pulse-2-5 1s linear infinite;
+        border-radius: $dot-radius;
+        display: block;
+        margin-bottom: $dot-mb;
+        height: $dot-size;
+        width: $dot-size;
+    }
+}

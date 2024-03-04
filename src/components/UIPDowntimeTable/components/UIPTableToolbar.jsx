@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -73,7 +73,7 @@ const ToolbarOptions = () => {
       </Tooltip>
       <Tooltip title={i18next.t('home.dashboard.moreVertBtnName')}>
         <IconButton onClick={handleClick}>
-          <MoreVertIcon />
+          <MoreHorizIcon />
         </IconButton>
       </Tooltip>
       <Menu open={open} anchorEl={anchorEl} onClose={handleClose}>

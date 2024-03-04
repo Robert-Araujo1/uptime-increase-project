@@ -15,7 +15,6 @@ export default function generateRandomMachines() {
       generateRandomPinMachine(),
       getRandomCity(),
       getRandomValue(5, 10),
-      i18next.t('genericsWords.none'),
       generateRandomDate(),
     ]);
   }

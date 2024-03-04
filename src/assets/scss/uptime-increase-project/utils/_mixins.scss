@@ -1,0 +1,20 @@
+// animations
+@mixin keyframes($name, $max-size) {
+    @keyframes pulse-#{$name} {
+        0% { 
+            opacity: .75;
+            transform: scale(1);
+          }
+          25% {
+            opacity: 0.75;
+            transform: scale(1);
+             background: inherit;
+          }
+          100% { 
+            opacity: 0; 
+            transform: scale($max-size);
+            background: inherit;
+          }
+    }
+}
+
