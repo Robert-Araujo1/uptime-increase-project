@@ -27,6 +27,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import dayjs from 'dayjs';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 function createData(customer, machinePin, location, downtimeDays, insertDate) {
   return { customer, machinePin, location, downtimeDays, insertDate };
@@ -41,9 +43,11 @@ const machinesList = machines.map((machine) =>
 export default function UIPDowntimeTable() {
   const [rows, setRows] = React.useState(machinesList);
   const [filter, setFilter] = React.useState(null);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [page, setPage] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const [selectedDate, setSelectedDate] = React.useState(undefined);
+  const [value, onChange] = React.useState(undefined);
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -177,16 +181,30 @@ export default function UIPDowntimeTable() {
             p: 4,
           }}>
           <Typography variant='h6'>Histórico do equipamento</Typography>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar
-              dayOfWeekFormatter={(_day, weekday) => weekday.format('ddd')}
-              disableFuture
-              disableHighlightToday
-              minDate={dayjs('2024-02-11')}
-              maxDate={dayjs('2024-02-17')}
-              slots={{ day: ServerDay }}
-            />
-          </LocalizationProvider>
+          <Box sx={{ display: 'flex' }}>
+            {/* <Calendar
+              minDate={new Date(2024, 2, 11)}
+              maxDate={new Date(2024, 2, 17)}
+              selectRange
+              onChange={onChange}
+              value={value}
+            /> */}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateCalendar
+                dayOfWeekFormatter={(_day, weekday) => weekday.format('ddd')}
+                disableFuture
+                disableHighlightToday
+                minDate={dayjs('2024-02-11')}
+                maxDate={dayjs('2024-02-17')}
+                slots={{ day: ServerDay }}
+                onChange={(value) => setSelectedDate(value.toString())}
+              />
+            </LocalizationProvider>
+            {/* <Box>
+              <Typography>Período selecionado</Typography>
+              <Typography>{selectedDate}</Typography>
+            </Box> */}
+          </Box>
         </Box>
       </Modal>
     </TableFilterContext.Provider>

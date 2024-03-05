@@ -13,7 +13,7 @@ export default () => {
 
   return (
     <Paper>
-      <Box height={426} paddingY={1} paddingX={1}>
+      <Box height={690} paddingY={1} paddingX={1}>
         <MapContainer
           style={{
             height: '100%',

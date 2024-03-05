@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import AuthLayout from './layouts/AuthLayout';
 import HomeLayout from './layouts/HomeLayout';
 import Dashboard from './views/home/Dashboard';
+import Machines from './views/home/Machines';
 import Login from './views/authentication/Login';
 import ResetPassword from './views/authentication/ResetPassword';
 import ResetPasswordMsg from './views/authentication/ResetPasswordMsg';
@@ -30,9 +31,15 @@ export const routes = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <HomeLayout view={<Dashboard />} />,
     children: [
-      { path: '/home/dashboard', element: <HomeLayout view={<Dashboard />} /> },
+      {
+        path: '/home/dashboard',
+        element: <HomeLayout view={<Dashboard />} title={'Dashboard'} />,
+      },
+      {
+        path: '/home/machines',
+        element: <HomeLayout view={<Machines />} title={'Machines'} />,
+      },
     ],
   },
 ]);

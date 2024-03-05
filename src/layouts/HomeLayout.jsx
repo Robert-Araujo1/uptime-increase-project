@@ -1,7 +1,7 @@
 import UIPHomeHeader from '../components/UIPHomeHeader';
 import UIPHomeOffcanvas from '../components/UIPHomeOffcanvas';
 
-function HomeLayout({ view }) {
+function HomeLayout({ view, title }) {
   return (
     <>
       <div className='container-fluid'>
@@ -9,7 +9,7 @@ function HomeLayout({ view }) {
           <UIPHomeOffcanvas />
           {/* --------------------- START OF CONTENT ---------------------- */}
           <div className='col py-3 px-3 page-background'>
-            <UIPHomeHeader headerTitle={'Dashboard'} />
+            <UIPHomeHeader headerTitle={title} />
             {view}
           </div>
           {/* --------------------- END OF CONTENT ---------------------- */}

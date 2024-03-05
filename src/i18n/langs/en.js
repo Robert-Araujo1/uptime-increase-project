@@ -77,10 +77,10 @@ export default {
     genericsWords: {
       none: 'None',
       months: {
-        jan: 'January',
-        feb: 'February',
-        mar: 'March',
-        apr: 'April',
+        jan: 'Jan',
+        feb: 'Feb',
+        mar: 'Mar',
+        apr: 'Apr',
         may: 'May',
         jun: 'June',
         jul: 'July',

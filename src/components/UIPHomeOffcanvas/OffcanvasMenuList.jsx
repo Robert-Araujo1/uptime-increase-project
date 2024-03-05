@@ -8,8 +8,8 @@ export default () => {
 
   const items = [
     { href: '/home/dashboard', name: 'Dashboard', icon: <LeaderboardIcon /> },
-    { href: '#', name: 'Option 2', icon: <NotificationsIcon /> },
-    { href: '#', name: 'Option 3', icon: <NearMeIcon /> },
+    { href: '/home/machines', name: 'Machines', icon: <NearMeIcon /> },
+    { href: '#', name: 'Option 3', icon: <NotificationsIcon /> },
   ];
   return (
     <div className='menu-list d-flex align-items-start flex-column mb-3 w-100'>
