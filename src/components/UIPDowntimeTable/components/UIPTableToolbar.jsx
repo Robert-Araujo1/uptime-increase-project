@@ -30,7 +30,7 @@ export default () => {
             id='tableTitle'
             component='div'
             fontWeight='bold'>
-            {i18next.t('home.dashboard.tableTitle')}
+            {i18next.t('home.machines.table.tableTitle')}
           </Typography>
           <Box>
             <ToolbarOptions />
@@ -65,23 +65,23 @@ const ToolbarOptions = () => {
   return (
     <>
       <Tooltip
-        title={i18next.t('home.dashboard.filterBtnName')}
+        title={i18next.t('home.machines.table.filterBtnName')}
         sx={{ marginX: 2, backgroundColor: filterBtnBg }}>
         <IconButton onClick={toggleSearchFieldVisibility}>
           <FilterListIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title={i18next.t('home.dashboard.moreVertBtnName')}>
+      <Tooltip title={i18next.t('home.machines.table.moreVertBtnName')}>
         <IconButton onClick={handleClick}>
           <MoreHorizIcon />
         </IconButton>
       </Tooltip>
       <Menu open={open} anchorEl={anchorEl} onClose={handleClose}>
         <MenuItem onClick={handleClose}>
-          {i18next.t('home.dashboard.addEquipOption')}
+          {i18next.t('home.machines.table.addEquipOption')}
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          {i18next.t('home.dashboard.exportOption')}
+          {i18next.t('home.machines.table.exportOption')}
         </MenuItem>
       </Menu>
     </>
@@ -94,26 +94,26 @@ const FilterOptions = () => {
   return (
     <>
       <TextField
-        label={i18next.t('home.dashboard.filter.searchLabel')}
+        label={i18next.t('home.machines.filter.searchLabel')}
         size='small'
         sx={{ width: '95%' }}
         onChange={(event) => setFilter({ search: event.target.value })}
       />
       <FilterSelect
         values={dateFilterItems}
-        inputLabel={i18next.t('home.dashboard.filter.dateLabel')}
+        inputLabel={i18next.t('home.machines.filter.dateLabel')}
         labelId={'date-select-label'}
         selectId={'date-select'}
       />
       <FilterMultipleSelect
         values={statusFilterItems}
-        inputLabel={i18next.t('home.dashboard.filter.statusLabel')}
+        inputLabel={i18next.t('home.machines.filter.statusLabel')}
         labelId={'status-select-label'}
         selectId={'status-select'}
       />
       <FilterMultipleSelect
         values={['Pernambuco', 'Alagoas', 'Sergipe', 'Bahia', 'Paraíba']}
-        inputLabel={i18next.t('home.dashboard.filter.stateLabel')}
+        inputLabel={i18next.t('home.machines.filter.stateLabel')}
         labelId={'state-select-label'}
         selectId={'state-select'}
       />

@@ -1,21 +1,21 @@
 import i18next from '../../../i18n/i18n';
 
 export const columnNames = [
-  i18next.t('home.dashboard.customerCol'),
-  i18next.t('home.dashboard.machinePinCol'),
-  i18next.t('home.dashboard.locationCol'),
-  i18next.t('home.dashboard.downtimeDaysCol'),
-  i18next.t('home.dashboard.identifiedInCol'),
-  i18next.t('home.dashboard.statusCol'),
-  i18next.t('home.dashboard.actionsCol'),
+  i18next.t('home.machines.table.customerCol'),
+  i18next.t('home.machines.table.machinePinCol'),
+  i18next.t('home.machines.table.locationCol'),
+  i18next.t('home.machines.table.downtimeDaysCol'),
+  i18next.t('home.machines.table.identifiedInCol'),
+  i18next.t('home.machines.table.statusCol'),
+  i18next.t('home.machines.table.actionsCol'),
 ];
 
 export const dateFilterItems = [
-  i18next.t('home.dashboard.filter.anyDateItem'),
-  i18next.t('home.dashboard.filter.lastWeekItem'),
-  i18next.t('home.dashboard.filter.lastMonthItem'),
-  i18next.t('home.dashboard.filter.lastHalfYearItem'),
-  i18next.t('home.dashboard.filter.customItem'),
+  i18next.t('home.machines.filter.anyDateItem'),
+  i18next.t('home.machines.filter.lastWeekItem'),
+  i18next.t('home.machines.filter.lastMonthItem'),
+  i18next.t('home.machines.filter.lastHalfYearItem'),
+  i18next.t('home.machines.filter.customItem'),
 ];
 
 export const statusFilterItems = [

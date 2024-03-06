@@ -39,8 +39,8 @@ export default ({ values, inputLabel, labelId, selectId }) => {
           selected.length < 2
             ? selected
             : selected.length === values.length
-              ? i18next.t('home.dashboard.filter.allItem')
-              : i18next.t('home.dashboard.filter.severalItemsSelected')
+              ? i18next.t('home.machines.filter.allItem')
+              : i18next.t('home.machines.filter.severalItemsSelected')
         }>
         <MenuItem value={'all'}>
           <Checkbox
@@ -51,7 +51,7 @@ export default ({ values, inputLabel, labelId, selectId }) => {
               valuesSelected.length > 0 && valuesSelected.length < values.length
             }
           />
-          <ListItemText primary={i18next.t('home.dashboard.filter.allItem')} />
+          <ListItemText primary={i18next.t('home.machines.filter.allItem')} />
         </MenuItem>
         {values.map((value) => (
           <MenuItem key={value} value={value}>

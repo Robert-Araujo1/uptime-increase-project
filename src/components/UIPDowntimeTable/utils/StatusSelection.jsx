@@ -9,7 +9,7 @@ export default () => {
         role='button'
         data-bs-toggle='dropdown'
         aria-expanded='false'>
-        {i18next.t('home.dashboard.selectStatusBtn')}
+        {i18next.t('home.machines.table.selectStatusBtn')}
       </a>
 
       <ul className='dropdown-menu dropdown-menu-lg-end'>

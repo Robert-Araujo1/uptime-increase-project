@@ -131,11 +131,6 @@ export default function UIPDowntimeTable() {
                     <StatusSelection />
                   </StyledTableCell>
                   <StyledTableCell align='center'>
-                    {/* <IconButton
-                      aria-label='edit'
-                      onClick={() => console.log('edit')}>
-                      <EditIcon />
-                    </IconButton> */}
                     <IconButton
                       aria-label='more-actions'
                       onClick={toggleModalVisible}>
@@ -178,7 +173,9 @@ export default function UIPDowntimeTable() {
             boxShadow: 24,
             p: 4,
           }}>
-          <Typography variant='h6'>Histórico do equipamento</Typography>
+          <Typography variant='h6'>
+            {i18next.t('home.machines.machineData.title')}
+          </Typography>
           <Box sx={{ display: 'flex' }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar
@@ -249,6 +246,6 @@ const AlertSeverityDot = ({ color }) => {
 
 function displayedRowsText(page) {
   return `${page.from}-${page.to === -1 ? page.count : page.to} 
-  ${i18next.t('home.dashboard.prepositionTablePagination')} 
+  ${i18next.t('home.machines.table.prepositionTablePagination')} 
   ${page.count}`;
 }

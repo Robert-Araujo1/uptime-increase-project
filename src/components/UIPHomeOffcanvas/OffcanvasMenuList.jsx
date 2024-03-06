@@ -2,16 +2,33 @@ import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import GroupsIcon from '@mui/icons-material/Groups';
+import i18next from '../../i18n/i18n';
 import { useLocation } from 'react-router-dom';
 
 export default () => {
   const location = useLocation();
 
   const items = [
-    { href: '/home/dashboard', name: 'Dashboard', icon: <LeaderboardIcon /> },
-    { href: '/home/machines', name: 'Machines', icon: <NearMeIcon /> },
-    { href: '#', name: 'Under construction...', icon: <NotificationsIcon /> },
-    { href: '#', name: 'Under construction...', icon: <GroupsIcon /> },
+    {
+      href: '/home/dashboard',
+      name: i18next.t('home.dashboard.pageTitle'),
+      icon: <LeaderboardIcon />,
+    },
+    {
+      href: '/home/machines',
+      name: i18next.t('home.machines.pageTitle'),
+      icon: <NearMeIcon />,
+    },
+    {
+      href: '#',
+      name: i18next.t('genericPhrases.underConstruction'),
+      icon: <NotificationsIcon />,
+    },
+    {
+      href: '#',
+      name: i18next.t('genericPhrases.underConstruction'),
+      icon: <GroupsIcon />,
+    },
   ];
   return (
     <div className='menu-list d-flex align-items-start flex-column mb-3 w-100'>
