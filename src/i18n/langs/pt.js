@@ -58,6 +58,16 @@ export default {
             title: 'Quantidade Mensal',
             description: 'Concluídos',
           },
+          averageDowntimeChart: {
+            title: 'Tempo Médio de Parada',
+            description: 'Máquina Parada Por Região',
+            legend: {
+              one: 'Regional 1',
+              two: 'Regional 2',
+              three: 'Regional 3',
+            },
+            labelY: 'Dias',
+          },
         },
         filter: {
           searchLabel: 'Pesquisar',
@@ -72,6 +82,12 @@ export default {
           lastHalfYearItem: 'Nos últimos 6 meses',
           customItem: 'Personalizado',
         },
+        lastUpdates: {
+          title: 'Últimas Atualizações',
+          action: 'alterou o status do equipamento',
+          minutesAgo: 'há {{n}} minutos atrás',
+          hoursAgo: 'há {{n}} horas atrás',
+        },
       },
     },
     genericsWords: {
@@ -85,6 +101,7 @@ export default {
         jun: 'Jun',
         jul: 'Jul',
       },
+      to: 'para',
     },
   },
 };

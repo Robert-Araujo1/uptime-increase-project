@@ -1,5 +1,5 @@
 import { months } from '../../../assets/data/charts/constants';
-
+import i18next from '../../../i18n/i18n';
 export const options = {
   chart: {
     toolbar: {
@@ -25,7 +25,7 @@ export const options = {
   },
   yaxis: {
     title: {
-      text: 'Dias',
+      text: i18next.t('home.dashboard.charts.averageDowntimeChart.labelY'),
       style: {
         fontSize: '14px',
         fontFamily: 'Roboto, sans-serif',
@@ -48,6 +48,5 @@ export const options = {
     xaxis: { lines: { show: true } },
     yaxis: { lines: { show: true } },
   },
-
   colors: ['#6610f2', '#fd7e14', '#1cfce2'],
 };

@@ -58,6 +58,12 @@ export default {
             title: 'Monthly Quantity',
             description: 'Completed',
           },
+          averageDowntimeChart: {
+            title: 'Average Downtime',
+            description: 'Machine Downtime per Region',
+            legend: { one: 'Region 1', two: 'Region 2', three: 'Region 3' },
+            labelY: 'Days',
+          },
         },
         filter: {
           searchLabel: 'Search',
@@ -72,6 +78,12 @@ export default {
           lastHalfYearItem: 'Last 6 months',
           customItem: 'Custom',
         },
+        lastUpdates: {
+          title: 'Recent Updates',
+          action: 'changed the status of the equipment',
+          minutesAgo: '{{n}} minutes ago',
+          hoursAgo: '{{n}} hours ago',
+        },
       },
     },
     genericsWords: {
@@ -85,6 +97,7 @@ export default {
         jun: 'June',
         jul: 'July',
       },
+      to: 'to',
     },
   },
 };

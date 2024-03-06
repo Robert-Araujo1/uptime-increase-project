@@ -27,8 +27,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import dayjs from 'dayjs';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 
 function createData(customer, machinePin, location, downtimeDays, insertDate) {
   return { customer, machinePin, location, downtimeDays, insertDate };
@@ -182,13 +180,6 @@ export default function UIPDowntimeTable() {
           }}>
           <Typography variant='h6'>Histórico do equipamento</Typography>
           <Box sx={{ display: 'flex' }}>
-            {/* <Calendar
-              minDate={new Date(2024, 2, 11)}
-              maxDate={new Date(2024, 2, 17)}
-              selectRange
-              onChange={onChange}
-              value={value}
-            /> */}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar
                 dayOfWeekFormatter={(_day, weekday) => weekday.format('ddd')}
@@ -200,10 +191,6 @@ export default function UIPDowntimeTable() {
                 onChange={(value) => setSelectedDate(value.toString())}
               />
             </LocalizationProvider>
-            {/* <Box>
-              <Typography>Período selecionado</Typography>
-              <Typography>{selectedDate}</Typography>
-            </Box> */}
           </Box>
         </Box>
       </Modal>

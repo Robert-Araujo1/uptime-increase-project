@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 
 export default function UIPChart({ chart, background, title, text }) {
   return (
-    <Card sx={{ height: 280 }}>
+    <Card sx={{ height: 390 }}>
       <Box
         display='flex'
         justifyContent='center'
@@ -14,7 +14,7 @@ export default function UIPChart({ chart, background, title, text }) {
         flexDirection={'column'}>
         {React.useMemo(() => (
           <Box
-            height={200}
+            height={300}
             sx={{
               width: '100%',
               borderRadius: '0.3rem',

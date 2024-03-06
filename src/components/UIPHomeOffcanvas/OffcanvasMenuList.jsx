@@ -1,6 +1,7 @@
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NearMeIcon from '@mui/icons-material/NearMe';
+import GroupsIcon from '@mui/icons-material/Groups';
 import { useLocation } from 'react-router-dom';
 
 export default () => {
@@ -9,7 +10,8 @@ export default () => {
   const items = [
     { href: '/home/dashboard', name: 'Dashboard', icon: <LeaderboardIcon /> },
     { href: '/home/machines', name: 'Machines', icon: <NearMeIcon /> },
-    { href: '#', name: 'Option 3', icon: <NotificationsIcon /> },
+    { href: '#', name: 'Under construction...', icon: <NotificationsIcon /> },
+    { href: '#', name: 'Under construction...', icon: <GroupsIcon /> },
   ];
   return (
     <div className='menu-list d-flex align-items-start flex-column mb-3 w-100'>
