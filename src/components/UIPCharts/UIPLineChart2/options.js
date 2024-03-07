@@ -24,6 +24,7 @@ export const options = {
     },
   },
   yaxis: {
+    tickAmount: 5,
     title: {
       text: i18next.t('home.dashboard.charts.averageDowntimeChart.labelY'),
       style: {
@@ -47,6 +48,7 @@ export const options = {
   grid: {
     xaxis: { lines: { show: true } },
     yaxis: { lines: { show: true } },
+    borderColor: 'rgba(255, 255, 255, .2)',
   },
   colors: ['#6610f2', '#fd7e14', '#1cfce2'],
 };
