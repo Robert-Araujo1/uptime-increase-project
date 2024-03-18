@@ -1,8 +1,8 @@
-import CredentialInput from './components/CredentialInput';
-import ButtonBox from './components/ButtonBox';
-import i18next from '../../i18n/i18n';
+import CredentialInput from '../../components/CredentialInput';
+import ButtonBox from '../../components/ButtonBox';
+import i18next from '../../../../i18n/i18n';
 import { useNavigate } from 'react-router-dom';
-import ButtonText from './components/ButtonText';
+import ButtonText from '../../components/ButtonText';
 
 function Login() {
   const navigate = useNavigate();

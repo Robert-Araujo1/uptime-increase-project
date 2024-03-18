@@ -1,5 +1,5 @@
-import ButtonText from './components/ButtonText';
-import i18next from '../../i18n/i18n';
+import ButtonText from '../../components/ButtonText';
+import i18next from '../../../../i18n/i18n';
 import { useLocation } from 'react-router-dom';
 function ResetPasswordMsg() {
   const location = useLocation();

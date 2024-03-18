@@ -3,10 +3,10 @@ import AuthLayout from './layouts/AuthLayout';
 import HomeLayout from './layouts/HomeLayout';
 import Dashboard from './views/home/Dashboard';
 import Machines from './views/home/Machines';
-import Login from './views/authentication/Login';
-import ResetPassword from './views/authentication/ResetPassword';
-import ResetPasswordMsg from './views/authentication/ResetPasswordMsg';
-import SignUp from './views/authentication/SignUp';
+import Login from './views/authentication/pages/Login/Login';
+import ResetPassword from './views/authentication/pages/ResetPassword/ResetPassword';
+import ResetPasswordMsg from './views/authentication/pages/ResetPasswordMsg/ResetPasswordMsg';
+import SignUp from './views/authentication/pages/Signup/SignUp';
 
 export const routes = createBrowserRouter([
   {

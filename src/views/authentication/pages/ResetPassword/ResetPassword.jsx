@@ -1,7 +1,7 @@
-import ButtonBox from './components/ButtonBox';
-import ButtonText from './components/ButtonText';
-import CredentialInput from './components/CredentialInput';
-import i18next from '../../i18n/i18n';
+import ButtonBox from '../../components/ButtonBox';
+import ButtonText from '../../components/ButtonText';
+import CredentialInput from '../../components/CredentialInput';
+import i18next from '../../../../i18n/i18n';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
