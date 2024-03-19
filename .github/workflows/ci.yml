@@ -3,7 +3,9 @@
 
 name: CI
 
-on: pull_request
+on: 
+  push:
+    branches: ['dev']
 
 jobs:
   build:
@@ -12,8 +14,6 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -21,13 +21,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+      - name: Run build and tests
+      - run: | 
+          npm ci
+          npm run build --if-present
+          npm test
 
       - name: Push to main if tests pass
-        if: success()
-        uses: ad-m/github-push-action@master
-        with:
-          branch: main
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ success() }}
+        run: |
+          git checkout main
+          git merge dev --no-edit
+          git push origin main
