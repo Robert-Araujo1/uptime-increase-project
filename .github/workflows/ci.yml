@@ -19,18 +19,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      # - name: Run build
-      #   run: |
-      #     npm ci
-      #     npm run build --if-present
-      # - name: Run tests
-      #   run: npm test
-      - name: Set git identity
+      - name: Run build
+        run: |
+          npm ci
+          npm run build --if-present
+      - name: Run tests
+        run: npm test
+      - name: Pull request to main
+        if: ${{success()}}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-      - name: Pull request to main
-        if: ${{success()}}
-        run: gh pr create -B main -H dev --title 'Merge dev into main' --body 'Created by Github action'
+          gh pr create -B main -H dev --title 'Merge dev into main' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
