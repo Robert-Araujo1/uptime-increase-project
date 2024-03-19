@@ -1,13 +1,12 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: CI
+name: Continuous Integration
 
 on: 
   push:
-    branches: ['dev']
+    branches:
+      - dev
   pull_request:
-    branches: ['main']
+    branches:
+      - main
 
 jobs:
   build:
@@ -23,15 +22,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Run build and tests
-      - run: | 
+      - name: Run build 
+        run: |
           npm ci
           npm run build --if-present
-          npm test
-
-      - name: Push to main if tests pass
-        if: ${{ success() }}
-        run: |
-          git checkout main
-          git merge dev --no-edit
-          git push origin main
+      - name: Run tests
+        run: npm test
