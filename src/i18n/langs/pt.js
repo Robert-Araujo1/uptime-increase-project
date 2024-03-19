@@ -17,6 +17,7 @@ export default {
       signUp: {
         confirmPassword: 'Confirme a senha',
         signUpBtn: 'Registrar',
+        passwordNotMatch: 'As senhas não correspondem.',
       },
     },
     home: {

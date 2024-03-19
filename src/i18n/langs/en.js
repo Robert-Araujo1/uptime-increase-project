@@ -17,6 +17,7 @@ export default {
       signUp: {
         confirmPassword: 'Confirm password',
         signUpBtn: 'Register',
+        passwordNotMatch: 'Passwords do not match.',
       },
     },
     home: {
