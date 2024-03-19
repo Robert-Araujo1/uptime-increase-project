@@ -1,6 +1,6 @@
 name: CI
 
-on: 
+on:
   push:
     branches:
       - dev
@@ -22,9 +22,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Run build 
+      - name: Run build
         run: |
           npm ci
           npm run build --if-present
       - name: Run tests
         run: npm test
+      - name: Set git identity
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: Push commit to main
+        if: ${{success()}}
+        run: |
+          git show --summary
