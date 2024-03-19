@@ -50,7 +50,7 @@ function SignUp() {
       />
       {errorVisible && (
         <div role='alert' className='card alert alert-warning p-2'>
-          As senhas não correspondem.
+          {i18next.t('auth.signUp.passwordNotMatch')}
         </div>
       )}
       <div className='form-group mt-4 d-flex justify-content-center flex-column align-items-center'>
