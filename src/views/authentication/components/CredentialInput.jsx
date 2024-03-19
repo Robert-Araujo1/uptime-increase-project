@@ -1,6 +1,14 @@
 import { useState } from 'react';
 
-export default ({ type, placeholder, lbl, id, onChange, onCopyPaste }) => {
+export default ({
+  type,
+  placeholder,
+  lbl,
+  id,
+  onChange,
+  onCopyPaste,
+  testId = null,
+}) => {
   const [isPswVisible, setIsPswVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -22,6 +30,7 @@ export default ({ type, placeholder, lbl, id, onChange, onCopyPaste }) => {
           type={type}
           className='form-control'
           placeholder={placeholder}
+          data-testid={testId}
           required={true}
           onChange={onChange}
           onPaste={onCopyPaste}

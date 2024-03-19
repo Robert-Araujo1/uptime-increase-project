@@ -3,15 +3,25 @@ import i18next from '../../../../i18n/i18n';
 import ButtonBox from '../../components/ButtonBox';
 import ButtonText from '../../components/ButtonText';
 import { useNavigate } from 'react-router-dom';
+import checkSignupForm from '../../helpers/checkSignupForm';
+import { useState } from 'react';
+import showLoadingEffect from '../../helpers/showLoadingEffect';
 
 function SignUp() {
   const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    navigate('/login');
+  const [errorVisible, setErrorVisible] = useState(false);
+
+  const fetchData = () => {
+    showLoadingEffect('confirm-sign-up-btn');
+
+    setTimeout(() => {
+      navigate('/login');
+    }, 2000);
   };
   return (
-    <form method='POST' onSubmit={handleSubmit}>
+    <form
+      method='POST'
+      onSubmit={(event) => (checkSignupForm(event) ? fetchData() : null)}>
       <CredentialInput
         id={'email-field'}
         type={'email'}
@@ -23,6 +33,7 @@ function SignUp() {
         type={'password'}
         placeholder={'************'}
         lbl={i18next.t('auth.login.password')}
+        testId={'password'}
       />
       <CredentialInput
         id={'confirm-password-field'}
@@ -30,7 +41,18 @@ function SignUp() {
         placeholder={'************'}
         lbl={i18next.t('auth.signUp.confirmPassword')}
         onCopyPaste={(e) => e.preventDefault()}
+        testId={'confirm-password'}
+        onChange={(event) =>
+          event.target.value == document.getElementById('password-field').value
+            ? setErrorVisible(false)
+            : setErrorVisible(true)
+        }
       />
+      {errorVisible && (
+        <div role='alert' className='card alert alert-warning p-2'>
+          As senhas não correspondem.
+        </div>
+      )}
       <div className='form-group mt-4 d-flex justify-content-center flex-column align-items-center'>
         <ButtonBox
           idBtn='confirm-sign-up-btn'
