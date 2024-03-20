@@ -26,10 +26,6 @@ jobs:
       - name: Run tests
         run: npm test
 
-  pull-request-to-main:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: pull request to main
         run: |
           git config user.name 'github-actions[bot]'
