@@ -1,6 +1,7 @@
 export default {
   translation: {
     auth: {
+      demoVersionText: 'Demo version - Use any email/password',
       login: {
         password: 'Password',
         loginBtn: 'Sign in',

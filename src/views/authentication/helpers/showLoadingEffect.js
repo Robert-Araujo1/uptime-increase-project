@@ -1,5 +1,6 @@
 export default (idBtn) => {
   const buttonContent = document.getElementById(idBtn);
+  buttonContent.setAttribute('disabled', 'disabled');
 
   buttonContent
     .getElementsByClassName('loading-spinner')[0]
