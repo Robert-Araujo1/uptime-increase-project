@@ -7,10 +7,10 @@ function Machines() {
       <div className='row'>
         <div className='machines-content'>
           <div className='row mt-4'>
-            <div className='col mb-4'>
+            <div className='col-xxl-8 mb-4'>
               <UIPDowntimeTable />
             </div>
-            <div className='col-xxl-3'>
+            <div className='col-xxl-4'>
               <UIPMap />
             </div>
           </div>
