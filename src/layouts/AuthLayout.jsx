@@ -1,11 +1,13 @@
-import brazilFlag from '../assets/images/brazil.png';
-import usFlag from '../assets/images/united-states.png';
 import FlagsBtns from '../components/FlagsBtns';
+import i18next from '../i18n/i18n';
 
 function AuthLayout(props) {
   return (
     <div className='container-fluid d-flex align-items-center justify-content-center flex-column page-background'>
-      <h4 className='mb-3 text-primary-emphasis'>Uptime Increase Project</h4>
+      <h4 className='mb-2 text-primary-emphasis'>Uptime Increase Project</h4>
+      <span style={{ fontSize: 12 }} className='text-danger'>
+        {i18next.t('auth.demoVersionText')}
+      </span>
       <div className='auth-card card'>
         <div className='card-body'>{props.children}</div>
       </div>
