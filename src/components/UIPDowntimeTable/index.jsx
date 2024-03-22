@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -27,22 +27,17 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import dayjs from 'dayjs';
 import Skeleton from '@mui/material/Skeleton';
-import axios from 'axios';
-import generateRandomMachines from '../../assets/data/machines/machines';
-
-function createData(customer, machinePin, location, downtimeDays, insertDate) {
-  return { customer, machinePin, location, downtimeDays, insertDate };
-}
+import getMachines from '../../services/getMachines';
 
 export default function UIPDowntimeTable() {
-  const [rows, setRows] = React.useState(undefined);
-  const [filter, setFilter] = React.useState(null);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [page, setPage] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
-  const [selectedDate, setSelectedDate] = React.useState(undefined);
-  const [loadingTable, setLoadingTable] = React.useState(true);
-
+  const [machinesList, setMachinesList] = useState([]);
+  const [rows, setRows] = useState(machinesList);
+  const [filter, setFilter] = useState(null);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(undefined);
+  const [loadingTable, setLoadingTable] = useState(true);
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -52,37 +47,19 @@ export default function UIPDowntimeTable() {
 
   const toggleModalVisible = () => setOpen((prev) => !prev);
 
-  React.useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get('http://127.0.0.1:5000/');
-        setRows(response.data);
-        setLoadingTable(false);
-      } catch (err) {
-        console.error(
-          'Error on get table data. Generating fake data...\n',
-          err
-        );
-        setRows(
-          generateRandomMachines().map((machine) =>
-            createData(
-              machine[0],
-              machine[1],
-              machine[2],
-              machine[3],
-              machine[4]
-            )
-          )
-        );
-        setLoadingTable(false);
-      }
+  useEffect(() => {
+    async function fetchMachines() {
+      const machines = await getMachines();
+      setMachinesList(machines);
+      setRows(machines);
+      setLoadingTable(false);
     }
-    fetchData();
+    fetchMachines();
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (filter) {
-      const filteredRows = rows.filter(
+      const filteredRows = machinesList.filter(
         (row) =>
           row.machinePin.toLowerCase().includes(filter.search.toLowerCase()) ||
           row.customer.toLowerCase().includes(filter.search.toLowerCase()) ||

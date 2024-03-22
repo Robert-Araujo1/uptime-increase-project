@@ -33,11 +33,11 @@ export const routes = createBrowserRouter([
     path: '/home',
     children: [
       {
-        path: '/home/dashboard',
+        path: 'dashboard',
         element: <HomeLayout view={<Dashboard />} title={'Dashboard'} />,
       },
       {
-        path: '/home/machines',
+        path: 'machines',
         element: <HomeLayout view={<Machines />} title={'Machines'} />,
       },
     ],
