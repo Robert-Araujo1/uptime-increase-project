@@ -1,5 +1,4 @@
 import UIPInsightCard from '../../../components/UIPInsightCard';
-import UIPDowntimeTable from '../../../components/UIPDowntimeTable';
 import UIPMap from '../../../components/UIPMap';
 import { cardsInfo, chartsInfo } from './infos';
 import UIPLineChart2 from '../../../components/UIPCharts/UIPLineChart2';
@@ -49,16 +48,6 @@ function Dashboard() {
             </div>
             <div className='col-xl-4 mb-3'>
               <UIPUserUpdates />
-            </div>
-          </div>
-        </div>
-        <div className='machines-content d-none'>
-          <div className='row'>
-            <div className='col mb-4'>
-              <UIPDowntimeTable />
-            </div>
-            <div className='col-xxl-3'>
-              <UIPMap />
             </div>
           </div>
         </div>

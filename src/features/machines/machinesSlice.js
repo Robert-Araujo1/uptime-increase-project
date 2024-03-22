@@ -4,7 +4,7 @@ export const machinesSlice = createSlice({
   name: 'machines',
   initialState: { value: [] },
   reducers: {
-    update: (state, action) => {
+    updateMachines: (state, action) => {
       state.value = action.payload;
     },
   },
