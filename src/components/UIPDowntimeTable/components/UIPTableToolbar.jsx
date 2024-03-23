@@ -98,6 +98,7 @@ const FilterOptions = () => {
         size='small'
         sx={{ width: '95%' }}
         onChange={(event) => setFilter({ search: event.target.value })}
+        data-testid='search-input'
       />
       <FilterSelect
         values={dateFilterItems}

@@ -79,7 +79,10 @@ export default function UIPDowntimeTable() {
     <TableFilterContext.Provider value={{ filter, setFilter }}>
       <Paper>
         <UIPTableToolbar />
-        <TableContainer component={Paper} sx={{ marginTop: 1, maxHeight: 615 }}>
+        <TableContainer
+          component={Paper}
+          sx={{ marginTop: 1, maxHeight: 615 }}
+          data-testid='machines-table'>
           {loadingTable ? (
             <LoadingTableSkeleton />
           ) : (
