@@ -3,9 +3,7 @@ import i18next from '../../../i18n/i18n';
 export const columnNames = [
   i18next.t('home.machines.table.customerCol'),
   i18next.t('home.machines.table.machinePinCol'),
-  i18next.t('home.machines.table.locationCol'),
-  i18next.t('home.machines.table.downtimeDaysCol'),
-  i18next.t('home.machines.table.identifiedInCol'),
+  i18next.t('home.machines.table.engineHoursCol'),
   i18next.t('home.machines.table.statusCol'),
   i18next.t('home.machines.table.actionsCol'),
 ];

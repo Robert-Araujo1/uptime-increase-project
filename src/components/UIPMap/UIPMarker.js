@@ -4,19 +4,16 @@ import motorGrader from '../../assets/images/machines/motor-grader.svg';
 import loader from '../../assets/images/machines/loader.svg';
 import backhoe from '../../assets/images/machines/backhoe.svg';
 import crawlerDozer from '../../assets/images/machines/crawler-dozer.svg';
+import unknown from '../../assets/images/machines/unknown.svg';
 import attentiton from '../../assets/images/validation/attentiton.svg';
 import completed from '../../assets/images/validation/completed.svg';
 import inProgress from '../../assets/images/validation/inProgress.svg';
 
-import { getRandomByValues } from '../../assets/data/utils/dataManipulation';
-
-const models = [excavator, motorGrader, loader, backhoe, crawlerDozer];
-const validations = [completed, attentiton, inProgress];
-
-export default () =>
-  L.icon({
-    iconUrl: getRandomByValues(models),
-    shadowUrl: getRandomByValues(validations),
+export default (machine) => {
+  return L.icon({
+    iconUrl:
+      machine.category == null ? unknown : getCategoryIcon(machine.category),
+    shadowUrl: attentiton,
 
     iconSize: [32, 32],
     shadowSize: [24, 24],
@@ -25,3 +22,22 @@ export default () =>
     popupAnchor: [-3, -76],
     className: 'uip-marker',
   });
+};
+
+const getCategoryIcon = (category) => {
+  switch (category.toUpperCase()) {
+    case 'BACKHOES':
+      return backhoe;
+    case 'EXCAVATOR':
+      return excavator;
+    case 'TRACTOR':
+    case 'CRAWLER':
+      return crawlerDozer;
+    case '4WD LOADERS':
+      return loader;
+    case 'MOTOR GRADERS':
+      return motorGrader;
+    default:
+      return unknown;
+  }
+};

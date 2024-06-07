@@ -27,9 +27,8 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import dayjs from 'dayjs';
 import Skeleton from '@mui/material/Skeleton';
-import getMachines from '../../services/getMachines';
 
-export default function UIPDowntimeTable() {
+export default function UIPDowntimeTable({ machines }) {
   const [machinesList, setMachinesList] = useState([]);
   const [rows, setRows] = useState(machinesList);
   const [filter, setFilter] = useState(null);
@@ -48,22 +47,17 @@ export default function UIPDowntimeTable() {
   const toggleModalVisible = () => setOpen((prev) => !prev);
 
   useEffect(() => {
-    async function fetchMachines() {
-      const machines = await getMachines();
-      setMachinesList(machines);
-      setRows(machines);
-      setLoadingTable(false);
-    }
-    fetchMachines();
-  }, []);
+    setMachinesList(machines);
+    setRows(machines);
+    setLoadingTable(false);
+  }, [machines]);
 
   useEffect(() => {
     if (filter) {
       const filteredRows = machinesList.filter(
         (row) =>
           row.machinePin.toLowerCase().includes(filter.search.toLowerCase()) ||
-          row.customer.toLowerCase().includes(filter.search.toLowerCase()) ||
-          row.location.toLowerCase().includes(filter.search.toLowerCase())
+          row.customer.toLowerCase().includes(filter.search.toLowerCase())
       );
 
       // Avoid pagination error on table
@@ -74,6 +68,10 @@ export default function UIPDowntimeTable() {
       setRows(filteredRows);
     }
   }, [filter]);
+
+  if (!loadingTable & (machines == undefined || machines.length == 0)) {
+    return <h1>Error. There aren't machines avaiable to show.</h1>;
+  }
 
   return (
     <TableFilterContext.Provider value={{ filter, setFilter }}>
@@ -86,7 +84,10 @@ export default function UIPDowntimeTable() {
           {loadingTable ? (
             <LoadingTableSkeleton />
           ) : (
-            <Table size='small' aria-label='a downtime table'>
+            <Table
+              size='small'
+              aria-label='a downtime table'
+              className='downtime-table'>
               <TableHead>
                 <TableRow>
                   {columnNames.map((columnName, index) => (
@@ -107,35 +108,26 @@ export default function UIPDowntimeTable() {
                   : rows
                 ).map((row, index) => (
                   <StyledTableRow
-                    key={row.machinePin}
+                    key={index}
                     sx={{
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}>
-                    <StyledTableCell
-                      component='th'
-                      scope='row'
-                      sx={{ minWidth: '14rem' }}>
-                      <div className='first-column'>
+                    <StyledTableCell component='th' scope='row'>
+                      {row.customer}
+                      {/* <div className='first-column'>
                         <span>{row.customer}</span>
-                        <UIPPolygonMarker text={'Auto'} />
-                        {/* {index == 0 || index == 3 ? (
+                        {index == 0 || index == 3 ? (
                         <UIPPolygonMarker text={'Manual'} />
                       ) : (
                         <UIPPolygonMarker text={'Auto'} />
-                      )} */}
-                      </div>
+                      )}
+                      </div> */}
                     </StyledTableCell>
                     <StyledTableCell align='center'>
                       {row.machinePin}
                     </StyledTableCell>
                     <StyledTableCell align='center'>
-                      {row.location}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {row.downtimeDays}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {row.insertDate}
+                      {row.engineHours}
                     </StyledTableCell>
                     <StyledTableCell align='center'>
                       <StatusSelection />
