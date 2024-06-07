@@ -1,6 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import UIPDowntimeTable from '.';
+import { Provider } from 'react-redux';
+import store from '../../app/store';
+import generateRandomMachines from '../../assets/data/machines';
+
+function createData(customer, machinePin, location, downtimeDays, insertDate) {
+  return { customer, machinePin, location, downtimeDays, insertDate };
+}
 
 describe('UIPDowntimeTable Component', () => {
   let searchInput;
@@ -8,10 +15,14 @@ describe('UIPDowntimeTable Component', () => {
     jest.spyOn(console, 'error');
     console.error.mockImplementation(() => null); // Avoid error messages on console
 
+    const machines = generateRandomMachines().map((machine) =>
+      createData(machine[0], machine[1], machine[2], machine[3], machine[4])
+    );
+
     render(
-      <div>
-        <UIPDowntimeTable />
-      </div>
+      <Provider store={store}>
+        <UIPDowntimeTable machines={machines} />
+      </Provider>
     );
     searchInput = screen
       .getByTestId('search-input')
