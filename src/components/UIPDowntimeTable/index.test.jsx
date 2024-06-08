@@ -4,10 +4,7 @@ import UIPDowntimeTable from '.';
 import { Provider } from 'react-redux';
 import store from '../../app/store';
 import generateRandomMachines from '../../assets/data/machines';
-
-function createData(customer, machinePin, location, downtimeDays, insertDate) {
-  return { customer, machinePin, location, downtimeDays, insertDate };
-}
+import { createData } from '../../assets/data/machines';
 
 describe('UIPDowntimeTable Component', () => {
   let searchInput;

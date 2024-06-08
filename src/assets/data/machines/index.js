@@ -1,10 +1,19 @@
 import {
-  getRandomCity,
   generateRandomPinMachine,
   getRandomValue,
   generateRandomDate,
 } from '../utils/dataManipulation';
 import i18next from '../../../i18n/i18n';
+
+export function createData(
+  customer,
+  machinePin,
+  engineHours,
+  downtimeDays,
+  insertDate
+) {
+  return { customer, machinePin, engineHours, downtimeDays, insertDate };
+}
 
 export default function generateRandomMachines() {
   var machines = [];
@@ -13,8 +22,7 @@ export default function generateRandomMachines() {
     machines.push([
       i18next.t('home.dashboard.customer') + ' ' + index,
       generateRandomPinMachine(),
-      getRandomCity(),
-      getRandomValue(5, 10),
+      getRandomValue(1, 8000),
       generateRandomDate(),
     ]);
   }
