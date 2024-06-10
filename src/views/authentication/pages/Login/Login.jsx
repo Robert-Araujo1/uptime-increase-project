@@ -1,35 +1,66 @@
 import CredentialInput from '../../components/CredentialInput';
 import ButtonBox from '../../components/ButtonBox';
 import i18next from '../../../../i18n/i18n';
-import { useNavigate } from 'react-router-dom';
 import ButtonText from '../../components/ButtonText';
 import checkFormValidity from '../../helpers/checkFormValidity';
-import showLoadingEffect from '../../helpers/showLoadingEffect';
+import { signIn } from '../../../../services/authentication';
+import { useState } from 'react';
+import {
+  showLoadingEffect,
+  removeLoadingEffect,
+} from '../../helpers/loadingEffect';
 
 function Login() {
-  const navigate = useNavigate();
-  const fetchData = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
     showLoadingEffect('confirm-login-btn');
 
-    setTimeout(() => {
-      navigate('/home/dashboard');
-    }, 2000);
+    try {
+      const session = await signIn(email, password);
+      if (session === 'NEW_PASSWORD_REQUIRED') {
+        window.location.href = `/newPassword/${sessionStorage.getItem('UserId')}`;
+        return;
+      }
+
+      if (session && typeof session.AccessToken !== 'undefined') {
+        localStorage.setItem('accessToken', session.AccessToken);
+        if (localStorage.getItem('accessToken')) {
+          window.location.href = '/home/dashboard';
+        } else {
+          console.error('Session token was not set properly');
+        }
+      } else {
+        console.error('SignIn session or AccessToken is undefined');
+      }
+    } catch (error) {
+      alert(`Sign in failed: ${error}`);
+    }
+
+    removeLoadingEffect('confirm-login-btn', i18next.t('auth.login.loginBtn'));
   };
+
   return (
     <form
       method='POST'
-      onSubmit={(event) => (checkFormValidity(event) ? fetchData() : null)}>
+      onSubmit={(event) =>
+        checkFormValidity(event) ? handleSignIn(event) : null
+      }>
       <CredentialInput
         id={'email-field'}
         type={'email'}
         placeholder={'uptimeincreaseproject@domain.com'}
+        onChange={(e) => setEmail(e.target.value)}
         lbl={'Email'}
       />
       <CredentialInput
         id={'password-field'}
         type={'password'}
         placeholder={'************'}
-        lbl={i18next.t('auth.login.password')}
+        onChange={(e) => setPassword(e.target.value)}
+        lbl={i18next.t('auth.password')}
       />
       <div className='form-group mt-4 d-flex justify-content-center flex-column align-items-center'>
         <ButtonBox

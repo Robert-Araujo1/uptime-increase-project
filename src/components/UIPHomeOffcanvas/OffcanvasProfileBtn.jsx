@@ -14,7 +14,9 @@ export default () => {
           height='30'
           className='rounded-circle'
         />
-        <span className='d-sm-inline mx-1'>John Doe</span>
+        <span className='d-sm-inline mx-1'>
+          {localStorage.getItem('email') || null}
+        </span>
       </a>
       <ul className='dropdown-menu dropdown-menu-dark text-small shadow'>
         <li>
@@ -26,7 +28,10 @@ export default () => {
           <hr className='dropdown-divider' />
         </li>
         <li>
-          <a className='dropdown-item' href='#'>
+          <a
+            className='dropdown-item'
+            href='/'
+            onClick={() => localStorage.removeItem('accessToken')}>
             Sign out
           </a>
         </li>
