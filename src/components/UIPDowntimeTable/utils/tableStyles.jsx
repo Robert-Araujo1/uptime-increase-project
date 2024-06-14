@@ -12,10 +12,10 @@ export const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
   '&:last-child td, &:last-child th': {
     border: 0,
+  },
+  '&.Mui-selected, &.Mui-selected:hover': {
+    backgroundColor: 'rgb(0, 0, 0, .24)',
   },
 }));

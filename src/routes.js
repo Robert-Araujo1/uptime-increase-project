@@ -101,7 +101,7 @@ const privateRoutes = [
     ),
   },
   {
-    path: 'machines',
+    path: 'machines/:id?',
     element: (
       <ProtectedRoute>
         <HomeLayout view={<Machines />} title={'Machines'} />,

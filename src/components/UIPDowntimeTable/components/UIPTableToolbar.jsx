@@ -17,9 +17,15 @@ import i18next from '../../../i18n/i18n';
 import TextField from '@mui/material/TextField';
 import FilterSelect from './FilterSelect';
 import FilterMultipleSelect from './FilterMultipleSelect';
+import Button from '@mui/material/Button';
+import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default () => {
   const [display, setDisplay] = useState('none');
+
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   return (
     <ToggleFilterContext.Provider value={{ display, setDisplay }}>
@@ -33,6 +39,15 @@ export default () => {
             {i18next.t('home.machines.table.tableTitle')}
           </Typography>
           <Box>
+            {id && (
+              <Button
+                size='small'
+                startIcon={<ClearIcon />}
+                color='error'
+                onClick={() => navigate('/home/machines')}>
+                Remover seleção
+              </Button>
+            )}
             <ToolbarOptions />
           </Box>
         </Toolbar>
@@ -100,7 +115,7 @@ const FilterOptions = () => {
         onChange={(event) => setFilter({ search: event.target.value })}
         data-testid='search-input'
       />
-      <FilterSelect
+      {/* <FilterSelect
         values={dateFilterItems}
         inputLabel={i18next.t('home.machines.filter.dateLabel')}
         labelId={'date-select-label'}
@@ -117,7 +132,7 @@ const FilterOptions = () => {
         inputLabel={i18next.t('home.machines.filter.stateLabel')}
         labelId={'state-select-label'}
         selectId={'state-select'}
-      />
+      /> */}
     </>
   );
 };

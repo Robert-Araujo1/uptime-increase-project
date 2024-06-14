@@ -7,11 +7,12 @@ import UIPMarker from './UIPMarker';
 import 'leaflet/dist/leaflet.css';
 import FullScreenBtn from './FullscreenBtn';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 export default () => {
   const position = [-9.135222194454002, -39.903822968196536];
   const machines = useSelector((state) => state.machines.value);
-
+  const { id } = useParams();
   return (
     machines !== undefined && (
       <Paper>
@@ -30,19 +31,12 @@ export default () => {
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             />
-            {machines.map(
-              (machine, index) =>
-                typeof machine.location?.lat == 'number' && (
-                  <Marker
-                    icon={UIPMarker(machine)}
-                    key={index}
-                    position={[machine.location?.lat, machine.location?.lon]}>
-                    <Popup>
-                      <strong>Cliente: {machine?.customer}</strong> <br />{' '}
-                      <strong>Chassi:</strong> {machine?.machinePin}
-                    </Popup>
-                  </Marker>
-                )
+            {id ? (
+              <Machine id={id} machines={machines} />
+            ) : (
+              machines.map((machine, index) => (
+                <MapMarker key={index} machine={machine} index={index} />
+              ))
             )}
             <FullScreenBtn />
           </MapContainer>
@@ -51,3 +45,25 @@ export default () => {
     )
   );
 };
+
+const Machine = ({ id, machines }) => {
+  for (let index = 0; index < machines.length; index++) {
+    const machine = machines[index];
+    if (machine?.machinePin == id) {
+      return <MapMarker machine={machine} index={index} />;
+    }
+  }
+};
+
+const MapMarker = ({ machine, index }) =>
+  typeof machine.location?.lat == 'number' && (
+    <Marker
+      icon={UIPMarker(machine)}
+      key={index}
+      position={[machine.location?.lat, machine.location?.lon]}>
+      <Popup>
+        <strong>Cliente: {machine?.customer}</strong> <br />{' '}
+        <strong>Chassi:</strong> {machine?.machinePin}
+      </Popup>
+    </Marker>
+  );

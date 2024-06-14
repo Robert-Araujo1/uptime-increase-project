@@ -2,4 +2,9 @@
     display: flex;
     width: 100%;
     align-items: center;
-  }
+}
+
+.downtime-table tr {
+  cursor: pointer;
+}
+
