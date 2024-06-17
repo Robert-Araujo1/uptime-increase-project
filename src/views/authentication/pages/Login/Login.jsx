@@ -28,7 +28,7 @@ function Login() {
       if (session && typeof session.AccessToken !== 'undefined') {
         localStorage.setItem('accessToken', session.AccessToken);
         if (localStorage.getItem('accessToken')) {
-          window.location.href = '/home/dashboard';
+          window.location.href = '/home/machines';
         } else {
           console.error('Session token was not set properly');
         }

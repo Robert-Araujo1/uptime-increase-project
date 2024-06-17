@@ -9,12 +9,18 @@ import ResetPasswordMsg from './views/authentication/pages/ResetPasswordMsg/Rese
 import SignUp from './views/authentication/pages/Signup/SignUp';
 import NewPassword from './views/authentication/pages/NewPassword/NewPassword';
 import { useAuth } from './contexts/auth/AuthContext';
+import LinearProgress from '@mui/material/LinearProgress';
+import Box from '@mui/material/Box';
 
 const ProtectedRoute = ({ children }) => {
   const { loading, username } = useAuth();
 
   if (loading && !username) {
-    return <div>Loading...</div>;
+    return (
+      <Box>
+        <LinearProgress />
+      </Box>
+    );
   } else if (!loading && username) {
     localStorage.setItem('username', username);
     return children;
@@ -34,7 +40,7 @@ const AuthRedirect = ({ children }) => {
   const accessToken = localStorage.getItem('accessToken');
 
   return accessToken && localStorage.getItem('username') ? (
-    <Navigate replace to='/home/dashboard' />
+    <Navigate replace to='/home/machines' />
   ) : (
     children
   );

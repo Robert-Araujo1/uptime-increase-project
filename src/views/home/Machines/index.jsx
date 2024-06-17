@@ -13,6 +13,7 @@ function Machines() {
     async function fetchMachines() {
       const machines = await getMachines();
       setMachinesList(machines);
+      localStorage.setItem('machines', JSON.stringify(machines));
       dispatch(updateMachines(machines));
     }
     fetchMachines();

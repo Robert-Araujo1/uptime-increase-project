@@ -15,7 +15,6 @@ import UIPTableToolbar from './components/UIPTableToolbar';
 import { StyledTableCell, StyledTableRow } from './utils/tableStyles';
 import StatusSelection from './utils/StatusSelection';
 import i18next from '../../i18n/i18n';
-import UIPPolygonMarker from './components/UIPPolygonMarker';
 import { columnNames } from './constants';
 import { TableFilterContext } from '../../contexts/dashboard';
 import Modal from '@mui/material/Modal';
@@ -27,7 +26,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import dayjs from 'dayjs';
 import Skeleton from '@mui/material/Skeleton';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 export default function UIPDowntimeTable({ machines }) {
   const [machinesList, setMachinesList] = useState([]);
@@ -40,9 +39,11 @@ export default function UIPDowntimeTable({ machines }) {
   const [loadingTable, setLoadingTable] = useState(true);
   const [highlightedDays, setHighlightedDays] = useState([]);
   const [dtcs, setDtcs] = useState([]);
+  const [machineSelected, setMachineSelected] = useState([]);
 
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation();
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -69,6 +70,8 @@ export default function UIPDowntimeTable({ machines }) {
         row.operations.map((operation) => dayjs(operation.timestamp).toString())
       );
       setDtcs(allDtcs);
+      setMachineSelected(row);
+      navigate(`/home/machines/${row.machinePin}`);
     }
     setOpen((prev) => !prev);
   };
@@ -205,7 +208,7 @@ export default function UIPDowntimeTable({ machines }) {
           <Typography variant='h6'>
             {i18next.t('home.machines.machineData.title')}
           </Typography>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar
                 dayOfWeekFormatter={(_day, weekday) => weekday.format('ddd')}
@@ -225,6 +228,7 @@ export default function UIPDowntimeTable({ machines }) {
                 onChange={(value) => setSelectedDate(value.toString())}
               />
             </LocalizationProvider>
+            <Box>{machineSelected.machinePin}</Box>
           </Box>
         </Box>
       </Modal>
@@ -251,14 +255,6 @@ const LoadingTableSkeleton = () => {
   );
 };
 
-// const highlightedDays = [
-//   dayjs('2024-02-11').toString(),
-//   dayjs('2024-02-12').toString(),
-//   dayjs('2024-02-13').toString(),
-//   dayjs('2024-02-16').toString(),
-//   dayjs('2024-02-17').toString(),
-// ];
-
 function ServerDay(props) {
   const { day, outsideCurrentMonth, highlightedDays, dtcs, ...other } = props;
   const isSelected =
@@ -284,11 +280,6 @@ function ServerDay(props) {
       }}>
       {isSelected ? (
         <AlertSeverityDot
-          // color={
-          //   day.toISOString().substring(0, 10) == daysWithDtc[6]
-          //     ? 'blue'
-          //     : undefined
-          // }
           severity={
             dtcOnDay.length > 0 &&
             day.toISOString().substring(0, 10) ==
