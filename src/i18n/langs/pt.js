@@ -1,9 +1,12 @@
 export default {
   translation: {
     auth: {
-      demoVersionText: 'Versão demo - Use qualquer email/senha',
+      password: 'Senha',
+      confirmPassword: 'Confirme a senha',
+      confirmNewPassword: 'Confirmar Nova Senha',
+      passwordNotMatch: 'As senhas não correspondem.',
+      passwordSuccess: 'Password changed successfully.',
       login: {
-        password: 'Senha',
         loginBtn: 'Entrar',
         forgotPasswordBtn: 'Esqueceu a senha?',
         signUpBtn: 'Registre-se',
@@ -16,9 +19,7 @@ export default {
         backBtn: 'Voltar',
       },
       signUp: {
-        confirmPassword: 'Confirme a senha',
         signUpBtn: 'Registrar',
-        passwordNotMatch: 'As senhas não correspondem.',
       },
     },
     home: {

@@ -6,6 +6,13 @@ import store from '../../app/store';
 import generateRandomMachines from '../../assets/data/machines';
 import { createData } from '../../assets/data/machines';
 
+const mockedUsedNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedUsedNavigate,
+  useLocation: () => ({ pathname: 'localhost:3000/machines/123' }),
+}));
+
 describe('UIPDowntimeTable Component', () => {
   let searchInput;
   beforeEach(() => {

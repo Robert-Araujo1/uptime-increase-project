@@ -7,14 +7,9 @@ export default () => {
         id='dropdownUserExample'
         data-bs-toggle='dropdown'
         aria-expanded='false'>
-        <img
-          src='https://github.com/github.png'
-          alt='user'
-          width='30'
-          height='30'
-          className='rounded-circle'
-        />
-        <span className='d-sm-inline mx-1'>John Doe</span>
+        <span className='d-sm-inline mx-1'>
+          {localStorage.getItem('email') || null}
+        </span>
       </a>
       <ul className='dropdown-menu dropdown-menu-dark text-small shadow'>
         <li>
@@ -26,7 +21,14 @@ export default () => {
           <hr className='dropdown-divider' />
         </li>
         <li>
-          <a className='dropdown-item' href='#'>
+          <a
+            className='dropdown-item'
+            href='/'
+            onClick={() => {
+              localStorage.removeItem('accessToken');
+              localStorage.removeItem('idToken');
+              localStorage.removeItem('machines');
+            }}>
             Sign out
           </a>
         </li>

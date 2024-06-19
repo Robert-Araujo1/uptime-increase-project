@@ -1,13 +1,16 @@
-import generateRandomMachines from '../assets/data/machines';
-import { createData } from '../assets/data/machines';
+import axios from 'axios';
+import { SERVER } from './constants';
 
-export default function () {
+export default async function () {
   try {
-    const response = generateRandomMachines().map((machine) =>
-      createData(machine[0], machine[1], machine[2], machine[3], machine[4])
-    );
-    return response;
+    const response = await axios({
+      method: 'GET',
+      baseURL: SERVER,
+      url: '/get-stopped-machines',
+      headers: { Authorization: localStorage.getItem('idToken') },
+    });
+    return response.data;
   } catch (err) {
-    console.error('Error on get table data. Generating fake data...\n', err);
+    console.error('Error on get table data. \n', err);
   }
 }

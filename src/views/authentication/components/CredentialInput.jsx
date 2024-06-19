@@ -8,6 +8,8 @@ export default ({
   onChange,
   onCopyPaste,
   testId = null,
+  disabled = false,
+  pattern = undefined,
 }) => {
   const [isPswVisible, setIsPswVisible] = useState(false);
 
@@ -35,6 +37,8 @@ export default ({
           onChange={onChange}
           onPaste={onCopyPaste}
           onCopy={onCopyPaste}
+          disabled={disabled}
+          pattern={pattern}
         />
         {type === 'password' && (
           <button

@@ -26,10 +26,7 @@ function ResetPassword() {
           idBtn='confirm-reset-btn'
           text={i18next.t('auth.resetPassword.resetPasswordBtn')}
         />
-        <ButtonText
-          text={i18next.t('auth.resetPassword.backBtn')}
-          href={'/login'}
-        />
+        <ButtonText text={i18next.t('auth.resetPassword.backBtn')} href={'/'} />
       </div>
     </form>
   );

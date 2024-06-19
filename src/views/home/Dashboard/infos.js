@@ -24,7 +24,7 @@ export const cardsInfo = [
   {
     cardTitle: i18next.t('home.dashboard.amountEquipCardTitle'),
     iconStyle: 'total',
-    cardValue: 25,
+    cardValue: 126,
   },
 ];
 

@@ -15,7 +15,6 @@ import UIPTableToolbar from './components/UIPTableToolbar';
 import { StyledTableCell, StyledTableRow } from './utils/tableStyles';
 import StatusSelection from './utils/StatusSelection';
 import i18next from '../../i18n/i18n';
-import UIPPolygonMarker from './components/UIPPolygonMarker';
 import { columnNames } from './constants';
 import { TableFilterContext } from '../../contexts/dashboard';
 import Modal from '@mui/material/Modal';
@@ -27,6 +26,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import dayjs from 'dayjs';
 import Skeleton from '@mui/material/Skeleton';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 export default function UIPDowntimeTable({ machines }) {
   const [machinesList, setMachinesList] = useState([]);
@@ -37,6 +37,14 @@ export default function UIPDowntimeTable({ machines }) {
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(undefined);
   const [loadingTable, setLoadingTable] = useState(true);
+  const [highlightedDays, setHighlightedDays] = useState([]);
+  const [dtcs, setDtcs] = useState([]);
+  const [machineSelected, setMachineSelected] = useState([]);
+
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const location = useLocation();
+
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -44,12 +52,38 @@ export default function UIPDowntimeTable({ machines }) {
     setPage(newPage);
   };
 
-  const toggleModalVisible = () => setOpen((prev) => !prev);
+  const handleRowClick = (row) => {
+    if (row.machinePin == id) {
+      navigate('/home/machines');
+      return;
+    }
+    navigate(`/home/machines/${row.machinePin}`);
+  };
+
+  const toggleModalVisible = (row) => {
+    if (row.hasOwnProperty('machinePin')) {
+      var allDtcs = [];
+      row.operations.forEach((operation) =>
+        operation.dtcs.length > 0 ? allDtcs.push(operation.dtcs) : undefined
+      );
+      setHighlightedDays(
+        row.operations.map((operation) => dayjs(operation.timestamp).toString())
+      );
+      setDtcs(allDtcs);
+      setMachineSelected(row);
+      navigate(`/home/machines/${row.machinePin}`);
+    }
+    setOpen((prev) => !prev);
+  };
 
   useEffect(() => {
-    setMachinesList(machines);
-    setRows(machines);
-    setLoadingTable(false);
+    if (typeof machines == 'object' && machines.length > 0) {
+      setMachinesList(machines);
+      setRows(machines);
+      setLoadingTable(false);
+    } else if (machines.hasOwnProperty('errorMessage')) {
+      alert(`Error on get table data: ${machines.errorMessage}`);
+    }
   }, [machines]);
 
   useEffect(() => {
@@ -69,7 +103,7 @@ export default function UIPDowntimeTable({ machines }) {
     }
   }, [filter]);
 
-  if (!loadingTable & (machines == undefined || machines.length == 0)) {
+  if (!loadingTable && (machines == undefined || machines == [])) {
     return <h1>Error. There aren't machines avaiable to show.</h1>;
   }
 
@@ -108,34 +142,33 @@ export default function UIPDowntimeTable({ machines }) {
                   : rows
                 ).map((row, index) => (
                   <StyledTableRow
+                    selected={row.machinePin == id}
                     key={index}
                     sx={{
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}>
-                    <StyledTableCell component='th' scope='row'>
-                      {row.customer}
-                      {/* <div className='first-column'>
-                        <span>{row.customer}</span>
-                        {index == 0 || index == 3 ? (
-                        <UIPPolygonMarker text={'Manual'} />
-                      ) : (
-                        <UIPPolygonMarker text={'Auto'} />
-                      )}
-                      </div> */}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {row.machinePin}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {row.engineHours}
-                    </StyledTableCell>
+                    {Object.entries(row).map(
+                      ([key, value], index) =>
+                        ['customer', 'machinePin', 'engineHours'].includes(
+                          key
+                        ) && (
+                          <StyledTableCell
+                            onClick={() => handleRowClick(row)}
+                            key={index}
+                            align={index > 1 ? 'center' : 'left'}>
+                            {value}
+                          </StyledTableCell>
+                        )
+                    )}
                     <StyledTableCell align='center'>
                       <StatusSelection />
                     </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      <IconButton
-                        aria-label='more-actions'
-                        onClick={toggleModalVisible}>
+                    <StyledTableCell
+                      onClick={() => {
+                        toggleModalVisible(row);
+                      }}
+                      align='center'>
+                      <IconButton aria-label='more-actions'>
                         <MoreVertIcon />
                       </IconButton>
                     </StyledTableCell>
@@ -179,18 +212,27 @@ export default function UIPDowntimeTable({ machines }) {
           <Typography variant='h6'>
             {i18next.t('home.machines.machineData.title')}
           </Typography>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar
                 dayOfWeekFormatter={(_day, weekday) => weekday.format('ddd')}
                 disableFuture
                 disableHighlightToday
-                minDate={dayjs('2024-02-11')}
-                maxDate={dayjs('2024-02-17')}
-                slots={{ day: ServerDay }}
+                minDate={dayjs(highlightedDays[0])}
+                maxDate={dayjs(highlightedDays[highlightedDays.length - 1])}
+                slots={{
+                  day: (props) => (
+                    <ServerDay
+                      dtcs={dtcs}
+                      highlightedDays={highlightedDays}
+                      {...props}
+                    />
+                  ),
+                }}
                 onChange={(value) => setSelectedDate(value.toString())}
               />
             </LocalizationProvider>
+            <Box>{machineSelected.machinePin}</Box>
           </Box>
         </Box>
       </Modal>
@@ -217,19 +259,21 @@ const LoadingTableSkeleton = () => {
   );
 };
 
-const highlightedDays = [
-  dayjs('2024-02-11').toString(),
-  dayjs('2024-02-12').toString(),
-  dayjs('2024-02-13').toString(),
-  dayjs('2024-02-16').toString(),
-  dayjs('2024-02-17').toString(),
-];
-
 function ServerDay(props) {
-  const { day, outsideCurrentMonth, ...other } = props;
+  const { day, outsideCurrentMonth, highlightedDays, dtcs, ...other } = props;
   const isSelected =
-    !props.outsideCurrentMonth && highlightedDays.indexOf(day.toString()) >= 0;
-
+    !outsideCurrentMonth && highlightedDays.indexOf(day.toString()) >= 0;
+  let dtcOnDay = [];
+  dtcs.forEach((dtc) =>
+    dtc.map((alert) => {
+      if (
+        dayjs(alert.timestamp).toISOString().substring(0, 10) ==
+        day.toISOString().substring(0, 10)
+      ) {
+        dtcOnDay.push(alert);
+      }
+    })
+  );
   return (
     <Box
       sx={{
@@ -240,12 +284,12 @@ function ServerDay(props) {
       }}>
       {isSelected ? (
         <AlertSeverityDot
-          color={
-            day.date() == 11
-              ? 'dodgerblue'
-              : day.date() == 12
-                ? 'orange'
-                : 'red'
+          severity={
+            dtcOnDay.length > 0 &&
+            day.toISOString().substring(0, 10) ==
+              dayjs(dtcOnDay[0].timestamp).toISOString().substring(0, 10)
+              ? dtcs[0][0].severity
+              : undefined
           }
         />
       ) : undefined}
@@ -258,7 +302,23 @@ function ServerDay(props) {
   );
 }
 
-const AlertSeverityDot = ({ color }) => {
+const AlertSeverityDot = ({ severity }) => {
+  let color;
+  switch (severity) {
+    case 'INFO':
+    case 'LOW':
+      color = 'blue';
+      break;
+    case 'HIGH':
+      color = 'red';
+      break;
+    case 'MEDIUM':
+      color = 'orange';
+      break;
+    default:
+      color = '';
+      break;
+  }
   return (
     <div className='severity-dtc-dot' style={{ background: color }}>
       <div></div>

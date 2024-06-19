@@ -1,9 +1,12 @@
 export default {
   translation: {
     auth: {
-      demoVersionText: 'Demo version - Use any email/password',
+      password: 'Password',
+      confirmPassword: 'Confirm password',
+      confirmNewPassword: 'Confirm New Password',
+      passwordNotMatch: 'Passwords do not match.',
+      passwordSuccess: 'Password changed successfully.',
       login: {
-        password: 'Password',
         loginBtn: 'Sign in',
         forgotPasswordBtn: 'Forgot password?',
         signUpBtn: 'Sign up',
@@ -16,9 +19,7 @@ export default {
         backBtn: 'Back',
       },
       signUp: {
-        confirmPassword: 'Confirm password',
         signUpBtn: 'Register',
-        passwordNotMatch: 'Passwords do not match.',
       },
     },
     home: {

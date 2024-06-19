@@ -1,5 +1,4 @@
 import UIPInsightCard from '../../../components/UIPInsightCard';
-import UIPMap from '../../../components/UIPMap';
 import { cardsInfo, chartsInfo } from './infos';
 import UIPLineChart2 from '../../../components/UIPCharts/UIPLineChart2';
 import UIPChart from '../../../components/UIPCharts/UIPChart';
