@@ -77,9 +77,13 @@ export default function UIPDowntimeTable({ machines }) {
   };
 
   useEffect(() => {
-    setMachinesList(machines);
-    setRows(machines);
-    setLoadingTable(false);
+    if (typeof machines == 'object' && machines.length > 0) {
+      setMachinesList(machines);
+      setRows(machines);
+      setLoadingTable(false);
+    } else if (machines.hasOwnProperty('errorMessage')) {
+      alert(`Error on get table data: ${machines.errorMessage}`);
+    }
   }, [machines]);
 
   useEffect(() => {

@@ -7,13 +7,6 @@ export default () => {
         id='dropdownUserExample'
         data-bs-toggle='dropdown'
         aria-expanded='false'>
-        <img
-          src='https://github.com/github.png'
-          alt='user'
-          width='30'
-          height='30'
-          className='rounded-circle'
-        />
         <span className='d-sm-inline mx-1'>
           {localStorage.getItem('email') || null}
         </span>
@@ -31,7 +24,11 @@ export default () => {
           <a
             className='dropdown-item'
             href='/'
-            onClick={() => localStorage.removeItem('accessToken')}>
+            onClick={() => {
+              localStorage.removeItem('accessToken');
+              localStorage.removeItem('idToken');
+              localStorage.removeItem('machines');
+            }}>
             Sign out
           </a>
         </li>

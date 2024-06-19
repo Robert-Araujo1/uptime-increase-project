@@ -30,6 +30,8 @@ const ProtectedRoute = ({ children }) => {
     }
     localStorage.removeItem('accessToken');
     localStorage.removeItem('username');
+    localStorage.removeItem('idToken');
+    localStorage.removeItem('machines');
     return <Navigate replace to='/' />;
   } else {
     return <div>Unknown Error</div>;
