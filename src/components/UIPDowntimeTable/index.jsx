@@ -27,6 +27,7 @@ import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import dayjs from 'dayjs';
 import Skeleton from '@mui/material/Skeleton';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import getMachineCategoryIcon from '../../utils/getMachineCategoryIcon';
 
 export default function UIPDowntimeTable({ machines }) {
   const [machinesList, setMachinesList] = useState([]);
@@ -73,6 +74,7 @@ export default function UIPDowntimeTable({ machines }) {
       setMachineSelected(row);
       navigate(`/home/machines/${row.machinePin}`);
     }
+    setSelectedDate(undefined);
     setOpen((prev) => !prev);
   };
 
@@ -229,10 +231,39 @@ export default function UIPDowntimeTable({ machines }) {
                     />
                   ),
                 }}
-                onChange={(value) => setSelectedDate(value.toString())}
+                onChange={(value) =>
+                  setSelectedDate(dayjs(value).format('DD/MM/YYYY'))
+                }
               />
             </LocalizationProvider>
-            <Box>{machineSelected.machinePin}</Box>
+            {machineSelected.hasOwnProperty('category') && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: 2,
+                  marginX: 1,
+                }}>
+                <Box sx={{ display: 'flex', marginBottom: 2 }}>
+                  <img
+                    src={getMachineCategoryIcon(machineSelected.category)}
+                    height={40}
+                    width={40}
+                    style={{ marginRight: 14 }}
+                  />
+                  <Box>
+                    <Typography style={{ fontWeight: 'bold' }}>
+                      {machineSelected.customer}
+                    </Typography>
+                    <Typography style={{ fontSize: 14 }}>
+                      {machineSelected.machinePin}
+                    </Typography>
+                  </Box>
+                </Box>
+                {console.log(machineSelected)}
+                <Typography>{selectedDate}</Typography>
+              </Box>
+            )}
           </Box>
         </Box>
       </Modal>
