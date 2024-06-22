@@ -8,6 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CloseIcon from '@mui/icons-material/Close';
+import ReportIcon from '@mui/icons-material/Report';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TablePaginationActions from './utils/TablePaginationActions';
@@ -40,11 +42,10 @@ export default function UIPDowntimeTable({ machines }) {
   const [loadingTable, setLoadingTable] = useState(true);
   const [highlightedDays, setHighlightedDays] = useState([]);
   const [dtcs, setDtcs] = useState([]);
-  const [machineSelected, setMachineSelected] = useState([]);
+  const [machineSelected, setMachineSelected] = useState({});
 
   const navigate = useNavigate();
   const { id } = useParams();
-  const location = useLocation();
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -162,6 +163,15 @@ export default function UIPDowntimeTable({ machines }) {
                           </StyledTableCell>
                         )
                     )}
+                    <StyledTableCell
+                      align='center'
+                      onClick={() => handleRowClick(row)}>
+                      {row.hasDtcs ? (
+                        <b style={{ color: 'red' }}>Sim</b>
+                      ) : (
+                        'Não'
+                      )}
+                    </StyledTableCell>
                     <StyledTableCell align='center'>
                       <StatusSelection />
                     </StyledTableCell>
@@ -211,9 +221,18 @@ export default function UIPDowntimeTable({ machines }) {
             boxShadow: 24,
             p: 4,
           }}>
-          <Typography variant='h6'>
-            {i18next.t('home.machines.machineData.title')}
-          </Typography>
+          <Box
+            display='flex'
+            alignItems='center'
+            justifyContent='space-between'
+            marginBottom={2}>
+            <Typography variant='h6'>
+              {i18next.t('home.machines.machineData.title')}
+            </Typography>
+            <IconButton onClick={toggleModalVisible}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
           <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar
@@ -243,6 +262,7 @@ export default function UIPDowntimeTable({ machines }) {
                   flexDirection: 'column',
                   padding: 2,
                   marginX: 1,
+                  maxWidth: 300,
                 }}>
                 <Box sx={{ display: 'flex', marginBottom: 2 }}>
                   <img
@@ -260,8 +280,37 @@ export default function UIPDowntimeTable({ machines }) {
                     </Typography>
                   </Box>
                 </Box>
+                {selectedDate && (
+                  <Typography>Alertas - {selectedDate}</Typography>
+                )}
+                {machineSelected.operations?.map(
+                  ({ dtcs }) =>
+                    dtcs.length > 0 &&
+                    dtcs.map(
+                      (dtc, index) =>
+                        dayjs(dtc.timestamp).format('DD/MM/YYYY') ==
+                          selectedDate && (
+                          <Box key={index} display='flex'>
+                            <ReportIcon
+                              fontSize='small'
+                              color={
+                                dtc.severity == 'INFO' || dtc.severity == 'LOW'
+                                  ? 'primary'
+                                  : dtc.severity == 'MEDIUM'
+                                    ? 'warning'
+                                    : dtc.severity == 'HIGH'
+                                      ? 'error'
+                                      : 'action'
+                              }
+                            />
+                            <Typography fontSize={13}>
+                              {dtc.description}
+                            </Typography>
+                          </Box>
+                        )
+                    )
+                )}
                 {console.log(machineSelected)}
-                <Typography>{selectedDate}</Typography>
               </Box>
             )}
           </Box>
