@@ -158,7 +158,7 @@ export default function UIPDowntimeTable({ machines }) {
                           <StyledTableCell
                             onClick={() => handleRowClick(row)}
                             key={index}
-                            align={index > 1 ? 'center' : 'left'}>
+                            align={index > 0 ? 'center' : 'left'}>
                             {value}
                           </StyledTableCell>
                         )
