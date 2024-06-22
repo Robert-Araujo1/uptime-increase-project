@@ -31,6 +31,7 @@ export default {
           machinePinCol: 'Chassi',
           locationCol: 'Localização',
           downtimeDaysCol: 'Dias de Inatividade',
+          hasDtcsCol: 'Alertas',
           engineHoursCol: 'Horas do motor',
           failureCol: 'DTC',
           statusCol: 'Status',

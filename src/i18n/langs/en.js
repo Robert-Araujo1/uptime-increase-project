@@ -30,6 +30,7 @@ export default {
           customerCol: 'Customer',
           machinePinCol: 'Machine PIN',
           locationCol: 'Location',
+          hasDtcsCol: 'Alerts',
           downtimeDaysCol: 'Downtime Days',
           engineHoursCol: 'Engine Hours',
           failureCol: 'DTC',
