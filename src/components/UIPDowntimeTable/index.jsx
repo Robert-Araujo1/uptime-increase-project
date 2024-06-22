@@ -310,7 +310,6 @@ export default function UIPDowntimeTable({ machines }) {
                         )
                     )
                 )}
-                {console.log(machineSelected)}
               </Box>
             )}
           </Box>
