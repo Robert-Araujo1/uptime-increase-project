@@ -91,6 +91,7 @@ export default function UIPDowntimeTable({ machines }) {
 
   useEffect(() => {
     if (filter) {
+      setPage(0);
       const filteredRows = machinesList.filter(
         (row) =>
           row.machinePin.toLowerCase().includes(filter.search.toLowerCase()) ||
@@ -158,7 +159,7 @@ export default function UIPDowntimeTable({ machines }) {
                           <StyledTableCell
                             onClick={() => handleRowClick(row)}
                             key={index}
-                            align={index > 0 ? 'center' : 'left'}>
+                            align={index === 0 ? 'left' : 'center'}>
                             {value}
                           </StyledTableCell>
                         )
@@ -382,6 +383,8 @@ function ServerDay(props) {
 }
 
 const AlertSeverityDot = ({ severity }) => {
+  if (!severity) return;
+
   let color;
   switch (severity) {
     case 'INFO':
@@ -395,7 +398,7 @@ const AlertSeverityDot = ({ severity }) => {
       color = 'orange';
       break;
     default:
-      color = '';
+      color = 'gray';
       break;
   }
   return (
