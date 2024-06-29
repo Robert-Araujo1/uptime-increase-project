@@ -153,14 +153,19 @@ export default function UIPDowntimeTable({ machines }) {
                     }}>
                     {Object.entries(row).map(
                       ([key, value], index) =>
-                        ['customer', 'machinePin', 'engineHours'].includes(
-                          key
-                        ) && (
+                        [
+                          'customer',
+                          'machinePin',
+                          'engineHours',
+                          'identifiedIn',
+                        ].includes(key) && (
                           <StyledTableCell
                             onClick={() => handleRowClick(row)}
                             key={index}
                             align={index === 0 ? 'left' : 'center'}>
-                            {value}
+                            {key === 'identifiedIn'
+                              ? dayjs(value).format('DD/MM/YYYY')
+                              : value}
                           </StyledTableCell>
                         )
                     )}
@@ -173,9 +178,9 @@ export default function UIPDowntimeTable({ machines }) {
                         'Não'
                       )}
                     </StyledTableCell>
-                    <StyledTableCell align='center'>
+                    {/* <StyledTableCell align='center'>
                       <StatusSelection />
-                    </StyledTableCell>
+                    </StyledTableCell> */}
                     <StyledTableCell
                       onClick={() => {
                         toggleModalVisible(row);
