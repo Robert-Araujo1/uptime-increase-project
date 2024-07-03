@@ -31,6 +31,7 @@ export default {
           machinePinCol: 'Machine PIN',
           locationCol: 'Location',
           hasDtcsCol: 'Alerts',
+          signalCol: 'Signal',
           downtimeDaysCol: 'Downtime Days',
           engineHoursCol: 'Engine Hours',
           discoveredOn: 'Discovered on',

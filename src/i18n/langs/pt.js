@@ -32,6 +32,7 @@ export default {
           locationCol: 'Localização',
           downtimeDaysCol: 'Dias de Inatividade',
           hasDtcsCol: 'Alertas',
+          signalCol: 'Sinal',
           engineHoursCol: 'Horas do motor',
           discoveredOn: 'Descoberto em',
           statusCol: 'Status',

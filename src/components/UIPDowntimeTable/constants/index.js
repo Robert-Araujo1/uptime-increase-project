@@ -6,6 +6,7 @@ export const columnNames = [
   i18next.t('home.machines.table.engineHoursCol'),
   i18next.t('home.machines.table.discoveredOn'),
   i18next.t('home.machines.table.hasDtcsCol'),
+  i18next.t('home.machines.table.signalCol'),
   i18next.t('home.machines.table.actionsCol'),
 ];
 
