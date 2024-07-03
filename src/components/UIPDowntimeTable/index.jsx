@@ -30,6 +30,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { useNavigate, useParams } from 'react-router-dom';
 import getMachineCategoryIcon from '../../utils/getMachineCategoryIcon';
 import { LuSignal, LuSignalHigh, LuSignalMedium } from 'react-icons/lu';
+import { PiCellSignalX } from 'react-icons/pi';
 
 export default function UIPDowntimeTable({ machines }) {
   const [machinesList, setMachinesList] = useState([]);
@@ -328,11 +329,16 @@ export default function UIPDowntimeTable({ machines }) {
 }
 
 const LeadSignal = ({ machine }) => {
+  const size = 26;
+  if (!machine.hasOwnProperty('operations')) {
+    return <PiCellSignalX size={size} color='gray' />;
+  }
+
   const mostRecentlyDate = machine.operations.reduce((a, b) =>
     dayjs(a.timestamp) > dayjs(b.timestamp) ? a : b
   ).timestamp;
-  const size = 26;
   const diff = dayjs(dayjs().diff(dayjs(mostRecentlyDate))).date();
+
   return diff <= 2 ? (
     <LuSignal size={size} color='green' />
   ) : diff > 2 && diff <= 4 ? (
