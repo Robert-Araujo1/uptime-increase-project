@@ -15,7 +15,6 @@ import TablePagination from '@mui/material/TablePagination';
 import TablePaginationActions from './utils/TablePaginationActions';
 import UIPTableToolbar from './components/UIPTableToolbar';
 import { StyledTableCell, StyledTableRow } from './utils/tableStyles';
-import StatusSelection from './utils/StatusSelection';
 import i18next from '../../i18n/i18n';
 import { columnNames } from './constants';
 import { TableFilterContext } from '../../contexts/dashboard';
@@ -28,8 +27,10 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import dayjs from 'dayjs';
 import Skeleton from '@mui/material/Skeleton';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import getMachineCategoryIcon from '../../utils/getMachineCategoryIcon';
+import { LuSignal, LuSignalHigh, LuSignalMedium } from 'react-icons/lu';
+import { PiCellSignalX } from 'react-icons/pi';
 
 export default function UIPDowntimeTable({ machines }) {
   const [machinesList, setMachinesList] = useState([]);
@@ -178,9 +179,11 @@ export default function UIPDowntimeTable({ machines }) {
                         'Não'
                       )}
                     </StyledTableCell>
-                    {/* <StyledTableCell align='center'>
-                      <StatusSelection />
-                    </StyledTableCell> */}
+                    <StyledTableCell
+                      align='center'
+                      onClick={() => handleRowClick(row)}>
+                      <LeadSignal machine={row} />
+                    </StyledTableCell>
                     <StyledTableCell
                       onClick={() => {
                         toggleModalVisible(row);
@@ -324,6 +327,26 @@ export default function UIPDowntimeTable({ machines }) {
     </TableFilterContext.Provider>
   );
 }
+
+const LeadSignal = ({ machine }) => {
+  const size = 26;
+  if (!machine.hasOwnProperty('operations')) {
+    return <PiCellSignalX size={size} color='gray' />;
+  }
+
+  const mostRecentlyDate = machine.operations.reduce((a, b) =>
+    dayjs(a.timestamp) > dayjs(b.timestamp) ? a : b
+  ).timestamp;
+  const diff = dayjs(dayjs().diff(dayjs(mostRecentlyDate))).date();
+
+  return diff <= 2 ? (
+    <LuSignal size={size} color='green' />
+  ) : diff > 2 && diff <= 4 ? (
+    <LuSignalHigh size={size} color='orange' />
+  ) : (
+    <LuSignalMedium size={size} color='red' />
+  );
+};
 
 const LoadingTableSkeleton = () => {
   return (
