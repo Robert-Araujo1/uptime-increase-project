@@ -8,6 +8,7 @@ import 'leaflet/dist/leaflet.css';
 import FullScreenBtn from './FullscreenBtn';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 
 export default () => {
   const position = [-9.135222194454002, -39.903822968196536];
@@ -34,9 +35,11 @@ export default () => {
             {id ? (
               <Machine id={id} machines={machines} />
             ) : (
-              machines.map((machine, index) => (
-                <MapMarker key={index} machine={machine} index={index} />
-              ))
+              <MarkerClusterGroup showCoverageOnHover={false}>
+                {machines.map((machine, index) => (
+                  <MapMarker key={index} machine={machine} index={index} />
+                ))}
+              </MarkerClusterGroup>
             )}
             <FullScreenBtn />
           </MapContainer>
