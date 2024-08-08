@@ -330,6 +330,7 @@ export default function UIPDowntimeTable({ machines }) {
 
 const LeadSignal = ({ machine }) => {
   const size = 26;
+
   if (!machine.hasOwnProperty('operations')) {
     return <PiCellSignalX size={size} color='gray' />;
   }
@@ -337,7 +338,7 @@ const LeadSignal = ({ machine }) => {
   const mostRecentlyDate = machine.operations.reduce((a, b) =>
     dayjs(a.timestamp) > dayjs(b.timestamp) ? a : b
   ).timestamp;
-  const diff = dayjs(dayjs().diff(dayjs(mostRecentlyDate))).date();
+  const diff = Math.round((dayjs() - dayjs(mostRecentlyDate)) / 1000 / 86400);
 
   return diff <= 2 ? (
     <LuSignal size={size} color='green' />
