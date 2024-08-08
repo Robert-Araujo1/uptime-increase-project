@@ -1,10 +1,10 @@
 import UIPDowntimeTable from '../../../components/UIPDowntimeTable';
 import UIPMap from '../../../components/UIPMap';
-import getMachines from '../../../services/getMachines';
 import { useDispatch } from 'react-redux';
 import { updateMachines } from '../../../features/machines/machinesSlice';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { getMachines } from '../../../services/uipApi';
 
 function Machines() {
   const [machinesList, setMachinesList] = useState([]);
