@@ -1,5 +1,3 @@
-import { months } from '../../../assets/data/charts/constants';
-import i18next from '../../../i18n/i18n';
 export const options = {
   chart: {
     toolbar: {
@@ -14,7 +12,13 @@ export const options = {
     curve: 'smooth',
   },
   xaxis: {
-    categories: months,
+    categories: [
+      'Carregadeiras',
+      'Retroescavadeiras',
+      'Tratores',
+      'Escavadeiras',
+      'Motoniveladoras',
+    ],
     labels: {
       style: {
         colors: '#fff',
@@ -26,7 +30,7 @@ export const options = {
   yaxis: {
     tickAmount: 5,
     title: {
-      text: i18next.t('home.dashboard.charts.averageDowntimeChart.labelY'),
+      text: 'Quantidade',
       style: {
         fontSize: '14px',
         fontFamily: 'Roboto, sans-serif',

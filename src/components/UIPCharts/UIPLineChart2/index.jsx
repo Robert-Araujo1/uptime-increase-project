@@ -1,8 +1,7 @@
 import ReactApexChart from 'react-apexcharts';
 import { options } from './options';
-import { chartSeries as series } from '../../../assets/data/charts/downtimeMachinesPerRegion';
 
-export default function () {
+export default function ({ series }) {
   return (
     <ReactApexChart
       options={options}

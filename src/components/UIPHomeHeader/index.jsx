@@ -1,9 +1,9 @@
-export default ({ headerTitle }) => {
+export default () => {
   return (
     <div className='row page-header'>
-      <div className='col d-flex align-items-center'>
+      <div className='col d-flex align-items-center px-4'>
         <h4 className='fw-light' style={{ color: '#2D4A5D' }}>
-          {headerTitle}
+          Uptime Increase Project
         </h4>
       </div>
       <div className='col text-end'>

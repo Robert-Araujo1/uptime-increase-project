@@ -1,6 +1,4 @@
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import WatchLaterIcon from '@mui/icons-material/WatchLater';
-import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 import ConstructionIcon from '@mui/icons-material/Construction';
 
 function selectIconStyle(iconStyle) {
@@ -8,26 +6,24 @@ function selectIconStyle(iconStyle) {
   let icon;
 
   switch (iconStyle) {
-    case 'started':
+    case 'R1':
       gradientBackground =
-        'linear-gradient(195deg, rgba(24,161,66,1) 0%, rgba(8,115,7,1) 100%)';
-      icon = (
-        <AssignmentTurnedInIcon sx={{ color: '#ffffff' }} fontSize='medium' />
-      );
+        'linear-gradient(195deg, rgba(103, 16, 242, 1) 0%, rgba(82, 2, 209,1) 100%)';
+      icon = <ApartmentIcon sx={{ color: '#ffffff' }} fontSize='medium' />;
       break;
-    case 'in-progress':
+    case 'R2':
       gradientBackground =
-        'linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232))';
-      icon = <WatchLaterIcon sx={{ color: '#ffffff' }} fontSize='medium' />;
+        'linear-gradient(195deg, rgb(253, 125, 20), rgb(212, 99, 6))';
+      icon = <ApartmentIcon sx={{ color: '#ffffff' }} fontSize='medium' />;
       break;
-    case 'not-started':
+    case 'R3':
       gradientBackground =
-        'linear-gradient(150deg, rgba(240,163,171,1) 0%, rgba(220,53,69,1) 100%)';
-      icon = <AssignmentLateIcon sx={{ color: '#ffffff' }} fontSize='medium' />;
+        'linear-gradient(150deg, rgba(28, 252, 226, 1) 0%, rgba(6, 207, 183, 1) 100%)';
+      icon = <ApartmentIcon sx={{ color: '#ffffff' }} fontSize='medium' />;
       break;
     case 'total':
       gradientBackground =
-        'linear-gradient(195deg, rgba(250,180,45,1) 0%, rgba(235,159,22,1) 100%)';
+        'linear-gradient(195deg, rgba(24,161,66,1) 0%, rgba(8,115,7,1) 100%)';
       icon = <ConstructionIcon sx={{ color: '#ffffff' }} fontSize='medium' />;
       break;
     default:

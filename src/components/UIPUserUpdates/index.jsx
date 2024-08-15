@@ -15,16 +15,6 @@ export default function () {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fakeUsers
-      .get('/?nat=us&results=5')
-      .then((response) => {
-        setUsers(response.data.results);
-        setTimeout(() => setLoading(false), 1000);
-      })
-      .catch((err) => console.log('error on response ' + err));
-  }, []);
-
   return (
     <Card sx={{ maxHeight: 390, padding: 2 }}>
       <Box mb={3}>
@@ -33,19 +23,15 @@ export default function () {
         </Typography>
         <hr />
       </Box>
-      <Box sx={{ maxHeight: 300, overflow: 'auto' }}>
-        {!loading ? (
-          users.map((user, index) => (
-            <FakeUsers key={index} user={user} index={index} />
-          ))
-        ) : (
-          <>
-            <LoadingSkeleton />
-            <LoadingSkeleton />
-            <LoadingSkeleton />
-            <LoadingSkeleton />
-          </>
-        )}
+      <Box
+        sx={{
+          height: 300,
+          overflow: 'auto',
+          justifyContent: 'center',
+          alignItems: 'center',
+          display: 'flex',
+        }}>
+        <h2>Em breve</h2>
       </Box>
     </Card>
   );

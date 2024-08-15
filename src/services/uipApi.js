@@ -22,3 +22,7 @@ export async function getMachines() {
 export async function getVehicles() {
   return await requestApi('/get-vehicles-location');
 }
+
+export async function getInsightData() {
+  return await requestApi('/get-insight-data');
+}

@@ -104,7 +104,7 @@ const privateRoutes = [
     path: 'dashboard',
     element: (
       <ProtectedRoute>
-        <HomeLayout view={<Dashboard />} title={'Dashboard'} />
+        <HomeLayout view={<Dashboard />} />
       </ProtectedRoute>
     ),
   },
@@ -112,7 +112,7 @@ const privateRoutes = [
     path: 'machines/:id?',
     element: (
       <ProtectedRoute>
-        <HomeLayout view={<Machines />} title={'Machines'} />,
+        <HomeLayout view={<Machines />} />
       </ProtectedRoute>
     ),
   },

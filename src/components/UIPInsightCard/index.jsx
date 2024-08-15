@@ -28,42 +28,17 @@ export default function ({ cardTitle, iconStyle, cardValue }) {
         </Typography>
         <Typography
           fontWeight='bold'
-          variant='h5'
+          variant='h6'
           component='div'
           sx={{ textAlign: 'end', color: '#3B5363' }}>
           {cardValue}
         </Typography>
         <hr style={{ color: '#A2A2A2' }} />
         <Box px={2}>
-          {iconStyle == 'started' ? (
-            <>
-              <ValueTypo value='+27%' />{' '}
-              <LabelTypo
-                label={i18next.t('home.dashboard.completedCardStatisticLabel')}
-              />
-            </>
-          ) : iconStyle == 'in-progress' ? (
-            <>
-              <LabelTypo
-                label={i18next.t('home.dashboard.inProgressCardStatisticLabel')}
-              />
-              <ValueTypo value='32h' />
-            </>
-          ) : iconStyle == 'not-started' ? (
-            <>
-              <LabelTypo
-                label={i18next.t('home.dashboard.notStartedCardStatisticLabel')}
-              />
-              <ValueTypo value='1,5h' />
-            </>
-          ) : (
-            <>
-              <ValueTypo value='+14%' />{' '}
-              <LabelTypo
-                label={i18next.t('home.dashboard.totalEquipCardStatisticLabel')}
-              />
-            </>
-          )}
+          <ValueTypo value='+0%' />{' '}
+          <LabelTypo
+            label={i18next.t('home.dashboard.completedCardStatisticLabel')}
+          />
         </Box>
       </CardContent>
     </Card>
@@ -107,10 +82,18 @@ const UIPCardIcon = ({ background, icon }) => {
       sx={{
         borderRadius: '0.3rem',
         boxShadow: '4px 4px 10px 0 rgba(136, 152, 170, 0.3) !important',
-
         background: background,
       }}>
-      {icon}
+      <div
+        style={{
+          width: '2.8rem',
+          height: '2.8rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {icon}
+      </div>
     </Box>
   );
 };

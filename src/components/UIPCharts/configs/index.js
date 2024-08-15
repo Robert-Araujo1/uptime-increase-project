@@ -5,6 +5,12 @@ export default {
     legend: {
       display: false,
     },
+    datalabels: {
+      color: '#f8f9fa',
+      align: 'end',
+      anchor: 'end',
+      offset: 0,
+    },
   },
   scales: {
     y: {
@@ -19,7 +25,7 @@ export default {
       ticks: {
         display: true,
         color: '#f8f9fa',
-        padding: 10,
+        padding: 15,
         font: {
           size: 14,
           weight: 300,
