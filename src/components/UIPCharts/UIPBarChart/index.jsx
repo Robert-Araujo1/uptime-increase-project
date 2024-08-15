@@ -11,6 +11,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import configs from '../configs';
 import UIPChart from '../UIPChart';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(
   CategoryScale,
@@ -24,7 +25,9 @@ ChartJS.register(
 export default function UIPBarChart({ data, background, title, text }) {
   return (
     <UIPChart
-      chart={<Bar data={data} options={configs} redraw />}
+      chart={
+        <Bar data={data} plugins={[ChartDataLabels]} options={configs} redraw />
+      }
       background={background}
       title={title}
       text={text}
