@@ -2,7 +2,7 @@ export default () => {
   return (
     <div className='d-flex flex-row page-header align-items-top justify-content-between'>
       <div className='ps-3'>
-        <h4 className='fw-light' style={{ r: '#2D4A5D' }}>
+        <h4 className='fw-light' style={{ color: '#2D4A5D' }}>
           Uptime Increase Project
         </h4>
       </div>
