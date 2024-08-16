@@ -12,7 +12,11 @@ import MarkerClusterGroup from 'react-leaflet-cluster';
 import { useEffect, useState } from 'react';
 import { getVehicles } from '../../services/uipApi';
 import L from 'leaflet';
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
 import vehicleIcon from '../../assets/images/vehicles/pickup.svg';
+
+dayjs.extend(isToday);
 
 export default () => {
   const [vehicles, setVehicles] = useState([]);
@@ -76,27 +80,42 @@ export default () => {
                 iconCreateFunction={(cluster) =>
                   createClusterCustomIcon(cluster, 'vehicles')
                 }>
-                {vehicles.map((vehicle, index) => (
-                  <Marker
-                    key={index}
-                    icon={L.icon({
-                      iconUrl: vehicleIcon,
-                      iconSize: [32, 32],
-                      shadowSize: [24, 24],
-                      iconAnchor: [20, 31],
-                      popupAnchor: [-3, -76],
-                    })}
-                    position={[vehicle.LastLatitude, vehicle.LastLongitude]}>
-                    <Popup>
-                      <strong>Placa</strong> {vehicle?.Plate} <br />{' '}
-                      <strong>Última atualização:</strong>{' '}
-                      {vehicle?.LastLocationTime}
-                      <br />
-                      <strong>Velocidade registrada:</strong>{' '}
-                      {vehicle?.LastSpeed} km/h
-                    </Popup>
-                  </Marker>
-                ))}
+                {vehicles.map((vehicle, index) => {
+                  let lastLocationTime = vehicle?.LastLocationTime;
+                  if (!isNaN(new Date(lastLocationTime))) {
+                    lastLocationTime = dayjs(lastLocationTime);
+                    if (lastLocationTime.isToday()) {
+                      lastLocationTime =
+                        'Hoje, às ' + lastLocationTime.format('HH:mm');
+                    } else {
+                      lastLocationTime =
+                        lastLocationTime.format('DD/MM/YYYY HH:mm');
+                    }
+                  }
+                  return (
+                    <Marker
+                      key={index}
+                      icon={L.icon({
+                        iconUrl: vehicleIcon,
+                        iconSize: [32, 32],
+                        shadowSize: [24, 24],
+                        iconAnchor: [19, 25],
+                        popupAnchor: [-3, -76],
+                      })}
+                      position={[vehicle.LastLatitude, vehicle.LastLongitude]}>
+                      <Popup>
+                        <strong>Placa:</strong> {vehicle?.Plate} <br />{' '}
+                        <strong>Condutor:</strong>{' '}
+                        {vehicle?.Driver?.Name || 'Sem nome'} <br />{' '}
+                        <strong>Função:</strong> {vehicle?.Driver?.Role || 'NA'}{' '}
+                        <br /> <strong>Última atualização:</strong>{' '}
+                        {lastLocationTime} <br />
+                        <strong>Velocidade registrada:</strong>{' '}
+                        {vehicle?.LastSpeed} km/h
+                      </Popup>
+                    </Marker>
+                  );
+                })}
               </MarkerClusterGroup>
             )}
             <FullScreenBtn />
