@@ -7,6 +7,7 @@ export default () => {
   return (
     <div
       className='offcanvas offcanvas-end'
+      style={{ background: 'var(--light-background)' }}
       tabIndex='-1'
       id='offcanvasContent'
       aria-labelledby='homeOffcanvas'>

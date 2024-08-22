@@ -29,12 +29,13 @@ export default () => {
 
   return (
     <ToggleFilterContext.Provider value={{ display, setDisplay }}>
-      <Box>
+      <Box sx={{ background: 'var(--dark-background-2)' }}>
         <Toolbar sx={styles.ToolBar}>
           <Typography
             variant='h7'
             id='tableTitle'
             component='div'
+            color={'var(--light-text)'}
             fontWeight='bold'>
             {i18next.t('home.machines.table.tableTitle')}
           </Typography>
@@ -68,7 +69,7 @@ const ToolbarOptions = () => {
 
   const toggleSearchFieldVisibility = () => {
     setDisplay((prev) => (prev == 'flex' ? 'none' : 'flex'));
-    setFilterBtnBg((prev) => (prev == '' ? 'rgba(0, 0, 0, .12)' : ''));
+    setFilterBtnBg((prev) => (prev == '' ? 'var(--dark-selection)' : ''));
   };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -82,12 +83,14 @@ const ToolbarOptions = () => {
       <Tooltip
         title={i18next.t('home.machines.table.filterBtnName')}
         sx={{ marginX: 2, backgroundColor: filterBtnBg }}>
-        <IconButton onClick={toggleSearchFieldVisibility}>
+        <IconButton
+          sx={{ color: 'var(--light-text)' }}
+          onClick={toggleSearchFieldVisibility}>
           <FilterListIcon />
         </IconButton>
       </Tooltip>
       <Tooltip title={i18next.t('home.machines.table.moreVertBtnName')}>
-        <IconButton onClick={handleClick}>
+        <IconButton sx={{ color: 'var(--light-text)' }} onClick={handleClick}>
           <MoreHorizIcon />
         </IconButton>
       </Tooltip>
@@ -109,30 +112,18 @@ const FilterOptions = () => {
   return (
     <>
       <TextField
+        className='search-input-table'
         label={i18next.t('home.machines.filter.searchLabel')}
         size='small'
-        sx={{ width: '95%' }}
+        sx={{
+          width: '95%',
+          borderRadius: 1,
+        }}
+        InputLabelProps={{ style: { color: 'var(--light-text)' } }}
+        inputProps={{ style: { color: 'var(--light-text)' } }}
         onChange={(event) => setFilter({ search: event.target.value })}
         data-testid='search-input'
       />
-      {/* <FilterSelect
-        values={dateFilterItems}
-        inputLabel={i18next.t('home.machines.filter.dateLabel')}
-        labelId={'date-select-label'}
-        selectId={'date-select'}
-      />
-      <FilterMultipleSelect
-        values={statusFilterItems}
-        inputLabel={i18next.t('home.machines.filter.statusLabel')}
-        labelId={'status-select-label'}
-        selectId={'status-select'}
-      />
-      <FilterMultipleSelect
-        values={['Pernambuco', 'Alagoas', 'Sergipe', 'Bahia', 'Paraíba']}
-        inputLabel={i18next.t('home.machines.filter.stateLabel')}
-        labelId={'state-select-label'}
-        selectId={'state-select'}
-      /> */}
     </>
   );
 };

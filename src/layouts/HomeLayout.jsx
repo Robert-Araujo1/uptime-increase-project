@@ -1,7 +1,12 @@
+import { useEffect } from 'react';
 import UIPHomeHeader from '../components/UIPHomeHeader';
 import UIPHomeOffcanvas from '../components/UIPHomeOffcanvas';
+import { keepTheme } from '../utils/themes';
 
 function HomeLayout({ view }) {
+  useEffect(() => {
+    keepTheme();
+  });
   return (
     <>
       <div className='container-fluid'>

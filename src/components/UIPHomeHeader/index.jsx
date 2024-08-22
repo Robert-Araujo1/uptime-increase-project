@@ -2,11 +2,11 @@ export default () => {
   return (
     <div className='d-flex flex-row page-header align-items-top justify-content-between'>
       <div className='ps-3'>
-        <h4 className='fw-light' style={{ color: '#2D4A5D' }}>
+        <h4 className='fw-light' style={{ color: 'var(--light-text)' }}>
           Uptime Increase Project
         </h4>
       </div>
-      <div className='text-end w-25'>
+      <div className='text-end w-25' style={{ color: 'var(--light-text)' }}>
         <button
           className='navbar-toggler'
           type='button'
