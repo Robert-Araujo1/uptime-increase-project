@@ -1,13 +1,18 @@
+import { ToggleTheme } from '../../utils/themes';
+
 export default () => {
   return (
     <div className='dropdown pb-4 mt-auto'>
       <a
+        style={{ color: 'var(--light-text)' }}
         href='#'
-        className='d-flex align-items-center text-primary-emphasis text-decoration-none dropdown-toggle'
+        className='d-flex align-items-center text-decoration-none dropdown-toggle'
         id='dropdownUserExample'
         data-bs-toggle='dropdown'
         aria-expanded='false'>
-        <span className='d-sm-inline mx-1'>
+        <span
+          className='d-sm-inline mx-1'
+          style={{ color: 'var(--light-text)' }}>
           {localStorage.getItem('email') || null}
         </span>
       </a>

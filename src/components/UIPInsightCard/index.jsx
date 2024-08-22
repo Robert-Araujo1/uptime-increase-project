@@ -16,13 +16,13 @@ export default function ({ cardTitle, iconStyle, cardValue }) {
         minWidth: 250,
         marginBottom: 2,
         borderRadius: '1rem',
-        boxShadow: '3px 3px 6px 0 rgba(136, 152, 170, .25) !important',
+        boxShadow: 'var(--dark-shadow)',
+        background: 'var(--dark-background-2)',
       }}>
       <CardContent>
         <UIPCardIcon background={gradientBackground} icon={icon} />
         <Typography
-          sx={{ fontSize: 14, textAlign: 'end' }}
-          color='text.secondary'
+          sx={{ fontSize: 14, textAlign: 'end', color: 'var(--light-text)' }}
           gutterBottom>
           {cardTitle}
         </Typography>
@@ -30,10 +30,10 @@ export default function ({ cardTitle, iconStyle, cardValue }) {
           fontWeight='bold'
           variant='h6'
           component='div'
-          sx={{ textAlign: 'end', color: '#3B5363' }}>
+          sx={{ textAlign: 'end', color: 'var(--light-text)' }}>
           {cardValue}
         </Typography>
-        <hr style={{ color: '#A2A2A2' }} />
+        <hr style={{ color: 'var(--light-text)' }} />
         <Box px={2}>
           <ValueTypo value='+0%' />{' '}
           <LabelTypo
@@ -48,7 +48,7 @@ export default function ({ cardTitle, iconStyle, cardValue }) {
 const LabelTypo = ({ label }) => {
   return (
     <Typography
-      color='#A2A2A2'
+      sx={{ color: 'var(--light-text)' }}
       component='span'
       fontWeight='lighter'
       fontSize='small'>
@@ -81,7 +81,7 @@ const UIPCardIcon = ({ background, icon }) => {
       alignItems='center'
       sx={{
         borderRadius: '0.3rem',
-        boxShadow: '4px 4px 10px 0 rgba(136, 152, 170, 0.3) !important',
+        boxShadow: 'var(--dark-shadow)',
         background: background,
       }}>
       <div

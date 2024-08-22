@@ -5,9 +5,11 @@ import { styled } from '@mui/material/styles';
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     fontWeight: 'bolder',
+    color: 'var(--light-text)',
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    color: 'var(--light-text)',
   },
 }));
 
@@ -16,6 +18,6 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
   '&.Mui-selected, &.Mui-selected:hover': {
-    backgroundColor: 'rgb(0, 0, 0, .24)',
+    backgroundColor: 'var(--dark-selection)',
   },
 }));

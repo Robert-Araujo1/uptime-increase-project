@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 
 export default function UIPChart({ chart, background, title, text }) {
   return (
-    <Card sx={{ height: 390 }}>
+    <Card sx={{ height: 390, background: 'var(--dark-background-2)' }}>
       <Box
         display='flex'
         justifyContent='center'
@@ -18,7 +18,7 @@ export default function UIPChart({ chart, background, title, text }) {
             sx={{
               width: '100%',
               borderRadius: '0.3rem',
-              boxShadow: '4px 4px 10px 0 rgba(136, 152, 170, 0.3) !important',
+              boxShadow: 'var(--dark-shadow)',
               background: background,
             }}>
             {chart}
@@ -27,7 +27,7 @@ export default function UIPChart({ chart, background, title, text }) {
         <Box pt={2} pb={1} px={2} width={'100%'}>
           <Typography
             variant='h7'
-            color={'#2D4A5D'}
+            sx={{ color: 'var(--light-text)' }}
             fontWeight={'bold'}
             textTransform={'capitalize'}>
             {title}

@@ -1,16 +1,17 @@
 import { MapContainer } from 'react-leaflet/MapContainer';
 import { TileLayer } from 'react-leaflet/TileLayer';
 import { Marker, Popup } from 'react-leaflet';
+import { WSSERVER } from '../../services/constants';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getVehicles } from '../../services/uipApi';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import UIPMarker from './UIPMarker';
 import 'leaflet/dist/leaflet.css';
 import FullScreenBtn from './FullscreenBtn';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import MarkerClusterGroup from 'react-leaflet-cluster';
-import { useEffect, useState } from 'react';
-import { getVehicles } from '../../services/uipApi';
 import L from 'leaflet';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
@@ -35,9 +36,7 @@ export default () => {
     }
     fetchVehicles();
 
-    const socket = new WebSocket(
-      'wss://5pov3e0i06.execute-api.sa-east-1.amazonaws.com/dev/'
-    );
+    const socket = new WebSocket(WSSERVER);
     socket.onmessage = async (event) => {
       await fetchVehicles();
     };

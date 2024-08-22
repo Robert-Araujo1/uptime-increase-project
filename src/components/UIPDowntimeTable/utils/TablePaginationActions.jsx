@@ -28,21 +28,29 @@ export default function TablePaginationActions(props) {
   };
 
   return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+    <Box
+      sx={{
+        flexShrink: 0,
+        ml: 2.5,
+      }}>
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
         aria-label='first page'>
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+        {theme.direction === 'rtl' ? (
+          <LastPageIcon style={styles.Icon} />
+        ) : (
+          <FirstPageIcon style={styles.Icon} />
+        )}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label='previous page'>
         {theme.direction === 'rtl' ? (
-          <KeyboardArrowRight />
+          <KeyboardArrowRight style={styles.Icon} />
         ) : (
-          <KeyboardArrowLeft />
+          <KeyboardArrowLeft style={styles.Icon} />
         )}
       </IconButton>
       <IconButton
@@ -50,16 +58,20 @@ export default function TablePaginationActions(props) {
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label='next page'>
         {theme.direction === 'rtl' ? (
-          <KeyboardArrowLeft />
+          <KeyboardArrowLeft style={styles.Icon} />
         ) : (
-          <KeyboardArrowRight />
+          <KeyboardArrowRight style={styles.Icon} />
         )}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label='last page'>
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+        {theme.direction === 'rtl' ? (
+          <FirstPageIcon style={styles.Icon} />
+        ) : (
+          <LastPageIcon style={styles.Icon} />
+        )}
       </IconButton>
     </Box>
   );
@@ -70,4 +82,10 @@ TablePaginationActions.propTypes = {
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
+};
+
+const styles = {
+  Icon: {
+    color: 'var(--light-text)',
+  },
 };

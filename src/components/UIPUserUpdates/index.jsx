@@ -16,12 +16,17 @@ export default function () {
   const [loading, setLoading] = useState(true);
 
   return (
-    <Card sx={{ maxHeight: 390, padding: 2 }}>
+    <Card
+      sx={{
+        maxHeight: 390,
+        padding: 2,
+        background: 'var(--dark-background-2)',
+      }}>
       <Box mb={3}>
-        <Typography variant='h6' color={'#2D4A5D'}>
+        <Typography variant='h6' sx={{ color: 'var(--light-text)' }}>
           {i18next.t('home.dashboard.lastUpdates.title')}
         </Typography>
-        <hr />
+        <hr style={{ color: 'var(--light-text)' }} />
       </Box>
       <Box
         sx={{
@@ -31,7 +36,7 @@ export default function () {
           alignItems: 'center',
           display: 'flex',
         }}>
-        <h2>Em breve</h2>
+        <h2 style={{ color: 'var(--light-text)' }}>Em breve</h2>
       </Box>
     </Card>
   );

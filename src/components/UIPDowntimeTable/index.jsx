@@ -114,11 +114,15 @@ export default function UIPDowntimeTable({ machines }) {
 
   return (
     <TableFilterContext.Provider value={{ filter, setFilter }}>
-      <Paper>
+      <Paper sx={{ background: 'var(--dark-background-2)' }}>
         <UIPTableToolbar />
         <TableContainer
           component={Paper}
-          sx={{ marginTop: 1, maxHeight: 615 }}
+          sx={{
+            marginTop: 1,
+            maxHeight: 615,
+            background: 'var(--dark-background-2)',
+          }}
           data-testid='machines-table'>
           {loadingTable ? (
             <LoadingTableSkeleton />
@@ -189,7 +193,9 @@ export default function UIPDowntimeTable({ machines }) {
                         toggleModalVisible(row);
                       }}
                       align='center'>
-                      <IconButton aria-label='more-actions'>
+                      <IconButton
+                        sx={{ color: 'var(--light-text)' }}
+                        aria-label='more-actions'>
                         <MoreVertIcon />
                       </IconButton>
                     </StyledTableCell>
@@ -209,6 +215,7 @@ export default function UIPDowntimeTable({ machines }) {
                     rowsPerPage={rowsPerPage}
                     rowsPerPageOptions={[]}
                     page={page}
+                    sx={{ color: 'var(--light-text)' }}
                     labelDisplayedRows={displayedRowsText}
                     onPageChange={handlePageChange}
                     ActionsComponent={TablePaginationActions}

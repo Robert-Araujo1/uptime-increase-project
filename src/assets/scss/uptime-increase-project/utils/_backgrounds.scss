@@ -1,14 +1,24 @@
+.theme-dark {
+    --dark-background: #3f3f3f;
+    --light-text: #F9F8F8;  
+    --light-background: #3f3f3f;
+    --dark-background-2: #292929;
+    --dark-shadow: 3px 3px 6px 0 rgba(136, 152, 170, .05) !important;
+    --dark-selection: rgb(255, 255, 255, .24);
+}
+
+.theme-light {
+    --dark-background: linear-gradient(117deg, rgba(2,0,36,1) 0%, rgba(9,64,121,0.06214985994397759) 0%);
+    --light-text: #5E4B56;
+    --light-background: #fff;
+    --dark-background-2: #fff;
+    --dark-shadow: 3px 3px 6px 0 rgba(136, 152, 170, .25) !important;
+    --dark-selection: rgb(0, 0, 0, .24)
+}
+
 .page-background {
     min-height: 100vh;
-    /* fallback for old browsers */
-    background: $standard-page-bg-2;
-
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: $standard-page-bg-old-browsers;
-
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: $standard-page-bg-new-browsers;
-    
+    background: var(--dark-background);
 }
 
 .page-background input::placeholder {
