@@ -38,7 +38,7 @@ export default () => {
 
     const socket = new WebSocket(WSSERVER);
     socket.onmessage = async ({data}) => {
-      if data === "vehicles.table.updated!" {
+      if (data === "vehicles.table.updated!") {
         await fetchVehicles();
       }
     };
