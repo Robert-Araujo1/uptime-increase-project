@@ -128,21 +128,21 @@ export default () => {
 const Machine = ({ id, machines }) => {
   for (let index = 0; index < machines.length; index++) {
     const machine = machines[index];
-    if (machine?.machinePin == id) {
+    if (machine?.MachineVin == id) {
       return <MapMarker machine={machine} index={index} />;
     }
   }
 };
 
 const MapMarker = ({ machine, index }) =>
-  typeof machine.location?.lat == 'number' && (
+  typeof machine.MachineLat == 'number' && (
     <Marker
       icon={UIPMarker(machine)}
       key={index}
-      position={[machine.location?.lat, machine.location?.lon]}>
+      position={[machine.MachineLat, machine.MachineLon]}>
       <Popup>
-        <strong>Cliente: {machine?.customer}</strong> <br />{' '}
-        <strong>Chassi:</strong> {machine?.machinePin}
+        <strong>Cliente: {machine?.CustomerName}</strong> <br />{' '}
+        <strong>Chassi:</strong> {machine?.MachineVin}
       </Popup>
     </Marker>
   );

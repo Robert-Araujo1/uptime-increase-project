@@ -9,9 +9,9 @@ import getMachineCategoryIcon from '../../utils/getMachineCategoryIcon';
 export default (machine) => {
   return L.icon({
     iconUrl:
-      machine.category == null
+      machine.MachineCategory == null
         ? unknown
-        : getMachineCategoryIcon(machine.category),
+        : getMachineCategoryIcon(machine.MachineCategory),
     shadowUrl: attentiton,
 
     iconSize: [32, 32],
