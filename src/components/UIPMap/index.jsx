@@ -37,8 +37,10 @@ export default () => {
     fetchVehicles();
 
     const socket = new WebSocket(WSSERVER);
-    socket.onmessage = async (event) => {
-      await fetchVehicles();
+    socket.onmessage = async ({ data }) => {
+      if (data === 'vehicles.table.updated!') {
+        await fetchVehicles();
+      }
     };
   }, []);
 
