@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { SERVER } from './constants';
+import PropTypes from 'prop-types';
 
-async function requestApi(url) {
+async function requestApi(url, method = 'GET', data = {}) {
   try {
     const response = await axios({
-      method: 'GET',
+      method: method,
       baseURL: SERVER,
       url: url,
       headers: { Authorization: localStorage.getItem('idToken') },
+      data: method !== 'GET' ? data : undefined,
     });
     return response.data;
   } catch (err) {
@@ -16,7 +18,7 @@ async function requestApi(url) {
 }
 
 export async function getMachines() {
-  return await requestApi('/get-stopped-machines');
+  return await requestApi('/stopped-machines');
 }
 
 export async function getVehicles() {
@@ -26,3 +28,36 @@ export async function getVehicles() {
 export async function getInsightData() {
   return await requestApi('/get-insight-data');
 }
+
+export async function updateOrder(data) {
+  return await requestApi('/update-order', 'PATCH', data);
+}
+
+updateOrder.propTypes = {
+  data: PropTypes.shape({
+    OrderId: PropTypes.string.isRequired,
+    CustomerName: PropTypes.string.isRequired,
+    User: PropTypes.string.isRequired,
+    Role: PropTypes.arrayOf(PropTypes.string).isRequired,
+    LastServiceStatusTimestamp: PropTypes.string.isRequired,
+    LastServiceStatus: PropTypes.oneOf(['in-progress', 'completed']).isRequired,
+    LastServiceStatusDescription: PropTypes.string,
+    ContactName: PropTypes.string,
+    ContactPhone: PropTypes.string,
+    ContactType: PropTypes.oneOf([
+      'phone',
+      'email',
+      'whatsapp',
+      'other-contact-type',
+    ]),
+    DowntimeReason: PropTypes.oneOf([
+      'broken-machine',
+      'building-work-stopped',
+      'no-contract',
+      'waiting-service',
+      'machine-not-stopped',
+      'other-downtime-reason',
+    ]),
+    LastServiceStatusDescription: PropTypes.string,
+  }),
+};

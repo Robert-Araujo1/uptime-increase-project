@@ -16,6 +16,7 @@ import L from 'leaflet';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import vehicleIcon from '../../assets/images/vehicles/pickup.svg';
+import useWebSocket from 'react-use-websocket';
 
 dayjs.extend(isToday);
 
@@ -23,32 +24,37 @@ export default () => {
   const [vehicles, setVehicles] = useState([]);
   const position = [-9.135222194454002, -39.903822968196536];
   const machines = useSelector((state) => state.machines.value);
+  const { lastMessage } = useWebSocket(WSSERVER);
   const { id } = useParams();
 
+  async function fetchVehicles() {
+    try {
+      const vehList = await getVehicles();
+      setVehicles(vehList.body);
+    } catch (err) {
+      console.error('Fetch vehicles data error.');
+    }
+  }
+
   useEffect(() => {
-    async function fetchVehicles() {
-      try {
-        const vehList = await getVehicles();
-        setVehicles(vehList.body);
-      } catch (err) {
-        console.error('Fetch vehicles data error.');
+    fetchVehicles();
+  }, []);
+
+  useEffect(() => {
+    if (lastMessage !== null) {
+      if (lastMessage.data == 'vehicles.table.updated!') {
+        fetchVehicles();
       }
     }
-    fetchVehicles();
-
-    const socket = new WebSocket(WSSERVER);
-    socket.onmessage = async (event) => {
-      await fetchVehicles();
-    };
-  }, []);
+  }, [lastMessage]);
 
   return (
     machines !== undefined && (
       <Paper>
-        <Box height={690} paddingY={1} paddingX={1}>
+        <Box height={'85dvh'} paddingY={1} paddingX={1}>
           <MapContainer
             style={{
-              height: '100%',
+              height: '82dvh',
               width: '100%',
             }}
             center={position}
@@ -128,7 +134,7 @@ export default () => {
 const Machine = ({ id, machines }) => {
   for (let index = 0; index < machines.length; index++) {
     const machine = machines[index];
-    if (machine?.MachineVin == id) {
+    if (machine?.OrderId == id) {
       return <MapMarker machine={machine} index={index} />;
     }
   }
