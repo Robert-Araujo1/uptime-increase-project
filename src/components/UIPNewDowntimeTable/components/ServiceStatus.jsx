@@ -31,7 +31,7 @@ export default function ({ status }) {
         {status === 'not-started'
           ? 'Não iniciado'
           : status === 'in-progress'
-            ? 'Em atendimento'
+            ? 'Em andamento'
             : status === 'completed'
               ? 'Concluído'
               : status}
