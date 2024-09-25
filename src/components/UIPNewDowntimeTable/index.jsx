@@ -509,7 +509,6 @@ export default function UIPNewDowntimeTable({ rows }) {
                         DowntimeReason: downtimeReason,
                         LastServiceStatusDescription: description,
                       });
-
                       if (response?.statusCode == 200) {
                         apiRef.current.updateRows([
                           {
@@ -526,7 +525,7 @@ export default function UIPNewDowntimeTable({ rows }) {
                         );
                         setSeveritySnackbar('success');
                         setOpenCompleteServiceModal(false);
-                      } else if (response.statusCode == 403) {
+                      } else if (response?.statusCode == 403) {
                         setMessageSnackbar(
                           `O equipamento ${machineSelected?.MachineVin || undefined} já está com atendimento concluído`
                         );
@@ -624,7 +623,7 @@ export default function UIPNewDowntimeTable({ rows }) {
                       `O status da máquina ${machineSelected?.MachineVin || undefined} foi alterado para "Em atendimento"`
                     );
                     setSeveritySnackbar('success');
-                  } else if (response.statusCode == 403) {
+                  } else if (response?.statusCode == 403) {
                     setMessageSnackbar(
                       `O equipamento ${machineSelected?.MachineVin || undefined} já está em atendimento`
                     );

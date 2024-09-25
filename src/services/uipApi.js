@@ -30,7 +30,7 @@ export async function getInsightData() {
 }
 
 export async function updateOrder(data) {
-  return await requestApi('/update-order', 'PATCH', data);
+  return await requestApi('/orders/update-order', 'PATCH', data);
 }
 
 updateOrder.propTypes = {
