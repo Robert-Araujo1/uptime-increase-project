@@ -26,7 +26,7 @@ export async function getVehicles() {
 }
 
 export async function getInsightData() {
-  return await requestApi('/get-insight-data');
+  return await requestApi('/insight-data');
 }
 
 export async function updateOrder(data) {
