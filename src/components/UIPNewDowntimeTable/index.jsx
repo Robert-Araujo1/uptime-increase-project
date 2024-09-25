@@ -178,6 +178,7 @@ export default function UIPNewDowntimeTable({ rows }) {
     <>
       <Box sx={{ height: '85dvh', width: '100%' }}>
         <DataGrid
+          loading={rows.length == 0}
           rows={rows}
           columns={columns}
           apiRef={apiRef}
