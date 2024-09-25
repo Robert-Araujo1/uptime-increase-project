@@ -460,7 +460,6 @@ export default function UIPNewDowntimeTable({ rows }) {
                 color='success'
                 variant='contained'
                 onClick={async () => {
-                  setOpenBackdrop(true);
                   if (
                     customerName == '' ||
                     phoneNumber == '' ||
@@ -475,6 +474,8 @@ export default function UIPNewDowntimeTable({ rows }) {
                     setOpenSnackbar(true);
                     return;
                   }
+
+                  setOpenBackdrop(true);
                   const accessToken = localStorage.getItem('accessToken');
                   const user = localStorage.getItem('email');
                   const validation = await validateToken(accessToken);
@@ -484,6 +485,7 @@ export default function UIPNewDowntimeTable({ rows }) {
                     setMessageSnackbar('User unknown. Please, relogin.');
                     setSeveritySnackbar('error');
                     setOpenSnackbar(true);
+                    setOpenBackdrop(false);
                     return;
                   }
 
