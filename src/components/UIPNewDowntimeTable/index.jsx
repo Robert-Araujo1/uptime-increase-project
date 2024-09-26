@@ -38,6 +38,7 @@ import {
   CircularProgress,
   TextField,
 } from '@mui/material';
+import CustomToolbar from './components/CustomToolbar';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -68,6 +69,21 @@ export default function UIPNewDowntimeTable({ rows }) {
   const apiRef = useGridApiRef();
 
   const columns = [
+    {
+      field: 'Actions',
+      headerName: 'Ações',
+      width: 90,
+      filterable: false,
+      sortable: false,
+      renderCell: () => (
+        <IconButton
+          sx={{ color: 'var(--light-text)' }}
+          aria-label='more-actions'
+          onClick={(event) => setAnchorEl(event.currentTarget)}>
+          <MoreVertIcon />
+        </IconButton>
+      ),
+    },
     {
       field: 'LastServiceStatus',
       headerName: 'Status de atendimento',
@@ -117,21 +133,6 @@ export default function UIPNewDowntimeTable({ rows }) {
       filterable: false,
       sortable: false,
       renderCell: ({ row }) => <LeadSignal machine={row} />,
-    },
-    {
-      field: 'Actions',
-      headerName: 'Ações',
-      width: 90,
-      filterable: false,
-      sortable: false,
-      renderCell: () => (
-        <IconButton
-          sx={{ color: 'var(--light-text)' }}
-          aria-label='more-actions'
-          onClick={(event) => setAnchorEl(event.currentTarget)}>
-          <MoreVertIcon />
-        </IconButton>
-      ),
     },
   ];
 
@@ -229,6 +230,9 @@ export default function UIPNewDowntimeTable({ rows }) {
           rowSelectionModel={selectedRow}
           hideFooterSelectedRowCount
           pageSizeOptions={[20]}
+          slots={{
+            toolbar: CustomToolbar,
+          }}
         />
       </Box>
       <Modal open={openModal} onClose={toggleModalVisible}>
@@ -474,82 +478,23 @@ export default function UIPNewDowntimeTable({ rows }) {
                     setOpenSnackbar(true);
                     return;
                   }
-
-                  setOpenBackdrop(true);
-                  const accessToken = localStorage.getItem('accessToken');
-                  const user = localStorage.getItem('email');
-                  const validation = await validateToken(accessToken);
-                  let groups;
-
-                  if (user == undefined) {
-                    setMessageSnackbar('User unknown. Please, relogin.');
-                    setSeveritySnackbar('error');
-                    setOpenSnackbar(true);
-                    setOpenBackdrop(false);
-                    return;
-                  }
-
-                  if (
-                    validation &&
-                    typeof validation === 'object' &&
-                    validation.hasOwnProperty('cognito:groups')
-                  ) {
-                    groups = validation['cognito:groups'];
-                    try {
-                      const response = await updateOrder({
-                        OrderId: machineSelected.OrderId,
-                        CustomerName: machineSelected.CustomerName,
-                        LastServiceStatus: 'completed',
-                        LastServiceStatusTimestamp: dayjs()
-                          .tz('America/Sao_Paulo')
-                          .format('YYYY-MM-DDTHH:mm:ss.SSS'),
-                        User: user,
-                        Role: groups,
-                        ContactName: customerName,
-                        ContactType: contactType,
-                        ContactPhone: phoneNumber,
-                        DowntimeReason: downtimeReason,
-                        LastServiceStatusDescription: description,
-                      });
-                      if (response?.statusCode == 200) {
-                        apiRef.current.updateRows([
-                          {
-                            OrderId: machineSelected.OrderId,
-                            LastServiceStatus: 'completed',
-                          },
-                        ]);
-                        setMachineSelected((prev) => ({
-                          ...prev,
-                          LastServiceStatus: 'completed',
-                        }));
-                        setMessageSnackbar(
-                          `O status da máquina ${machineSelected?.MachineVin || undefined} foi alterado para "Concluído"`
-                        );
-                        setSeveritySnackbar('success');
-                        setOpenCompleteServiceModal(false);
-                      } else if (response?.statusCode == 403) {
-                        setMessageSnackbar(
-                          `O equipamento ${machineSelected?.MachineVin || undefined} já está com atendimento concluído`
-                        );
-                        setSeveritySnackbar('info');
-                      } else {
-                        setMessageSnackbar(
-                          `Ocorreu um erro ao tentar alterar o status da máquina ${machineSelected?.MachineVin || undefined}`
-                        );
-                        setSeveritySnackbar('error');
-                        console.error(response);
-                      }
-                      setOpenBackdrop(false);
-                      setOpenSnackbar(true);
-                    } catch (error) {
-                      setMessageSnackbar(
-                        `Ocorreu um erro ao tentar alterar o status da máquina ${machineSelected?.MachineVin || undefined}`
-                      );
-                      setSeveritySnackbar('error');
-                      setOpenBackdrop(false);
-                      console.error(error);
-                    }
-                  }
+                  handleService(
+                    apiRef,
+                    setOpenBackdrop,
+                    setAnchorEl,
+                    setMessageSnackbar,
+                    setSeveritySnackbar,
+                    setOpenSnackbar,
+                    setMachineSelected,
+                    'completed',
+                    machineSelected,
+                    customerName,
+                    phoneNumber,
+                    description,
+                    contactType,
+                    downtimeReason
+                  );
+                  setOpenCompleteServiceModal(false);
                 }}>
                 Concluir
               </Button>
@@ -577,78 +522,19 @@ export default function UIPNewDowntimeTable({ rows }) {
         </MenuItem>
         {machineSelected.LastServiceStatus == 'not-started' ? (
           <MenuItem
-            onClick={async () => {
-              setAnchorEl(null);
-              setOpenBackdrop(true);
-              const accessToken = localStorage.getItem('accessToken');
-              const user = localStorage.getItem('email');
-              const validation = await validateToken(accessToken);
-              let groups;
-
-              if (user == undefined) {
-                setMessageSnackbar('User unknown. Please, relogin.');
-                setSeveritySnackbar('error');
-                setOpenSnackbar(true);
-                return;
-              }
-
-              if (
-                validation &&
-                typeof validation === 'object' &&
-                validation.hasOwnProperty('cognito:groups')
-              ) {
-                groups = validation['cognito:groups'];
-                try {
-                  const response = await updateOrder({
-                    OrderId: machineSelected.OrderId,
-                    CustomerName: machineSelected.CustomerName,
-                    LastServiceStatus: 'in-progress',
-                    LastServiceStatusTimestamp: dayjs()
-                      .tz('America/Sao_Paulo')
-                      .format('YYYY-MM-DDTHH:mm:ss.SSS'),
-                    User: user,
-                    Role: groups,
-                  });
-
-                  if (response?.statusCode == 200) {
-                    apiRef.current.updateRows([
-                      {
-                        OrderId: machineSelected.OrderId,
-                        LastServiceStatus: 'in-progress',
-                      },
-                    ]);
-                    setMachineSelected((prev) => ({
-                      ...prev,
-                      LastServiceStatus: 'in-progress',
-                    }));
-                    setMessageSnackbar(
-                      `O status da máquina ${machineSelected?.MachineVin || undefined} foi alterado para "Em atendimento"`
-                    );
-                    setSeveritySnackbar('success');
-                  } else if (response?.statusCode == 403) {
-                    setMessageSnackbar(
-                      `O equipamento ${machineSelected?.MachineVin || undefined} já está em atendimento`
-                    );
-                    setSeveritySnackbar('info');
-                  } else {
-                    setMessageSnackbar(
-                      `Ocorreu um erro ao tentar alterar o status da máquina ${machineSelected?.MachineVin || undefined}`
-                    );
-                    setSeveritySnackbar('error');
-                    console.error(response);
-                  }
-                  setOpenSnackbar(true);
-                  setOpenBackdrop(false);
-                } catch (error) {
-                  setMessageSnackbar(
-                    `Ocorreu um erro ao tentar alterar o status da máquina ${machineSelected?.MachineVin || undefined}`
-                  );
-                  setSeveritySnackbar('error');
-                  setOpenBackdrop(false);
-                  console.error(error);
-                }
-              }
-            }}>
+            onClick={async () =>
+              handleService(
+                apiRef,
+                setOpenBackdrop,
+                setAnchorEl,
+                setMessageSnackbar,
+                setSeveritySnackbar,
+                setOpenSnackbar,
+                setMachineSelected,
+                'in-progress',
+                machineSelected
+              )
+            }>
             Iniciar atendimento
           </MenuItem>
         ) : machineSelected.LastServiceStatus == 'in-progress' ? (
@@ -740,3 +626,114 @@ const CustomAccordion = ({ title, children, defaultExpanded }) => (
     <AccordionDetails>{children}</AccordionDetails>
   </Accordion>
 );
+
+const handleService = async (
+  apiRef,
+  setOpenBackdrop,
+  setAnchorEl,
+  setMessageSnackbar,
+  setSeveritySnackbar,
+  setOpenSnackbar,
+  setMachineSelected,
+  status,
+  machineSelected,
+  customerName = undefined,
+  phoneNumber = undefined,
+  description = undefined,
+  contactType = undefined,
+  downtimeReason = undefined
+) => {
+  setAnchorEl(null);
+  setOpenBackdrop(true);
+  const accessToken = localStorage.getItem('accessToken');
+  const user = localStorage.getItem('email');
+  const validation = await validateToken(accessToken);
+  let groups;
+
+  if (user == undefined) {
+    setMessageSnackbar('User unknown. Please, relogin.');
+    setSeveritySnackbar('error');
+    setOpenSnackbar(true);
+    return;
+  }
+
+  if (
+    validation &&
+    typeof validation === 'object' &&
+    validation.hasOwnProperty('cognito:groups')
+  ) {
+    groups = validation['cognito:groups'];
+    try {
+      let order;
+      if (status == 'in-progress') {
+        order = {
+          OrderId: machineSelected.OrderId,
+          CustomerName: machineSelected.CustomerName,
+          LastServiceStatus: status,
+          LastServiceStatusTimestamp: dayjs()
+            .tz('America/Sao_Paulo')
+            .format('YYYY-MM-DDTHH:mm:ss.SSS'),
+          User: user,
+          Role: groups,
+        };
+      } else if (status == 'completed') {
+        order = {
+          OrderId: machineSelected.OrderId,
+          CustomerName: machineSelected.CustomerName,
+          LastServiceStatus: status,
+          LastServiceStatusTimestamp: dayjs()
+            .tz('America/Sao_Paulo')
+            .format('YYYY-MM-DDTHH:mm:ss.SSS'),
+          User: user,
+          Role: groups,
+          ContactName: customerName,
+          ContactType: contactType,
+          ContactPhone: phoneNumber,
+          DowntimeReason: downtimeReason,
+          LastServiceStatusDescription: description,
+        };
+      } else {
+        console.error('Status not recognized');
+        return;
+      }
+      const response = await updateOrder(order);
+
+      if (response?.statusCode == 200) {
+        apiRef.current.updateRows([
+          {
+            OrderId: machineSelected.OrderId,
+            LastServiceStatus: status,
+          },
+        ]);
+        setMachineSelected((prev) => ({
+          ...prev,
+          LastServiceStatus: status,
+        }));
+        setMessageSnackbar(
+          `O status da máquina ${machineSelected?.MachineVin || undefined} foi alterado para "Em atendimento"`
+        );
+        setSeveritySnackbar('success');
+      } else if (response?.statusCode == 403) {
+        setMessageSnackbar(
+          `O equipamento ${machineSelected?.MachineVin || undefined} já está em atendimento`
+        );
+        setSeveritySnackbar('info');
+      } else {
+        setMessageSnackbar(
+          `Ocorreu um erro ao tentar alterar o status da máquina ${machineSelected?.MachineVin || undefined}`
+        );
+        setSeveritySnackbar('error');
+        console.error(response);
+      }
+      setOpenSnackbar(true);
+      setOpenBackdrop(false);
+    } catch (error) {
+      setMessageSnackbar(
+        `Ocorreu um erro ao tentar alterar o status da máquina ${machineSelected?.MachineVin || undefined}`
+      );
+      setSeveritySnackbar('error');
+      setOpenBackdrop(false);
+      console.error(error);
+    }
+  }
+};
