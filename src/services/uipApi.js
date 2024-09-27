@@ -24,5 +24,39 @@ export async function getVehicles() {
 }
 
 export async function getInsightData() {
-  return await requestApi('/get-insight-data');
+  return await requestApi('/insight-data');
 }
+
+export async function updateOrder(data) {
+  return await requestApi('/orders/update-order', 'PATCH', data);
+}
+
+updateOrder.propTypes = {
+  data: PropTypes.shape({
+    OrderId: PropTypes.string.isRequired,
+    CustomerName: PropTypes.string.isRequired,
+    User: PropTypes.string.isRequired,
+    Role: PropTypes.arrayOf(PropTypes.string).isRequired,
+    LastServiceStatusTimestamp: PropTypes.string.isRequired,
+    LastServiceStatus: PropTypes.oneOf(['in-progress', 'completed']).isRequired,
+    LastServiceStatusDescription: PropTypes.string,
+    ContactName: PropTypes.string,
+    ContactPhone: PropTypes.string,
+    ContactType: PropTypes.oneOf([
+      'phone',
+      'email',
+      'whatsapp',
+      'other-contact-type',
+    ]),
+    DowntimeReason: PropTypes.oneOf([
+      'broken-machine',
+      'building-work-stopped',
+      'no-contract',
+      'waiting-service',
+      'machine-not-stopped',
+      'other-downtime-reason',
+    ]),
+    LastServiceStatusDescription: PropTypes.string,
+  }),
+};
+
