@@ -59,4 +59,3 @@ updateOrder.propTypes = {
     LastServiceStatusDescription: PropTypes.string,
   }),
 };
-

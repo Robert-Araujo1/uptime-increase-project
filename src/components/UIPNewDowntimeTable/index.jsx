@@ -33,7 +33,6 @@ import CustomToolbar from './components/CustomToolbar';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-
 export default function UIPNewDowntimeTable({ rows }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [machineSelected, setMachineSelected] = useState({});
@@ -170,7 +169,6 @@ export default function UIPNewDowntimeTable({ rows }) {
           slots={{
             toolbar: CustomToolbar,
           }}
-
         />
       </Box>
       <Modal open={openModal} onClose={toggleModalVisible}>
@@ -485,7 +483,6 @@ export default function UIPNewDowntimeTable({ rows }) {
             Encerrar atendimento
           </MenuItem>
         ) : undefined}
-
       </Menu>
     </>
   );
@@ -660,4 +657,3 @@ const handleService = async (
     }
   }
 };
-
