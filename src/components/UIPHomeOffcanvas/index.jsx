@@ -12,7 +12,7 @@ export default () => {
       id='offcanvasContent'
       aria-labelledby='homeOffcanvas'>
       <OffcanvasHeader />
-      <div className='offcanvas-body d-flex flex-column align-items-start'>
+      <div className='offcanvas-body d-flex flex-column align-items-start ps-0'>
         <OffcanvasMenuList />
         <OffcanvasProfileBtn />
         <div className='d-flex w-100 justify-content-center'>

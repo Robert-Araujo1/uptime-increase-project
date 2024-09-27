@@ -16,10 +16,8 @@ import getMachineCategoryIcon from '../../utils/getMachineCategoryIcon';
 import timezone from 'dayjs/plugin/timezone';
 import Snackbar from '@mui/material/Snackbar';
 import utc from 'dayjs/plugin/utc';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import UIPAccordion from '../UIPAccordion';
+import UIPCustomModalInput from '../UIPCustomModalInput';
 import { MuiTelInput } from 'mui-tel-input';
 import { downtimeReasons, contactTypes } from './utils/constants';
 import { validateToken } from '../../services/authentication';
@@ -39,6 +37,7 @@ import {
   TextField,
 } from '@mui/material';
 import CustomToolbar from './components/CustomToolbar';
+import UIPCustomSelectInput from '../UIPCustomSelectInput';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -376,7 +375,7 @@ export default function UIPNewDowntimeTable({ rows }) {
             </IconButton>
           </Box>
           <Box my={1} component='form'>
-            <CustomAccordion title='Informações da Máquina'>
+            <UIPAccordion title='Informações da Máquina'>
               <Box
                 sx={{
                   display: 'flex',
@@ -405,9 +404,9 @@ export default function UIPNewDowntimeTable({ rows }) {
                   {`${machineSelected?.MachineCity} - ${machineSelected?.MachineStateAcronym}`}
                 </Typography>
               </Box>
-            </CustomAccordion>
-            <CustomAccordion defaultExpanded title='Informações do Cliente'>
-              <CustomInput
+            </UIPAccordion>
+            <UIPAccordion defaultExpanded title='Informações do Cliente'>
+              <UIPCustomModalInput
                 onChange={(event) => {
                   setCustomerName(event.target.value);
                 }}
@@ -431,19 +430,19 @@ export default function UIPNewDowntimeTable({ rows }) {
                 }}
                 sx={{ marginBottom: 3 }}
               />
-              <CustomSelect
+              <UIPCustomSelectInput
                 items={contactTypes}
                 label='Tipo de Contato'
                 onChange={(event) => setContactType(event.target.value.type)}
               />
-            </CustomAccordion>
-            <CustomAccordion defaultExpanded title='Informações do Atendimento'>
-              <CustomSelect
+            </UIPAccordion>
+            <UIPAccordion defaultExpanded title='Informações do Atendimento'>
+              <UIPCustomSelectInput
                 items={downtimeReasons}
                 label='Motivo da inatividade da máquina'
                 onChange={(event) => setDowntimeReason(event.target.value.type)}
               />
-              <CustomInput
+              <UIPCustomModalInput
                 label='Descrição do atendimento'
                 id='observations-complete-service'
                 height={100}
@@ -458,7 +457,7 @@ export default function UIPNewDowntimeTable({ rows }) {
                   },
                 }}
               />
-            </CustomAccordion>
+            </UIPAccordion>
             <Box sx={{ textAlign: 'right', my: 2 }}>
               <Button
                 color='success'
@@ -567,65 +566,6 @@ export default function UIPNewDowntimeTable({ rows }) {
     </>
   );
 }
-
-const CustomInput = ({ id, label, height, maxLength, ...props }) => (
-  <TextField
-    required
-    fullWidth
-    label={label}
-    size='small'
-    id={id}
-    InputLabelProps={{ style: { color: 'var(--light-text)' }, shrink: true }}
-    inputProps={{
-      style: { color: 'var(--light-text)', height: height || 20 },
-      maxLength: maxLength || 100,
-    }}
-    sx={{ marginBottom: 3 }}
-    {...props}
-  />
-);
-
-const CustomSelect = ({ items, label, width, ...props }) => (
-  <TextField
-    required
-    size='small'
-    defaultValue={''}
-    InputProps={{
-      style: { color: 'var(--light-text)', accentColor: 'var(--light-text)' },
-    }}
-    InputLabelProps={{ style: { color: 'var(--light-text)' }, shrink: true }}
-    sx={{
-      marginBottom: 3,
-      width: width || '100%',
-      '.MuiSvgIcon-root ': {
-        fill: 'var(--light-text) !important',
-      },
-    }}
-    select
-    label={label}
-    {...props}>
-    {items.map((item, index) => (
-      <MenuItem key={index} value={item}>
-        {item.label}
-      </MenuItem>
-    ))}
-  </TextField>
-);
-
-const CustomAccordion = ({ title, children, defaultExpanded }) => (
-  <Accordion
-    defaultExpanded={defaultExpanded || false}
-    sx={{
-      backgroundColor: 'var(--dark-background-2)',
-      color: 'var(--light-text)',
-    }}>
-    <AccordionSummary
-      expandIcon={<ExpandMore sx={{ color: 'var(--light-text)' }} />}>
-      <Typography sx={{ fontWeight: 'bold' }}>{title}</Typography>
-    </AccordionSummary>
-    <AccordionDetails>{children}</AccordionDetails>
-  </Accordion>
-);
 
 const handleService = async (
   apiRef,

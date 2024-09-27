@@ -1,7 +1,6 @@
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import GroupsIcon from '@mui/icons-material/Groups';
+import BuildIcon from '@mui/icons-material/Build';
 import i18next from '../../i18n/i18n';
 import { useLocation } from 'react-router-dom';
 
@@ -20,14 +19,9 @@ export default () => {
       icon: <NearMeIcon />,
     },
     {
-      href: '#',
-      name: i18next.t('genericPhrases.underConstruction'),
-      icon: <NotificationsIcon />,
-    },
-    {
-      href: '#',
-      name: i18next.t('genericPhrases.underConstruction'),
-      icon: <GroupsIcon />,
+      href: '/home/workshop-management',
+      name: 'Gestão de Oficina - Máquinas Paradas',
+      icon: <BuildIcon />,
     },
   ];
   return (
