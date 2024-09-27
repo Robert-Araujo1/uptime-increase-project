@@ -13,22 +13,12 @@ import LeadSignal from './utils/LeadSignal';
 import ServerDay from './utils/ServerDay';
 import i18next from '../../i18n/i18n';
 import getMachineCategoryIcon from '../../utils/getMachineCategoryIcon';
-import timezone from 'dayjs/plugin/timezone';
-import Snackbar from '@mui/material/Snackbar';
-import utc from 'dayjs/plugin/utc';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import { MuiTelInput } from 'mui-tel-input';
-import { downtimeReasons, contactTypes } from './utils/constants';
-import { validateToken } from '../../services/authentication';
-import { updateOrder } from '../../services/uipApi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DataGrid } from '@mui/x-data-grid';
+
 import { useEffect, useState } from 'react';
 import { useGridApiRef } from '@mui/x-data-grid';
 import {
@@ -43,6 +33,7 @@ import CustomToolbar from './components/CustomToolbar';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+
 export default function UIPNewDowntimeTable({ rows }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [machineSelected, setMachineSelected] = useState({});
@@ -51,22 +42,10 @@ export default function UIPNewDowntimeTable({ rows }) {
   const [dtcs, setDtcs] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState([]);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [messageSnackbar, setMessageSnackbar] = useState('');
-  const [severitySnackbar, setSeveritySnackbar] = useState('success');
-  const [openBackdrop, setOpenBackdrop] = useState(false);
-  const [openCompleteServiceModal, setOpenCompleteServiceModal] =
-    useState(false);
-  const [customerName, setCustomerName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [description, setDescription] = useState('');
-  const [contactType, setContactType] = useState('');
-  const [downtimeReason, setDowntimeReason] = useState('');
 
   const openMenu = Boolean(anchorEl);
   const navigate = useNavigate();
   const { id } = useParams();
-  const apiRef = useGridApiRef();
 
   const columns = [
     {
@@ -95,16 +74,6 @@ export default function UIPNewDowntimeTable({ rows }) {
     {
       field: 'MachineVin',
       headerName: 'Chassi',
-      width: 190,
-    },
-    {
-      field: 'MachineCity',
-      headerName: 'Cidade',
-      width: 190,
-    },
-    {
-      field: 'MachineState',
-      headerName: 'Estado',
       width: 190,
     },
     {
@@ -149,63 +118,36 @@ export default function UIPNewDowntimeTable({ rows }) {
       );
       setDtcs(allDtcs);
       setMachineSelected(row);
-      navigate(`/home/machines/${row.OrderId}`);
+      navigate(`/home/machines/${row.MachineVin}`);
     }
     setSelectedDate(undefined);
     setOpenModal((prev) => !prev);
   };
 
   const handleRowClick = (row) => {
-    if (row.OrderId == id) {
+    if (row.MachineVin == id) {
       navigate('/home/machines');
       return;
     }
-    navigate(`/home/machines/${row.OrderId}`);
+    navigate(`/home/machines/${row.MachineVin}`);
   };
-
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  useEffect(() => {
-    if (id == undefined) {
-      localStorage.removeItem('selectedRow');
-      return;
-    }
-    setSelectedRow([id]);
-  }, []);
 
   return (
     <>
-      <Box sx={{ height: '85dvh', width: '100%' }}>
+      <Box sx={{ height: '100%', width: '100%' }}>
         <DataGrid
           loading={rows.length == 0}
           rows={rows}
           columns={columns}
-          apiRef={apiRef}
           getRowId={(row) => row.OrderId}
-          onCellClick={({ row, field }) => {
-            sessionStorage.setItem('fieldClicked', field);
-            if (
-              field != 'Actions' ||
-              selectedRow.length == 0 ||
-              selectedRow[0] !== row.OrderId
-            ) {
-              handleRowClick(row);
-              setMachineSelected(row);
-            }
-
-            if (
-              field == 'Actions' &&
-              Object.values(machineSelected).length == 0
-            ) {
-              setMachineSelected(row);
-            }
+          onRowClick={({ row }) => {
+            handleRowClick(row);
+            setMachineSelected(row);
           }}
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 20,
+                pageSize: 10,
               },
             },
           }}
@@ -217,22 +159,18 @@ export default function UIPNewDowntimeTable({ rows }) {
               outline: 'none !important',
             },
           }}
-          onRowSelectionModelChange={(selection) => {
-            const fieldClicked = sessionStorage.getItem('fieldClicked');
-            if (selectedRow[0] == selection[0] && fieldClicked != 'Actions') {
-              setSelectedRow([]);
-              localStorage.removeItem('selectedRow');
-              return;
-            }
-            setSelectedRow(selection);
-            localStorage.setItem('selectedRow', JSON.stringify(selection));
-          }}
+          onRowSelectionModelChange={(selection) =>
+            selectedRow[0] == selection[0]
+              ? setSelectedRow([])
+              : setSelectedRow(selection)
+          }
           rowSelectionModel={selectedRow}
           hideFooterSelectedRowCount
           pageSizeOptions={[20]}
           slots={{
             toolbar: CustomToolbar,
           }}
+
         />
       </Box>
       <Modal open={openModal} onClose={toggleModalVisible}>
@@ -509,6 +447,7 @@ export default function UIPNewDowntimeTable({ rows }) {
           </Box>
         </Box>
       </Modal>
+
       <Menu
         open={openMenu}
         anchorEl={anchorEl}
@@ -546,24 +485,8 @@ export default function UIPNewDowntimeTable({ rows }) {
             Encerrar atendimento
           </MenuItem>
         ) : undefined}
+
       </Menu>
-      <Snackbar
-        open={openSnackbar}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        onClose={() => setOpenSnackbar(false)}
-        autoHideDuration={4000}>
-        <Alert
-          severity={severitySnackbar}
-          variant='filled'
-          onClose={() => setOpenSnackbar(false)}>
-          {messageSnackbar}
-        </Alert>
-      </Snackbar>
-      <Backdrop
-        open={openBackdrop}
-        sx={(theme) => ({ color: '#fff', zIndex: 9999 })}>
-        <CircularProgress color='info' />
-      </Backdrop>
     </>
   );
 }
@@ -737,3 +660,4 @@ const handleService = async (
     }
   }
 };
+

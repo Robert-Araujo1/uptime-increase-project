@@ -1,15 +1,13 @@
 import axios from 'axios';
 import { SERVER } from './constants';
-import PropTypes from 'prop-types';
 
-async function requestApi(url, method = 'GET', data = {}) {
+async function requestApi(url) {
   try {
     const response = await axios({
-      method: method,
+      method: 'GET',
       baseURL: SERVER,
       url: url,
       headers: { Authorization: localStorage.getItem('idToken') },
-      data: method !== 'GET' ? data : undefined,
     });
     return response.data;
   } catch (err) {
@@ -18,7 +16,7 @@ async function requestApi(url, method = 'GET', data = {}) {
 }
 
 export async function getMachines() {
-  return await requestApi('/stopped-machines');
+  return await requestApi('/get-stopped-machines');
 }
 
 export async function getVehicles() {
@@ -61,3 +59,4 @@ updateOrder.propTypes = {
     LastServiceStatusDescription: PropTypes.string,
   }),
 };
+
