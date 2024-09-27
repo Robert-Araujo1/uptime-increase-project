@@ -31,12 +31,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import getMachineCategoryIcon from '../../utils/getMachineCategoryIcon';
 import { LuSignal, LuSignalHigh, LuSignalMedium } from 'react-icons/lu';
 import { PiCellSignalX } from 'react-icons/pi';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
 export default function UIPDowntimeTable({ machines }) {
   const [machinesList, setMachinesList] = useState([]);
   const [rows, setRows] = useState(machinesList);
   const [filter, setFilter] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [page, setPage] = useState(0);
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(undefined);
@@ -45,6 +48,7 @@ export default function UIPDowntimeTable({ machines }) {
   const [dtcs, setDtcs] = useState([]);
   const [machineSelected, setMachineSelected] = useState({});
 
+  const openMenu = Boolean(anchorEl);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -156,24 +160,26 @@ export default function UIPDowntimeTable({ machines }) {
                     sx={{
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}>
-                    {Object.entries(row).map(
-                      ([key, value], index) =>
-                        [
-                          'customer',
-                          'machinePin',
-                          'engineHours',
-                          'identifiedIn',
-                        ].includes(key) && (
-                          <StyledTableCell
-                            onClick={() => handleRowClick(row)}
-                            key={index}
-                            align={index === 0 ? 'left' : 'center'}>
-                            {key === 'identifiedIn'
-                              ? dayjs(value).format('DD/MM/YYYY')
-                              : value}
-                          </StyledTableCell>
-                        )
-                    )}
+                    <StyledTableCell
+                      align='center'
+                      onClick={() => handleRowClick(row)}>
+                      {row.customer}
+                    </StyledTableCell>
+                    <StyledTableCell
+                      align='center'
+                      onClick={() => handleRowClick(row)}>
+                      {row.machinePin}
+                    </StyledTableCell>
+                    <StyledTableCell
+                      align='center'
+                      onClick={() => handleRowClick(row)}>
+                      {row.engineHours}
+                    </StyledTableCell>
+                    <StyledTableCell
+                      align='center'
+                      onClick={() => handleRowClick(row)}>
+                      {dayjs(row.identifiedIn).format('DD/MM/YYYY')}
+                    </StyledTableCell>
                     <StyledTableCell
                       align='center'
                       onClick={() => handleRowClick(row)}>
@@ -188,14 +194,14 @@ export default function UIPDowntimeTable({ machines }) {
                       onClick={() => handleRowClick(row)}>
                       <LeadSignal machine={row} />
                     </StyledTableCell>
-                    <StyledTableCell
-                      onClick={() => {
-                        toggleModalVisible(row);
-                      }}
-                      align='center'>
+                    <StyledTableCell align='center'>
                       <IconButton
                         sx={{ color: 'var(--light-text)' }}
-                        aria-label='more-actions'>
+                        aria-label='more-actions'
+                        onClick={(event) => {
+                          setMachineSelected(row);
+                          setAnchorEl(event.currentTarget);
+                        }}>
                         <MoreVertIcon />
                       </IconButton>
                     </StyledTableCell>
@@ -331,6 +337,21 @@ export default function UIPDowntimeTable({ machines }) {
           </Box>
         </Box>
       </Modal>
+      <Menu
+        open={openMenu}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}>
+        <MenuItem
+          onClick={() => {
+            toggleModalVisible(machineSelected);
+            setAnchorEl(null);
+          }}>
+          Ver histórico da máquina
+        </MenuItem>
+        <MenuItem onClick={() => setAnchorEl(null)}>
+          Iniciar atendimento
+        </MenuItem>
+      </Menu>
     </TableFilterContext.Provider>
   );
 }

@@ -11,3 +11,18 @@
 .search-input-table fieldset {
   border-color: var(--light-text);
 }
+
+.MuiTablePagination-displayedRows, 
+.MuiTablePagination-root button, 
+.MuiDataGrid-menuIcon button,
+.MuiDataGrid-iconButtonContainer button {
+  color: var(--light-text);
+}
+
+.MuiOutlinedInput-notchedOutline  {
+  border-color: var(--light-text) !important;
+}
+
+.Mui-selected {
+  background-color: rgba(127, 144, 161, 0.5) !important;
+}
