@@ -5,7 +5,7 @@ import columns from './constants/columns';
 import CustomToolbar from './components/CustomToolbar';
 import AddEquipModal from './components/AddEquipModal';
 import styles from './styles';
-
+import { initialState } from './constants/props';
 export default function () {
   const [openAddEquipModal, setOpenAddEquipModal] = useState(true);
 
@@ -23,6 +23,7 @@ export default function () {
               <CustomToolbar setOpenAddEquipModal={setOpenAddEquipModal} />
             ),
           }}
+          initialState={initialState}
         />
       </Box>
       <AddEquipModal

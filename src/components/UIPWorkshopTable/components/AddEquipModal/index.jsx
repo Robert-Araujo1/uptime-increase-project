@@ -5,38 +5,51 @@ import Header from './Header';
 import StoppedReasonAccordion from './StoppedReasonAccordion';
 import MachineAccordion from './MachineAccordion';
 import ResponsibleAccordion from './ResponsibleAccordion';
-import Button from '@mui/material/Button';
-import 'dayjs/locale/pt-br';
+import DoubleButtons from './DoubleButtons';
+import handleFormSubmit from './utils/handleFormSubmit';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { clearWMOrder } from '../../../../features/workshop-management-order/wmOrderSlice';
+import 'dayjs/locale/pt-br.js';
 
 export default function ({ openAddEquipModal, setOpenAddEquipModal }) {
-  const handleClose = () => {
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const order = useSelector((state) => state.wmOrder.order);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'backdropClick') return;
+
     setOpenAddEquipModal(false);
+    dispatch(clearWMOrder());
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setLoading(true);
+    const handling = await handleFormSubmit(order);
+    if (handling?.statusCode == '200') {
+      handleClose();
+    }
+    setLoading(false);
   };
 
   return (
-    <Modal open={openAddEquipModal} onClose={handleClose}>
-      <Box sx={styles.addEquipModal.container} component='form'>
+    <Modal
+      method='dialog'
+      component='form'
+      open={openAddEquipModal}
+      onClose={handleClose}
+      onSubmit={handleSubmit}>
+      <Box sx={styles.addEquipModal.container}>
         <Header handleClose={handleClose} />
         <ResponsibleAccordion />
         <MachineAccordion />
         <StoppedReasonAccordion />
-        <DoubleButtons handleClose={handleClose} />
+        <DoubleButtons handleClose={handleClose} loading={loading} />
       </Box>
     </Modal>
   );
 }
-
-const DoubleButtons = ({ handleClose }) => (
-  <Box sx={{ textAlign: 'right', my: 2 }}>
-    <Button
-      sx={{ marginRight: 2 }}
-      type='submit'
-      color='success'
-      variant='contained'>
-      Concluir
-    </Button>
-    <Button color='error' variant='contained' onClick={handleClose}>
-      Cancelar
-    </Button>
-  </Box>
-);

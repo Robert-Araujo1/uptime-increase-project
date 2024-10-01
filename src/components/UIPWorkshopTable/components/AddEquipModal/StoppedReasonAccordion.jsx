@@ -8,64 +8,63 @@ import UIPCustomSelectInput from '../../../UIPCustomSelectInput';
 import UIPCustomModalInput from '../../../UIPCustomModalInput';
 import UIPAccordion from '../../../UIPAccordion';
 import styles from '../../styles';
+import handleDayOfWeek from './utils/handleDayOfWeek';
+import { datePickerProps } from '../../constants/props';
+import { useDispatch } from 'react-redux';
+import { updateWMOrder } from '../../../../features/workshop-management-order/wmOrderSlice';
 import { useState } from 'react';
 
 export default () => {
-  const [failure, setFailure] = useState('');
-  const handleChange = (e) => setFailure(e.target.value.type);
-  const handleDayOfWeek = (day) => {
-    switch (day) {
-      case 'Do':
-      case '1':
-        return 'D';
-      case '2':
-      case '2ª':
-        return 'S';
-      case '3':
-      case '3ª':
-        return 'T';
-      case '4':
-      case '4ª':
-        return 'Q';
-      case '5':
-      case '5ª':
-        return 'Q';
-      case '6':
-      case '6ª':
-      case 'Sá':
-        return 'S';
-      default:
-        return day;
-    }
+  const [description, setDescription] = useState('');
+  const dispatch = useDispatch();
+
+  const handleServiceStatusChange = (e) => {
+    const payload = { type: 'LastServiceStatus', value: e.target.value.type };
+    dispatch(updateWMOrder(payload));
   };
-  const datePickerProps = {
-    textField: {
-      size: 'small',
-      InputLabelProps: {
-        shrink: true,
-        required: true,
-        style: { color: 'var(--light-text)' },
-      },
-      InputProps: { style: { color: 'var(--light-text)' } },
-    },
-    openPickerButton: { style: { color: 'var(--light-text)' } },
+  const handleMachineStoppedSinceChange = (e) => {
+    const dt = e.format('YYYY-MM-DD');
+    const payload = { type: 'MachineStoppedSince', value: dt };
+    dispatch(updateWMOrder(payload));
+  };
+  const handleExpectedDateToFinish = (e) => {
+    const tz = 'America/Sao_Paulo';
+    const format = 'YYYY-MM-DDTHH:mm:ss.SSS';
+    const ts = dayjs().tz(tz).format(format);
+
+    const payload = { type: 'ExpectedDateToFinish', value: ts };
+    dispatch(updateWMOrder(payload));
+  };
+  const handleFailureTypeChange = (e) => {
+    const payload = { type: 'LastFailureType', value: e.target.value.type };
+    dispatch(updateWMOrder(payload));
+  };
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+    const payload = { type: 'LastServiceDescription', value: e.target.value };
+    dispatch(updateWMOrder(payload));
   };
 
   return (
     <UIPAccordion defaultExpanded title='Informações da Parada'>
-      <UIPCustomSelectInput items={statusItems} label='Status do Serviço' />
+      <UIPCustomSelectInput
+        items={statusItems}
+        label='Status do Serviço'
+        onChange={handleServiceStatusChange}
+      />
       <Box sx={styles.addEquipModal.pickers}>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
           <DatePicker
             size='small'
-            defaultValue={dayjs()}
             label='Data da Parada'
             dayOfWeekFormatter={handleDayOfWeek}
             slotProps={datePickerProps}
+            onChange={handleMachineStoppedSinceChange}
             disableFuture
           />
           <DatePicker
             size='small'
+            onChange={handleExpectedDateToFinish}
             label='Data Prevista para Liberação'
             dayOfWeekFormatter={handleDayOfWeek}
             slotProps={datePickerProps}
@@ -77,23 +76,17 @@ export default () => {
         <UIPCustomSelectInput
           items={failureItems}
           label='Tipo da Falha'
-          onChange={handleChange}
+          onChange={handleFailureTypeChange}
         />
-        {failure === 'other' && (
-          <UIPCustomModalInput
-            label='Especifique a falha'
-            id='other-failure-type-details'
-            sx={{ marginLeft: 2 }}
-          />
-        )}
       </Box>
       <UIPCustomModalInput
-        required={false}
         id='failure-description-input'
-        label='Descrição da Falha'
+        label='Descrição do Serviço'
         height={100}
+        maxLength={150}
         multiline
-        helperText={'0/150 caracteres'}
+        onChange={handleDescriptionChange}
+        helperText={`${description.length}/150 caracteres`}
         sx={styles.addEquipModal.inputModal}
       />
     </UIPAccordion>

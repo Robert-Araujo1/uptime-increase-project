@@ -38,7 +38,7 @@ export default [
   },
   {
     field: 'LastFailureDescription',
-    headerName: 'Descrição da Falha',
+    headerName: 'Descrição do Serviço',
     width: 160,
     headerAlign: 'center',
   },

@@ -1,6 +1,7 @@
 export const locationItems = [
   { type: 'dealer-workshop', label: 'Oficina do Concessionário' },
   { type: 'in-the-field', label: 'Campo' },
+  { type: 'other-location', label: 'Outro' },
 ];
 
 export const companyItems = [
@@ -31,5 +32,6 @@ export const responsibleItems = [
 export const statusItems = [
   { type: 'pending', label: 'Pendente' },
   { type: 'waiting-parts', label: 'Aguardando peça' },
+  { type: 'repairing', label: 'Reparando' },
   { type: 'completed', label: 'Concluído' },
 ];

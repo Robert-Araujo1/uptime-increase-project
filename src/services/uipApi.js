@@ -33,6 +33,10 @@ export async function updateOrder(data) {
   return await requestApi('/orders/update-order', 'PATCH', data);
 }
 
+export async function createOrderWorkshop(data) {
+  return await requestApi('/workshop-management/create-order', 'PUT', data);
+}
+
 updateOrder.propTypes = {
   data: PropTypes.shape({
     OrderId: PropTypes.string.isRequired,
