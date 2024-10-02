@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { validateToken } from '../../../../../services/authentication';
-import { createOrderWorkshop } from '../../../../../services/uipApi';
+import { createWMOrder } from '../../../../../services/uipApi';
 
 export default async (order) => {
   const timestamp = dayjs()
@@ -22,16 +22,16 @@ export default async (order) => {
   }
 
   try {
-    const response = await createOrderWorkshop({
+    const response = await createWMOrder({
       ...order,
       LastServiceStatusTimestamp: timestamp,
-      OrderOwner: user,
-      RoleUserOrderOwner: groups,
+      LastServiceStatusUser: user,
+      LastServiceStatusUserRole: groups,
     });
 
     if (response?.statusCode == '200') {
       alert('Equipamento adicionado com sucesso');
-    } else if (response?.statusCode == '400') {
+    } else {
       alert('Erro ao adicionar equipamento');
       console.error(response);
     }

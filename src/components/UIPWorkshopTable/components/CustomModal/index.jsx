@@ -6,13 +6,12 @@ import StoppedReasonAccordion from './StoppedReasonAccordion';
 import MachineAccordion from './MachineAccordion';
 import ResponsibleAccordion from './ResponsibleAccordion';
 import DoubleButtons from './DoubleButtons';
-import handleFormSubmit from './utils/handleFormSubmit';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { clearWMOrder } from '../../../../features/workshop-management-order/wmOrderSlice';
 import 'dayjs/locale/pt-br.js';
 
-export default function ({ openAddEquipModal, setOpenAddEquipModal }) {
+export default function ({ openModal, setOpenModal, title, handleFormSubmit }) {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ export default function ({ openAddEquipModal, setOpenAddEquipModal }) {
   const handleClose = (event, reason) => {
     if (reason === 'backdropClick') return;
 
-    setOpenAddEquipModal(false);
+    setOpenModal(false);
     dispatch(clearWMOrder());
   };
 
@@ -31,7 +30,8 @@ export default function ({ openAddEquipModal, setOpenAddEquipModal }) {
     setLoading(true);
     const handling = await handleFormSubmit(order);
     if (handling?.statusCode == '200') {
-      handleClose();
+      window.location.reload();
+      return;
     }
     setLoading(false);
   };
@@ -40,14 +40,14 @@ export default function ({ openAddEquipModal, setOpenAddEquipModal }) {
     <Modal
       method='dialog'
       component='form'
-      open={openAddEquipModal}
+      open={openModal}
       onClose={handleClose}
       onSubmit={handleSubmit}>
-      <Box sx={styles.addEquipModal.container}>
-        <Header handleClose={handleClose} />
+      <Box sx={styles.CustomModal.container}>
+        <Header title={title} handleClose={handleClose} />
         <ResponsibleAccordion />
         <MachineAccordion />
-        <StoppedReasonAccordion />
+        <StoppedReasonAccordion title={title} />
         <DoubleButtons handleClose={handleClose} loading={loading} />
       </Box>
     </Modal>

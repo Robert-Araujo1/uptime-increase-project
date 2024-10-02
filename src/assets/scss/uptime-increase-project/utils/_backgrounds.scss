@@ -6,6 +6,8 @@
     --dark-shadow: 3px 3px 6px 0 rgba(136, 152, 170, .05) !important;
     --dark-selection: rgb(255, 255, 255, .24);
     --dark-bg-modal: rgb(75, 75, 75);
+    --disabled-input-color: rgba(255,255,255, .38);
+    --tooltip-background: #f5f5f9;
 }
 
 .theme-light {
@@ -16,6 +18,8 @@
     --dark-shadow: 3px 3px 6px 0 rgba(136, 152, 170, .25) !important;
     --dark-selection: rgb(0, 0, 0, .24);
     --dark-bg-modal: #dfdfdf;
+    --disabled-input-color: rgba(0,0,0, .38);
+    --tooltip-background: #3f3f3f;
 }
 
 .page-background {

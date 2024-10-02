@@ -4,7 +4,13 @@ import styles from './styles';
 
 export default ({ items, label, ...props }) => {
   const inputProps = {
-    style: { color: 'var(--light-text)', accentColor: 'var(--light-text)' },
+    sx: {
+      color: 'var(--light-text)',
+      accentColor: 'var(--light-text)',
+      '& .MuiInputBase-input.Mui-disabled': {
+        WebkitTextFillColor: 'var(--disabled-input-color)', // (default alpha is 0.38)
+      },
+    },
   };
   const InputLabelProps = {
     style: { color: 'var(--light-text)' },
@@ -23,7 +29,7 @@ export default ({ items, label, ...props }) => {
       label={label}
       {...props}>
       {items.map((item, index) => (
-        <MenuItem key={index} value={item}>
+        <MenuItem key={index} value={item.type}>
           {item.label}
         </MenuItem>
       ))}

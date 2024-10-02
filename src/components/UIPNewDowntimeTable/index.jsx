@@ -139,7 +139,7 @@ export default function UIPNewDowntimeTable({ rows }) {
     if (row.hasOwnProperty('MachineVin')) {
       var allDtcs = [];
       row.MachineOperations.forEach((operation) =>
-        operation.dtcs.length > 0 ? allDtcs.push(operation.dtcs) : undefined
+        operation?.dtcs?.length > 0 ? allDtcs.push(operation.dtcs) : undefined
       );
       setHighlightedDays(
         row.MachineOperations.map((operation) =>
@@ -311,6 +311,7 @@ export default function UIPNewDowntimeTable({ rows }) {
                 )}
                 {machineSelected.MachineOperations?.map(
                   ({ dtcs }) =>
+                    typeof dtcs === 'object' &&
                     dtcs.length > 0 &&
                     dtcs.map(
                       (dtc, index) =>

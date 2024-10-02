@@ -4,6 +4,9 @@ export const wmOrderSlice = createSlice({
   name: 'wmOrder',
   initialState: { order: {} },
   reducers: {
+    addWMOrder: (state, action) => {
+      return { order: action.payload };
+    },
     updateWMOrder: (state, action) => {
       const currentState = { ...state.order };
       currentState[action.payload.type] = action.payload.value;
@@ -15,6 +18,6 @@ export const wmOrderSlice = createSlice({
   },
 });
 
-export const { updateWMOrder, clearWMOrder } = wmOrderSlice.actions;
+export const { updateWMOrder, clearWMOrder, addWMOrder } = wmOrderSlice.actions;
 
 export default wmOrderSlice.reducer;
