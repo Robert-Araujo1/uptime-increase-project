@@ -11,6 +11,7 @@ import NewPassword from './views/authentication/pages/NewPassword/NewPassword';
 import { useAuth } from './contexts/auth/AuthContext';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
+import WorkshopManagement from './views/home/WorkshopManagement';
 
 const ProtectedRoute = ({ children }) => {
   const { loading, username } = useAuth();
@@ -113,6 +114,14 @@ const privateRoutes = [
     element: (
       <ProtectedRoute>
         <HomeLayout view={<Machines />} />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: 'workshop-management/:id?',
+    element: (
+      <ProtectedRoute>
+        <HomeLayout view={<WorkshopManagement />} />
       </ProtectedRoute>
     ),
   },
