@@ -33,6 +33,22 @@ export async function updateOrder(data) {
   return await requestApi('/orders/update-order', 'PATCH', data);
 }
 
+export async function createWMOrder(data) {
+  return await requestApi('/workshop-management/create-order', 'PUT', data);
+}
+
+export async function getWMOrders() {
+  return await requestApi('/workshop-management/orders');
+}
+
+export async function editWMOrder(data) {
+  return await requestApi('/workshop-management/edit-order', 'PATCH', data);
+}
+
+export async function updateStatusWMOrder(data) {
+  return await requestApi('/workshop-management/update-status', 'PATCH', data);
+}
+
 updateOrder.propTypes = {
   data: PropTypes.shape({
     OrderId: PropTypes.string.isRequired,
