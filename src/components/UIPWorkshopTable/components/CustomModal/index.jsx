@@ -6,12 +6,13 @@ import StoppedReasonAccordion from './StoppedReasonAccordion';
 import MachineAccordion from './MachineAccordion';
 import ResponsibleAccordion from './ResponsibleAccordion';
 import DoubleButtons from './DoubleButtons';
+import handleFormSubmit from './utils/handleFormSubmit';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { clearWMOrder } from '../../../../features/workshop-management-order/wmOrderSlice';
 import 'dayjs/locale/pt-br.js';
 
-export default function ({ openModal, setOpenModal, title, handleFormSubmit }) {
+export default function ({ openModal, setOpenModal, title, service }) {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export default function ({ openModal, setOpenModal, title, handleFormSubmit }) {
     event.preventDefault();
 
     setLoading(true);
-    const handling = await handleFormSubmit(order);
+    const handling = await handleFormSubmit(order, service);
     if (handling?.statusCode == '200') {
       window.location.reload();
       return;
@@ -45,9 +46,15 @@ export default function ({ openModal, setOpenModal, title, handleFormSubmit }) {
       onSubmit={handleSubmit}>
       <Box sx={styles.CustomModal.container}>
         <Header title={title} handleClose={handleClose} />
-        <ResponsibleAccordion />
-        <MachineAccordion />
-        <StoppedReasonAccordion title={title} />
+        {title !== 'Atualizar Status' && (
+          <>
+            <ResponsibleAccordion />
+            <MachineAccordion />
+          </>
+        )}
+        {title !== 'Editar Equipamento' && (
+          <StoppedReasonAccordion title={title} />
+        )}
         <DoubleButtons handleClose={handleClose} loading={loading} />
       </Box>
     </Modal>

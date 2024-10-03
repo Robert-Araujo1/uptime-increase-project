@@ -42,6 +42,10 @@ const handleStatus = (status) => {
       return { color: '#FF8C00', text: 'Reparando' };
     case 'waiting-parts':
       return { color: '#1a73e8', text: 'Aguardando peça' };
+    case 'waiting-approval':
+      return { color: '#8b2ee8', text: 'Aguardando aprovação' };
+    case 'diagnosing':
+      return { color: '#32a190', text: 'Diagnosticando' };
     default:
       return { color: '#7d7d7d', text: status };
   }

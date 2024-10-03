@@ -108,11 +108,11 @@ export default ({ title }) => {
         id='failure-description-input'
         label='Descrição do Serviço'
         height={100}
-        maxLength={150}
+        maxLength={250}
         multiline
         defaultValue={order?.LastServiceDescription || ''}
         onChange={handleDescriptionChange}
-        helperText={`${description.length}/150 caracteres`}
+        helperText={`${description.length}/250 caracteres`}
         sx={styles.CustomModal.inputModal}
       />
     </UIPAccordion>

@@ -11,10 +11,10 @@ import Box from '@mui/material/Box';
 export default function ({
   setOpenAddEquipModal,
   setOpenEditEquipModal,
+  setOpenUpdateStatusModal,
   selectedRow,
   apiRef,
 }) {
-  console.log();
   const dispatch = useDispatch();
 
   const handleOpenAddEquipModal = () => {
@@ -24,8 +24,15 @@ export default function ({
   const handleEditEquipModal = () => {
     if (selectedRow) {
       dispatch(addWMOrder(selectedRow));
+      setOpenEditEquipModal(true);
     }
-    setOpenEditEquipModal(true);
+  };
+
+  const handleUpdateStatusModal = () => {
+    if (selectedRow) {
+      dispatch(addWMOrder(selectedRow));
+      setOpenUpdateStatusModal(true);
+    }
   };
   return (
     <GridToolbarContainer sx={{ justifyContent: 'space-between' }}>
@@ -35,7 +42,11 @@ export default function ({
       </Button>
       {apiRef.current.getSelectedRows().size == 1 && (
         <Box>
-          <Button sx={{ marginRight: 1 }} color='warning' variant='contained'>
+          <Button
+            onClick={handleUpdateStatusModal}
+            sx={{ marginRight: 1 }}
+            color='warning'
+            variant='contained'>
             <UpdateIcon />
             Atualizar Status
           </Button>
@@ -47,7 +58,14 @@ export default function ({
             <EditIcon />
             Editar
           </Button>
-          <Button color='error' variant='contained'>
+          <Button
+            color='error'
+            variant='contained'
+            onClick={() =>
+              alert(
+                'Funcionalidade ainda não implementada. Contate o desenvolvedor.'
+              )
+            }>
             <DeleteIcon />
             Excluir
           </Button>

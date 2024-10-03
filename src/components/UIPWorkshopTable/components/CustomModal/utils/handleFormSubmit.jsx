@@ -1,8 +1,7 @@
-import dayjs from 'dayjs';
 import { validateToken } from '../../../../../services/authentication';
-import { createWMOrder } from '../../../../../services/uipApi';
+import dayjs from 'dayjs';
 
-export default async (order) => {
+export default async function (order, service) {
   const timestamp = dayjs()
     .tz('America/Sao_Paulo')
     .format('YYYY-MM-DDTHH:mm:ss.SSS');
@@ -22,7 +21,7 @@ export default async (order) => {
   }
 
   try {
-    const response = await createWMOrder({
+    const response = await service({
       ...order,
       LastServiceStatusTimestamp: timestamp,
       LastServiceStatusUser: user,
@@ -30,13 +29,14 @@ export default async (order) => {
     });
 
     if (response?.statusCode == '200') {
-      alert('Equipamento adicionado com sucesso');
+      alert('Ação realizada com sucesso');
     } else {
-      alert('Erro ao adicionar equipamento');
+      alert('Erro ao realizar a ação. Contate o suporte.');
       console.error(response);
     }
+
     return response;
   } catch (error) {
     console.error(error);
   }
-};
+}

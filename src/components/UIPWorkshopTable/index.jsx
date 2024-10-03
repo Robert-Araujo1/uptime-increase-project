@@ -4,16 +4,15 @@ import Box from '@mui/material/Box';
 import columns from './constants/columns';
 import CustomToolbar from './components/CustomToolbar';
 import CustomModal from './components/CustomModal';
-import handleAddFormSubmit from './components/CustomModal/utils/handleAddFormSubmit';
-import handleEditFormSubmit from './components/CustomModal/utils/handleEditFormSubmit';
 import styles from './styles';
 import { initialState } from './constants/props';
-import { getWMOrders } from '../../services/uipApi';
+import { createWMOrder, editWMOrder, getWMOrders } from '../../services/uipApi';
 import { useGridApiRef } from '@mui/x-data-grid';
 
 export default function () {
   const [openAddEquipModal, setOpenAddEquipModal] = useState(false);
   const [openEditEquipModal, setOpenEditEquipModal] = useState(false);
+  const [openUpdateStatusModal, setOpenUpdateStatusModal] = useState(false);
   const [rows, setRows] = useState([]);
   const [selectedRow, setSelectedRow] = useState({});
   const apiRef = useGridApiRef();
@@ -24,6 +23,7 @@ export default function () {
         selectedRow={selectedRow}
         setOpenAddEquipModal={setOpenAddEquipModal}
         setOpenEditEquipModal={setOpenEditEquipModal}
+        setOpenUpdateStatusModal={setOpenUpdateStatusModal}
         apiRef={apiRef}
       />
     ),
@@ -49,7 +49,6 @@ export default function () {
       <Box sx={{ height: '85dvh', width: '100%', marginTop: 2 }}>
         <DataGrid
           apiRef={apiRef}
-          pageSizeOptions={[5]}
           sx={styles.dataGrid}
           getRowId={(row) => row.OrderId}
           rows={rows}
@@ -64,13 +63,19 @@ export default function () {
         title='Adicionar Equipamento'
         openModal={openAddEquipModal}
         setOpenModal={setOpenAddEquipModal}
-        handleFormSubmit={handleAddFormSubmit}
+        service={createWMOrder}
       />
       <CustomModal
         title='Editar Equipamento'
         openModal={openEditEquipModal}
         setOpenModal={setOpenEditEquipModal}
-        handleFormSubmit={handleEditFormSubmit}
+        service={editWMOrder}
+      />
+      <CustomModal
+        title={'Atualizar Status'}
+        openModal={openUpdateStatusModal}
+        setOpenModal={setOpenUpdateStatusModal}
+        service={editWMOrder}
       />
     </>
   );

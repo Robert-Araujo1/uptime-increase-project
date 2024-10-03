@@ -40,6 +40,8 @@ export const responsibleItems = [
 
 export const statusItems = [
   { type: 'pending', label: 'Pendente' },
+  { type: 'diagnosing', label: 'Diagnosticando' },
+  { type: 'waiting-approval', label: 'Aguardando autorização' },
   { type: 'waiting-parts', label: 'Aguardando peça' },
   { type: 'repairing', label: 'Reparando' },
   { type: 'completed', label: 'Concluído' },
