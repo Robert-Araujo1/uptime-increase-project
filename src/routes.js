@@ -105,7 +105,7 @@ const privateRoutes = [
     path: 'dashboard',
     element: (
       <ProtectedRoute>
-        <HomeLayout view={<Dashboard />} />
+        <HomeLayout view={<Dashboard />} title={'Dashboard'} />
       </ProtectedRoute>
     ),
   },
@@ -113,7 +113,7 @@ const privateRoutes = [
     path: 'machines/:id?',
     element: (
       <ProtectedRoute>
-        <HomeLayout view={<Machines />} />
+        <HomeLayout view={<Machines />} title={'Uptime Increase'} />
       </ProtectedRoute>
     ),
   },
@@ -121,7 +121,10 @@ const privateRoutes = [
     path: 'workshop-management/:id?',
     element: (
       <ProtectedRoute>
-        <HomeLayout view={<WorkshopManagement />} />
+        <HomeLayout
+          view={<WorkshopManagement />}
+          title={'Gestão de Máquinas Paradas'}
+        />
       </ProtectedRoute>
     ),
   },

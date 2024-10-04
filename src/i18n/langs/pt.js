@@ -24,7 +24,7 @@ export default {
     },
     home: {
       machines: {
-        pageTitle: 'Equipamentos',
+        pageTitle: 'Uptime Increase',
         table: {
           tableTitle: 'Equipamentos',
           customerCol: 'Cliente',
