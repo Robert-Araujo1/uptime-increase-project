@@ -20,7 +20,7 @@ export default () => {
     },
     {
       href: '/home/workshop-management',
-      name: 'Gestão de Oficina - Máquinas Paradas',
+      name: 'Gestão de Máquinas Paradas',
       icon: <BuildIcon />,
     },
   ];

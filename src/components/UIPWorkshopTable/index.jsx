@@ -50,6 +50,7 @@ export default function () {
         <DataGrid
           apiRef={apiRef}
           sx={styles.dataGrid}
+          pageSizeOptions={[20]}
           getRowId={(row) => row.OrderId}
           rows={rows}
           loading={rows.length === 0}
