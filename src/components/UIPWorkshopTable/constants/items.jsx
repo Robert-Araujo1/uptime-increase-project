@@ -5,21 +5,21 @@ export const locationItems = [
 ];
 
 export const companyItems = [
-  { type: 'VE-REC', label: 'Veneza Equipamentos Recife' },
+  { type: 'VE_REC', label: 'Veneza Equipamentos Recife' },
   {
-    type: 'VE-SAL',
+    type: 'VE_SSA',
     label: 'Veneza Equipamentos Salvador',
   },
-  { type: 'VE-BAY', label: 'Veneza Equipamentos Bayeux' },
+  { type: 'VE_BAY', label: 'Veneza Equipamentos Bayeux' },
   {
-    type: 'VE-FOR',
+    type: 'VE_FOR',
     label: 'Veneza Equipamentos Fortaleza',
   },
   {
-    type: 'VE-PET',
+    type: 'VE_PNZ',
     label: 'Veneza Equipamentos Petrolina',
   },
-  { type: 'VE-LEM', label: 'Veneza Equipamentos Luís Eduardo Magalhães' },
+  { type: 'VE_LEM', label: 'Veneza Equipamentos Luís Eduardo Magalhães' },
 ];
 
 export const failureItems = [
