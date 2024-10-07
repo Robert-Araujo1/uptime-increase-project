@@ -1,6 +1,6 @@
 # Uptime Increase Project Dashboard
 
-![version](https://img.shields.io/badge/version-1.1.2-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg)
+![version](https://img.shields.io/badge/version-1.2.1-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) 
 ![workflow](https://github.com/Robert-Araujo1/uptime-increase-project/actions/workflows/ci.yml/badge.svg)
 ![under-construction](https://img.shields.io/static/v1.svg?message=Under%20construction&label=🚧&color=FF9900)
 
