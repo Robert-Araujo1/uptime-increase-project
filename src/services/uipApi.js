@@ -49,6 +49,10 @@ export async function updateStatusWMOrder(data) {
   return await requestApi('/workshop-management/update-status', 'PATCH', data);
 }
 
+export async function getWMInsights() {
+  return await requestApi('/workshop-management/insights');
+}
+
 updateOrder.propTypes = {
   data: PropTypes.shape({
     OrderId: PropTypes.string.isRequired,

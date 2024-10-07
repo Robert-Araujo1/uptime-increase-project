@@ -34,7 +34,7 @@ export default [
   {
     field: 'CustomerName',
     headerName: 'Cliente',
-    width: 150,
+    width: 200,
     headerAlign: 'center',
     align: 'center',
   },
@@ -84,11 +84,21 @@ export default [
   {
     field: 'LastServiceStatusTimestamp',
     headerName: 'Data da Última Atualização',
-    width: 160,
+    width: 200,
     type: 'datetime',
     headerAlign: 'center',
     align: 'center',
     valueGetter: ({ value }) => handleDate(value),
+  },
+  {
+    field: 'DaysSinceLastUpdate',
+    headerName: 'Dias Desde a Última Atualização',
+    width: 190,
+    type: 'datetime',
+    headerAlign: 'center',
+    align: 'center',
+    valueGetter: ({ row }) =>
+      dayjs().diff(dayjs(row.LastServiceStatusTimestamp), 'days'),
   },
   {
     field: 'MachineVin',

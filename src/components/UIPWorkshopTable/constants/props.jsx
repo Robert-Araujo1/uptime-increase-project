@@ -18,4 +18,7 @@ export const initialState = {
       pageSize: 20,
     },
   },
+  sorting: {
+    sortModel: [{ field: 'StoppedDays', sort: 'desc' }],
+  },
 };

@@ -8,6 +8,8 @@
     --dark-bg-modal: rgb(75, 75, 75);
     --disabled-input-color: rgba(255,255,255, .38);
     --tooltip-background: #f5f5f9;
+    --gray-background: #808080;
+    --dark-skeleton: grey;
 }
 
 .theme-light {
@@ -20,6 +22,8 @@
     --dark-bg-modal: #dfdfdf;
     --disabled-input-color: rgba(0,0,0, .38);
     --tooltip-background: #3f3f3f;
+    --gray-background: #fff;
+    --dark-skeleton: rgb(216, 216, 216);
 }
 
 .page-background {
