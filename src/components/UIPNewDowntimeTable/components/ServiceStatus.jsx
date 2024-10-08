@@ -28,7 +28,7 @@ export default function ({ status }) {
   );
 }
 
-const handleStatus = (status) => {
+export const handleStatus = (status) => {
   switch (status) {
     case 'not-started':
       return { color: '#FFD700', text: 'Não iniciado' };
@@ -43,7 +43,7 @@ const handleStatus = (status) => {
     case 'waiting-parts':
       return { color: '#1a73e8', text: 'Aguardando peça' };
     case 'waiting-approval':
-      return { color: '#8b2ee8', text: 'Aguardando aprovação' };
+      return { color: '#8b2ee8', text: 'Aguardando autorização' };
     case 'diagnosing':
       return { color: '#32a190', text: 'Diagnosticando' };
     default:

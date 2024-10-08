@@ -6,10 +6,11 @@
     --dark-shadow: 3px 3px 6px 0 rgba(136, 152, 170, .05) !important;
     --dark-selection: rgb(255, 255, 255, .24);
     --dark-bg-modal: rgb(75, 75, 75);
-    --disabled-input-color: rgba(255,255,255, .38);
+    --disabled-input-color: rgba(255, 255, 255, 0.705);
     --tooltip-background: #f5f5f9;
     --gray-background: #808080;
     --dark-skeleton: grey;
+    --hybrid-green: #00b894;
 }
 
 .theme-light {
@@ -20,10 +21,11 @@
     --dark-shadow: 3px 3px 6px 0 rgba(136, 152, 170, .25) !important;
     --dark-selection: rgb(0, 0, 0, .24);
     --dark-bg-modal: #dfdfdf;
-    --disabled-input-color: rgba(0,0,0, .38);
+    --disabled-input-color: rgba(0, 0, 0, 0.603);
     --tooltip-background: #3f3f3f;
     --gray-background: #fff;
     --dark-skeleton: rgb(216, 216, 216);
+    --hybrid-green: #02755e;
 }
 
 .page-background {

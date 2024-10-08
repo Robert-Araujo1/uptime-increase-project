@@ -59,7 +59,7 @@ export default [
   },
   {
     field: 'StoppedDays',
-    headerName: 'Dias Parado',
+    headerName: 'Dias Parados',
     width: 150,
     type: 'number',
     headerAlign: 'center',
