@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import columns from './constants/columns';
 import CustomToolbar from './components/CustomToolbar';
 import CustomModal from './components/CustomModal';
+import HistoryModal from './components/HistoryModal';
 import styles from './styles';
 import { initialState } from './constants/props';
 import { createWMOrder, editWMOrder, getWMOrders } from '../../services/uipApi';
@@ -13,6 +14,7 @@ export default function () {
   const [openAddEquipModal, setOpenAddEquipModal] = useState(false);
   const [openEditEquipModal, setOpenEditEquipModal] = useState(false);
   const [openUpdateStatusModal, setOpenUpdateStatusModal] = useState(false);
+  const [openHistoryModal, setOpenHistoryModal] = useState(false);
   const [rows, setRows] = useState([]);
   const [selectedRow, setSelectedRow] = useState({});
   const apiRef = useGridApiRef();
@@ -24,6 +26,7 @@ export default function () {
         setOpenAddEquipModal={setOpenAddEquipModal}
         setOpenEditEquipModal={setOpenEditEquipModal}
         setOpenUpdateStatusModal={setOpenUpdateStatusModal}
+        setOpenHistoryModal={setOpenHistoryModal}
         apiRef={apiRef}
       />
     ),
@@ -77,6 +80,11 @@ export default function () {
         openModal={openUpdateStatusModal}
         setOpenModal={setOpenUpdateStatusModal}
         service={editWMOrder}
+      />
+      <HistoryModal
+        open={openHistoryModal}
+        setOpen={setOpenHistoryModal}
+        row={selectedRow}
       />
     </>
   );

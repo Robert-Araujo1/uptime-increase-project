@@ -42,4 +42,30 @@ export default {
       outline: 'none !important',
     },
   },
+  historyAccordion: {
+    container: {
+      display: 'flex',
+      justifyContent: 'start',
+      alignItems: 'center',
+      mb: 2,
+    },
+    circle: { fontSize: 12, marginRight: 1 },
+    accordion: { backgroundColor: 'var(--dark-background)', width: '100%' },
+    detailsTitle1: {
+      textAlign: 'center',
+      mb: 2,
+      fontSize: 17,
+      color: 'var(--light-text)',
+    },
+    detailsTitle2: {
+      textAlign: 'center',
+      fontSize: 14,
+      color: 'var(--light-text)',
+      justifyContent: 'center',
+      alignItems: 'center',
+      display: 'flex',
+    },
+    oldValue: { textDecoration: 'line-through', color: 'red' },
+    newValue: { color: 'var(--hybrid-green)' },
+  },
 };
