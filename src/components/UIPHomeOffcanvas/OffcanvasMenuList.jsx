@@ -10,7 +10,7 @@ export default () => {
   const items = [
     {
       href: '/home/dashboard',
-      name: i18next.t('home.dashboard.pageTitle'),
+      name: 'Dashboard Uptime',
       icon: <LeaderboardIcon />,
     },
     {
