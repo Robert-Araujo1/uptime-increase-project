@@ -13,24 +13,28 @@ function Dashboard() {
   const [data, setData] = useState({});
   const cardsInfo = [
     {
-      cardTitle: 'Máquinas paradas - R1',
+      cardTitle: 'Unproductive Machines - R1',
       iconStyle: 'R1',
       cardValue: data?.machinesPerRegionalTotal?.R1 || null,
+      servicesStatuses: data?.ordersStatusPerRegional?.R1 || null,
     },
     {
-      cardTitle: 'Máquinas paradas - R2',
+      cardTitle: 'Unproductive Machines - R2',
       iconStyle: 'R2',
       cardValue: data?.machinesPerRegionalTotal?.R2 || null,
+      servicesStatuses: data?.ordersStatusPerRegional?.R2 || null,
     },
     {
-      cardTitle: 'Máquinas paradas - R3',
+      cardTitle: 'Unproductive Machines - R3',
       iconStyle: 'R3',
       cardValue: data?.machinesPerRegionalTotal?.R3 || null,
+      servicesStatuses: data?.ordersStatusPerRegional?.R3 || null,
     },
     {
       cardTitle: i18next.t('home.dashboard.amountEquipCardTitle'),
       iconStyle: 'total',
       cardValue: data?.machinesNumber || null,
+      servicesStatuses: data?.totalOrders || null,
     },
   ];
   const chartsInfo = [
@@ -93,15 +97,18 @@ function Dashboard() {
       <div className='row'>
         <div className='insights py-4'>
           <div className='row'>
-            {cardsInfo.map(({ cardTitle, iconStyle, cardValue }) => (
-              <div key={cardTitle} className='col'>
-                <UIPInsightCard
-                  cardTitle={cardTitle}
-                  iconStyle={iconStyle}
-                  cardValue={cardValue}
-                />
-              </div>
-            ))}
+            {cardsInfo.map(
+              ({ cardTitle, iconStyle, cardValue, servicesStatuses }) => (
+                <div key={cardTitle} className='col'>
+                  <UIPInsightCard
+                    cardTitle={cardTitle}
+                    iconStyle={iconStyle}
+                    cardValue={cardValue}
+                    servicesStatuses={servicesStatuses}
+                  />
+                </div>
+              )
+            )}
           </div>
         </div>
         <div className='insights-charts'>

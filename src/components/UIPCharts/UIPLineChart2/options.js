@@ -28,6 +28,7 @@ export const options = {
     },
   },
   yaxis: {
+    min: 0,
     tickAmount: 5,
     title: {
       text: 'Quantidade',
