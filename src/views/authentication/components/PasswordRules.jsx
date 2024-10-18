@@ -12,10 +12,6 @@ export default ({ password, confirmPassword }) => {
     { label: 'Pelo menos 1 letra maiúscula', pattern: UPPERCASE_RGX },
     { label: 'Pelo menos 1 número', pattern: NUMBER_RGX },
     { label: 'Pelo menos 1 caractere especial', pattern: SPECIAL_CHARS_RGX },
-    {
-      label: 'As senhas são iguais',
-      pattern: new RegExp(`^${confirmPassword}$`),
-    },
   ];
   return (
     <div className='wrapper'>
@@ -29,6 +25,13 @@ export default ({ password, confirmPassword }) => {
           </div>
         );
       })}
+      <div>
+        <span
+          className={password && password == confirmPassword ? 'passed' : ''}>
+          As senhas são iguais
+        </span>
+        <br />
+      </div>
     </div>
   );
 };
