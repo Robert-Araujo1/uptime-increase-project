@@ -1,11 +1,10 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import HistoryAccordion from './HistoryAccordion';
 import styles from '../../styles';
 import Header from '../CustomModal/Header';
 
-export default function ({ open, setOpen, row }) {
+export default function ({ open, setOpen, row, children }) {
   const handleClose = () => setOpen(false);
 
   return (
@@ -13,17 +12,7 @@ export default function ({ open, setOpen, row }) {
       <Box sx={styles.CustomModal.container}>
         <Header title='Histórico do atendimento' handleClose={handleClose} />
         <RowInfo row={row} />
-        {row?.ServiceStatuses?.toReversed().map(
-          ({ Timestamp, Status, Type, ...others }, index) => (
-            <HistoryAccordion
-              key={index}
-              timestamp={Timestamp}
-              status={Status}
-              type={Type}
-              {...others}
-            />
-          )
-        )}
+        {children}
       </Box>
     </Modal>
   );
