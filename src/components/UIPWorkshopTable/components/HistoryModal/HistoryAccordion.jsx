@@ -12,9 +12,14 @@ import AddIcon from '@mui/icons-material/Add';
 import CircleIcon from '@mui/icons-material/Circle';
 import UIPCustomModalInput from '../../../UIPCustomModalInput';
 import styles from '../../styles';
-import UpdatedFields from './UpdatedFields';
 
-export default ({ timestamp, status, type, ...others }) => {
+export default ({
+  children,
+  timestamp,
+  status,
+  type = undefined,
+  ...others
+}) => {
   const [expanded, setExpanded] = useState(false);
   const handleChange = () => setExpanded(!expanded);
 
@@ -45,27 +50,7 @@ export default ({ timestamp, status, type, ...others }) => {
             disabled
             InputProps={inputProps}
           />
-          {type !== 'NEW ENTRY' && (
-            <Typography sx={styles.historyAccordion.detailsTitle1}>
-              Alterações
-            </Typography>
-          )}
-          {type == 'NEW ENTRY' && (
-            <UIPCustomModalInput
-              label='Descrição do Serviço'
-              disabled
-              multiline
-              variant='standard'
-              required={false}
-              InputProps={inputProps}
-              value={others?.Description}
-            />
-          )}
-          <Box>
-            {others?.UpdatedFields?.map((field, index) => (
-              <UpdatedFields key={index} field={field} />
-            ))}
-          </Box>
+          {children}
         </AccordionDetails>
       </Accordion>
     </Box>

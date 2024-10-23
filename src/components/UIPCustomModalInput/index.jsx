@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-export default ({ id, label, height, maxLength, ...props }) => (
+export default ({ id, label, height = 20, maxLength = 100, ...props }) => (
   <TextField
     required
     fullWidth
@@ -8,8 +8,8 @@ export default ({ id, label, height, maxLength, ...props }) => (
     id={id}
     InputLabelProps={{ style: { color: 'var(--light-text)' }, shrink: true }}
     inputProps={{
-      style: { color: 'var(--light-text)', height: height || 20 },
-      maxLength: maxLength || 100,
+      style: { color: 'var(--light-text)', height: height },
+      maxLength: maxLength,
     }}
     sx={{ marginBottom: 3 }}
     {...props}
