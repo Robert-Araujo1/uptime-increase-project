@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import columns from './constants/columns';
 import CustomToolbar from './components/CustomToolbar';
 import CustomModal from './components/CustomModal';
 import HistoryModal from './components/HistoryModal';
+import HistoryAccordion from './components/HistoryModal/HistoryAccordion';
 import styles from './styles';
 import { initialState } from './constants/props';
 import { createWMOrder, editWMOrder, getWMOrders } from '../../services/uipApi';
 import { useGridApiRef } from '@mui/x-data-grid';
+import UpdatedFields from './components/HistoryModal/UpdatedFields';
+import UIPCustomModalInput from '../UIPCustomModalInput';
+import { inputProps } from './components/HistoryModal/utils/props';
 
 export default function () {
   const [openAddEquipModal, setOpenAddEquipModal] = useState(false);
@@ -84,8 +89,40 @@ export default function () {
       <HistoryModal
         open={openHistoryModal}
         setOpen={setOpenHistoryModal}
-        row={selectedRow}
-      />
+        row={selectedRow}>
+        {selectedRow?.ServiceStatuses?.toReversed().map(
+          ({ Timestamp, Status, Type, ...others }, index) => (
+            <HistoryAccordion
+              key={index}
+              timestamp={Timestamp}
+              status={Status}
+              type={Type}
+              {...others}>
+              {Type !== 'NEW ENTRY' && (
+                <Typography sx={styles.historyAccordion.detailsTitle1}>
+                  Alterações
+                </Typography>
+              )}
+              {Type == 'NEW ENTRY' && (
+                <UIPCustomModalInput
+                  label='Descrição do Serviço'
+                  disabled
+                  multiline
+                  variant='standard'
+                  required={false}
+                  InputProps={inputProps}
+                  value={others?.Description}
+                />
+              )}
+              <Box>
+                {others?.UpdatedFields?.map((field, index) => (
+                  <UpdatedFields key={index} field={field} />
+                ))}
+              </Box>
+            </HistoryAccordion>
+          )
+        )}
+      </HistoryModal>
     </>
   );
 }
