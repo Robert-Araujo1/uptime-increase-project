@@ -165,9 +165,7 @@ export default function ({
             <UIPCustomSelectInput
               items={downtimeReasons}
               label='Motivo da inatividade da máquina'
-              onChange={(event: any) =>
-                setDowntimeReason(event.target.value.type)
-              }
+              onChange={(event: any) => setDowntimeReason(event.target.value)}
             />
             <UIPCustomModalInput
               label='Descrição do atendimento'
