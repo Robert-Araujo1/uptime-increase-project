@@ -1,6 +1,7 @@
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import BuildIcon from '@mui/icons-material/Build';
+import { ReactComponent as POPSIcon } from '../../assets/icons/POPSIcon.svg';
 import i18next from '../../i18n/i18n';
 import { useLocation } from 'react-router-dom';
 
@@ -22,6 +23,11 @@ export default () => {
       href: '/home/workshop-management',
       name: 'Gestão de Máquinas Paradas',
       icon: <BuildIcon />,
+    },
+    {
+      href: '/home/pops-conectado',
+      name: 'POPS Conectado',
+      icon: <POPSIcon fill='currentColor' style={{ width: 30, height: 30 }} />,
     },
   ];
   return (
