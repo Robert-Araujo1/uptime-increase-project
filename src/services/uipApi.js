@@ -53,6 +53,10 @@ export async function getWMInsights() {
   return await requestApi('/workshop-management/insights');
 }
 
+export async function getPopsMachines() {
+  return await requestApi('/pops-conectado/machines');
+}
+
 updateOrder.propTypes = {
   data: PropTypes.shape({
     OrderId: PropTypes.string.isRequired,

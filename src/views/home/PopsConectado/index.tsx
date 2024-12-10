@@ -1,27 +1,33 @@
+import { useEffect, useState } from 'react';
+import UIPPopsMap from '../../../components/UIPPopsMap';
+import UIPPopsTable from '../../../components/UIPPopsTable';
+import { getPopsMachines } from '../../../services/uipApi';
+import { useDispatch } from 'react-redux';
+import { setPopsMachines } from '../../../features/pops/popsMachinesSlice';
 export default function () {
+  const [pops, setPops] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function getPops() {
+      const data = await getPopsMachines();
+      const body = JSON.parse(data.body);
+      setPops(body);
+      dispatch(setPopsMachines(body));
+    }
+    getPops();
+  }, []);
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        marginTop: '50px',
-      }}>
-      <h4
-        style={{
-          color: 'var(--light-text)',
-          textAlign: 'center',
-          marginBottom: '40px',
-        }}>
-        <strong>Em breve!</strong> Uma nova ferramenta desenvolvida
-        especialmente para nossos CSAs, projetada para ampliar ainda mais nossa
-        capilaridade de negócios!
-      </h4>
-      <img
-        src={require('../../../assets/images/mockups/mobile-pops-conectado.png')}
-        style={{ flex: 1, maxWidth: '430px', maxHeight: '430px' }}
-      />
+    <div className='container-fluid'>
+      <div className='row mt-4'>
+        <div className='col-xxl-8 mb-4'>
+          <UIPPopsTable rows={pops} />
+        </div>
+        <div className='col-xxl-4'>
+          <UIPPopsMap />
+        </div>
+      </div>
     </div>
   );
 }
