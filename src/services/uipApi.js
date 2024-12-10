@@ -54,7 +54,7 @@ export async function getWMInsights() {
 }
 
 export async function getPopsMachines() {
-  return await requestApi('/pops-conectado/machines');
+  return await requestApi('/pops-connect/machines');
 }
 
 updateOrder.propTypes = {

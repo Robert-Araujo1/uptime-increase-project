@@ -2,7 +2,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { initialState } from '../UIPNewDowntimeTable/utils/props';
 import columns from './columns';
 import Box from '@mui/material/Box';
-import styles from '../UIPNewDowntimeTable/utils/styles';
 
 interface PopsRow {
   CustomerName: string;
@@ -22,7 +21,14 @@ export default function ({ rows }: { rows: PopsRow[] }) {
         getRowId={(row) => row.MachineVin}
         initialState={initialState}
         pageSizeOptions={[20]}
-        sx={styles.dataGrid}
+        sx={{
+          background: 'var(--dark-background-3)',
+          color: 'var(--light-text)',
+          cursor: 'pointer',
+          '&.MuiDataGrid-root .MuiDataGrid-cell:focus-within': {
+            outline: 'none !important',
+          },
+        }}
       />
     </Box>
   );
