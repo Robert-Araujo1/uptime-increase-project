@@ -12,7 +12,7 @@ import { useAuth } from './contexts/auth/AuthContext';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import WorkshopManagement from './views/home/WorkshopManagement';
-import PopsConectado from './views/home/PopsConectado';
+import PopsConnect from './views/home/PopsConnect';
 
 const ProtectedRoute = ({ children }) => {
   const { loading, username } = useAuth();
@@ -130,10 +130,10 @@ const privateRoutes = [
     ),
   },
   {
-    path: 'pops-conectado',
+    path: 'pops-connect',
     element: (
       <ProtectedRoute>
-        <HomeLayout view={<PopsConectado />} title={'POPS Conectado'} />
+        <HomeLayout view={<PopsConnect />} title={'POPS Connect'} />
       </ProtectedRoute>
     ),
   },

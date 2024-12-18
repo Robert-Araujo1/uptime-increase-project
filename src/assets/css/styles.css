@@ -4,10 +4,31 @@
     src: url("../fonts/Roboto/Roboto-Regular.ttf") format('truetype');
 }
 
+@keyframes gps-glow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(15, 107, 168, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(15, 107, 168, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(15, 107, 168, 0);
+    }
+}
+
 body {
     font-family: 'Roboto';
 }
 
 iframe#webpack-dev-server-client-overlay {
     display:none!important
+}
+
+.gps-icon {
+    width: inherit;
+    height: inherit;
+    border: solid 2px #fff;
+    border-radius: 50%;
+    background-color: #2D9BF0;
+    animation: gps-glow 1.5s linear infinite;
 }

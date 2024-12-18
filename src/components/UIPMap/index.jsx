@@ -153,7 +153,7 @@ const MapMarker = ({ machine, index }) =>
     </Marker>
   );
 
-const createClusterCustomIcon = function (cluster, type) {
+export const createClusterCustomIcon = function (cluster, type) {
   const count = cluster.getChildCount();
   let colorClass = '';
   switch (type) {
