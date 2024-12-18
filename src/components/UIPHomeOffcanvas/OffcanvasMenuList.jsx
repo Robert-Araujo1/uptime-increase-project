@@ -25,8 +25,8 @@ export default () => {
       icon: <BuildIcon />,
     },
     {
-      href: '/home/pops-conectado',
-      name: 'POPS Conectado',
+      href: '/home/pops-connect',
+      name: 'POPS Connect',
       icon: <POPSIcon fill='currentColor' style={{ width: 30, height: 30 }} />,
     },
   ];

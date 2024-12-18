@@ -4,7 +4,7 @@ export default ({ title }) => {
   return (
     <div className='d-flex flex-row page-header align-items-top justify-content-between'>
       <div className='ps-3 d-flex align-items-center'>
-        <img width={36} height={36} src={logo} />
+        <img width={39} height={36} src={logo} />
         <h4 className='fw-light m-1' style={{ color: 'var(--light-text)' }}>
           {title}
         </h4>
