@@ -165,8 +165,7 @@ export default function () {
                             } else {
                               if (isMobile) {
                                 window.open(
-                                  `waze://?ll=${pops.MachineLat}%2C${pops.MachineLon}&navigate=yes`,
-                                  '_blank'
+                                  `waze://?ll=${pops.MachineLat}%2C${pops.MachineLon}&navigate=yes`
                                 );
                               } else {
                                 window.open(
