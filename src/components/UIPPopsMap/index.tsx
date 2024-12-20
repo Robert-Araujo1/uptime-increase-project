@@ -24,6 +24,7 @@ import dayjs from 'dayjs';
 import PopsForms from '../UIPPopsTable/PopsForms';
 import styles from './styles';
 import FeedIcon from '@mui/icons-material/Feed';
+import { isMobile } from 'react-device-detect';
 
 export default function () {
   const popsMachines = useSelector((state: any): object[] => state.pops.value);
@@ -162,10 +163,17 @@ export default function () {
                                   }
                                 });
                             } else {
-                              window.open(
-                                `https://www.waze.com/ul?navigate=yes&to=ll.${pops.MachineLat}%2C${pops.MachineLon}&from=ll.${userPosition.lat}%2C${userPosition.lng}`,
-                                '_blank'
-                              );
+                              if (isMobile) {
+                                window.open(
+                                  `waze://?ll=${pops.MachineLat}%2C${pops.MachineLon}&navigate=yes`,
+                                  '_blank'
+                                );
+                              } else {
+                                window.open(
+                                  `https://www.waze.com/ul?ll=${pops.MachineLat}%2C${pops.MachineLon}&navigate=yes&zoom=17`,
+                                  '_blank'
+                                );
+                              }
                             }
                           }}
                           color='inherit'
