@@ -24,14 +24,10 @@ import dayjs from 'dayjs';
 import PopsForms from '../UIPPopsTable/PopsForms';
 import styles from './styles';
 import FeedIcon from '@mui/icons-material/Feed';
-import { ReactComponent as WazeIcon } from '../../assets/icons/waze.svg';
-import { ReactComponent as GoogleMapsIcon } from '../../assets/icons/googlemaps.svg';
 
 export default function () {
   const popsMachines = useSelector((state: any): object[] => state.pops.value);
   const [userPosition, setUserPosition] = useState<L.LatLng | null>(null);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [popsMachineSelected, setPopsMachineSelected] = useState<any>(null);
   const [vehicles, setVehicles] = useState<any[]>([]);
   const [openPopsForm, setOpenPopsForm] = useState(false);
   const [machineDetails, setMachineDetails] = useState(undefined);
@@ -152,11 +148,6 @@ export default function () {
                         <Button
                           style={styles.wazeBtn}
                           onClick={() => {
-                            if (date[1] == 'past') {
-                              setPopsMachineSelected(pops);
-                              setOpenDialog(true);
-                              return;
-                            }
                             if (userPosition == null) {
                               navigator.permissions
                                 .query({ name: 'geolocation' })
@@ -172,27 +163,21 @@ export default function () {
                                 });
                             } else {
                               window.open(
-                                `https://www.waze.com/pt-BR/live-map/directions?to=ll.${pops.MachineLat}%2C${pops.MachineLon}&from=ll.${userPosition.lat}%2C${userPosition.lng}`,
+                                `https://www.waze.com/ul?navigate=yes&to=ll.${pops.MachineLat}%2C${pops.MachineLon}&from=ll.${userPosition.lat}%2C${userPosition.lng}`,
                                 '_blank'
                               );
                             }
                           }}
                           color='inherit'
                           variant='contained'>
-                          <WazeIcon />
+                          Waze
                         </Button>
                         <Button
                           style={{
                             marginTop: '10px',
-                            color: '#fff',
                             minWidth: '60px',
                           }}
                           onClick={() => {
-                            if (date[1] == 'past') {
-                              setPopsMachineSelected(pops);
-                              setOpenDialog(true);
-                              return;
-                            }
                             if (userPosition == null) {
                               navigator.permissions
                                 .query({ name: 'geolocation' })
@@ -215,7 +200,7 @@ export default function () {
                           }}
                           color='inherit'
                           variant='contained'>
-                          <GoogleMapsIcon />
+                          Maps
                         </Button>
                         <Button
                           sx={{ background: '#EDAC23' }}
@@ -237,12 +222,12 @@ export default function () {
           <LocateMyselfMarker setUserPosition={setUserPosition} />
         </MapContainer>
       </Box>
-      <MachineNotCommunicatingWarning
+      {/* <MachineNotCommunicatingWarning
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
         pops={popsMachineSelected}
         userPosition={userPosition}
-      />
+      /> */}
       <PopsForms
         open={openPopsForm}
         handleClose={() => setOpenPopsForm(false)}

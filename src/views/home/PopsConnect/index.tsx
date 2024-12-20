@@ -11,8 +11,9 @@ export default function () {
   useEffect(() => {
     async function getPops() {
       const data = await getPopsMachines();
-      setPops(data.body);
-      dispatch(setPopsMachines(data.body));
+      const body = JSON.parse(data.body);
+      setPops(body);
+      dispatch(setPopsMachines(body));
     }
     getPops();
   }, []);
