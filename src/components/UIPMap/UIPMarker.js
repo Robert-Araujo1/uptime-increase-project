@@ -10,7 +10,7 @@ export default (machine, flag = attentiton) => {
       machine.MachineCategory == null
         ? unknown
         : getMachineCategoryIcon(machine.MachineCategory),
-    shadowUrl: flag,
+    shadowUrl: flag == '' ? null : flag,
 
     iconSize: [32, 32],
     shadowSize: [24, 24],
