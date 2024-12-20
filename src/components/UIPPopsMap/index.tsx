@@ -9,7 +9,6 @@ import UIPMarker from '../UIPMap/UIPMarker';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import isRecentDate from '../../utils/isRecentDate';
 import Button from '@mui/material/Button';
-import DirectionsIcon from '@mui/icons-material/Directions';
 import CellTowerIcon from '@mui/icons-material/CellTower';
 import WarningIcon from '@mui/icons-material/Warning';
 import Dialog from '@mui/material/Dialog';
@@ -22,13 +21,20 @@ import { WSSERVER } from '../../services/constants';
 import { getVehicles } from '../../services/uipApi';
 import { createClusterCustomIcon } from '../UIPMap';
 import dayjs from 'dayjs';
+import PopsForms from '../UIPPopsTable/PopsForms';
+import styles from './styles';
+import FeedIcon from '@mui/icons-material/Feed';
+import { ReactComponent as WazeIcon } from '../../assets/icons/waze.svg';
+import { ReactComponent as GoogleMapsIcon } from '../../assets/icons/googlemaps.svg';
 
 export default function () {
-  const popsMachines = useSelector((state: any) => state.pops.value);
+  const popsMachines = useSelector((state: any): object[] => state.pops.value);
   const [userPosition, setUserPosition] = useState<L.LatLng | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [popsMachineSelected, setPopsMachineSelected] = useState<any>(null);
   const [vehicles, setVehicles] = useState<any[]>([]);
+  const [openPopsForm, setOpenPopsForm] = useState(false);
+  const [machineDetails, setMachineDetails] = useState(undefined);
   const { lastMessage } = useWebSocket(WSSERVER);
 
   async function fetchVehicles() {
@@ -56,7 +62,7 @@ export default function () {
     <Paper>
       <Box height={'85dvh'} paddingY={1} paddingX={1}>
         <MapContainer
-          style={{ height: '82dvh', width: '100%' }}
+          style={styles.mapContainer}
           attributionControl
           center={[-7.2408, -39.3126]}
           zoom={5}>
@@ -109,86 +115,124 @@ export default function () {
             </MarkerClusterGroup>
           )}
           <MarkerClusterGroup showCoverageOnHover={false}>
-            {popsMachines.map((pops: any, index: number) => {
-              const date = isRecentDate(pops.MachineLocationTimestamp);
+            {popsMachines.length > 0 &&
+              popsMachines.map((pops: any, index: number) => {
+                const date = isRecentDate(pops.MachineLocationTimestamp);
+                return (
+                  <Marker
+                    key={index}
+                    position={[pops.MachineLat, pops.MachineLon]}
+                    icon={UIPMarker(pops, '')}>
+                    <Popup minWidth={200} maxWidth={220}>
+                      <div className='popup-pops'>
+                        <div className='popup-pops-header'>Cliente</div>
+                        <span>{pops.CustomerName}</span>
+                        <div className='popup-pops-header'>Chassi</div>
+                        <span>{pops.MachineVin}</span>
 
-              return (
-                <Marker
-                  key={index}
-                  position={[pops.MachineLat, pops.MachineLon]}
-                  icon={UIPMarker(pops, null)}>
-                  <Popup maxWidth={200}>
-                    <div className='popup-pops'>
-                      <div className='popup-pops-header'>Chassi</div>
-                      <span>{pops.MachineVin}</span>
-                      <div className='popup-pops-header'>Cliente</div>
-                      <span>{pops.CustomerName}</span>
-                      <div className='popup-pops-header'>
-                        Localização Atualizada Em
+                        <div className='popup-pops-header'>Horímetro</div>
+                        <span>{pops.MachineEngineHours}</span>
+                        <div className='popup-pops-header'>
+                          Data de atualização
+                        </div>
+                        <div style={styles.popupDate}>
+                          {date[1] == 'today' ? (
+                            <CellTowerIcon color='success' />
+                          ) : date[1] == 'yesterday' ? (
+                            <CellTowerIcon
+                              color='inherit'
+                              sx={{ color: '#EDAC23' }}
+                            />
+                          ) : (
+                            <WarningIcon color='warning' />
+                          )}
+
+                          <span>{date[0]}</span>
+                        </div>
+                        <Button
+                          style={styles.wazeBtn}
+                          onClick={() => {
+                            if (date[1] == 'past') {
+                              setPopsMachineSelected(pops);
+                              setOpenDialog(true);
+                              return;
+                            }
+                            if (userPosition == null) {
+                              navigator.permissions
+                                .query({ name: 'geolocation' })
+                                .then((result) => {
+                                  if (result.state == 'denied') {
+                                    alert(
+                                      'Você precisa permitir o acesso a sua localização!'
+                                    );
+                                    return;
+                                  } else if (result.state == 'prompt') {
+                                    return;
+                                  }
+                                });
+                            } else {
+                              window.open(
+                                `https://www.waze.com/pt-BR/live-map/directions?to=ll.${pops.MachineLat}%2C${pops.MachineLon}&from=ll.${userPosition.lat}%2C${userPosition.lng}`,
+                                '_blank'
+                              );
+                            }
+                          }}
+                          color='inherit'
+                          variant='contained'>
+                          <WazeIcon />
+                        </Button>
+                        <Button
+                          style={{
+                            marginTop: '10px',
+                            color: '#fff',
+                            minWidth: '60px',
+                          }}
+                          onClick={() => {
+                            if (date[1] == 'past') {
+                              setPopsMachineSelected(pops);
+                              setOpenDialog(true);
+                              return;
+                            }
+                            if (userPosition == null) {
+                              navigator.permissions
+                                .query({ name: 'geolocation' })
+                                .then((result) => {
+                                  if (result.state == 'denied') {
+                                    alert(
+                                      'Você precisa permitir o acesso a sua localização!'
+                                    );
+                                    return;
+                                  } else if (result.state == 'prompt') {
+                                    return;
+                                  }
+                                });
+                            } else {
+                              window.open(
+                                `https://www.google.com/maps/dir/${userPosition.lat},${userPosition.lng}/${pops.MachineLat},${pops.MachineLon}`,
+                                '_blank'
+                              );
+                            }
+                          }}
+                          color='inherit'
+                          variant='contained'>
+                          <GoogleMapsIcon />
+                        </Button>
+                        <Button
+                          sx={{ background: '#EDAC23' }}
+                          color='inherit'
+                          variant='contained'
+                          onClick={() => {
+                            setMachineDetails(pops);
+                            setOpenPopsForm(true);
+                          }}
+                          style={styles.formsBtn}>
+                          <FeedIcon />
+                        </Button>
                       </div>
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}>
-                        {date[1] == 'today' ? (
-                          <CellTowerIcon color='success' />
-                        ) : date[1] == 'yesterday' ? (
-                          <CellTowerIcon
-                            color='inherit'
-                            sx={{ color: '#EDAC23' }}
-                          />
-                        ) : (
-                          <WarningIcon color='warning' />
-                        )}
-
-                        <span>{date[0]}</span>
-                      </div>
-                      <Button
-                        style={{
-                          marginTop: '10px',
-                          textTransform: 'none',
-                          background: '#EDAC23',
-                          color: 'black',
-                        }}
-                        onClick={() => {
-                          if (date[1] == 'past') {
-                            setPopsMachineSelected(pops);
-                            setOpenDialog(true);
-                            return;
-                          }
-
-                          if (userPosition == null) {
-                            navigator.permissions
-                              .query({ name: 'geolocation' })
-                              .then((result) => {
-                                if (result.state == 'denied') {
-                                  alert(
-                                    'Você precisa permitir o acesso a sua localização!'
-                                  );
-                                  return;
-                                } else if (result.state == 'prompt') {
-                                  return;
-                                }
-                              });
-                          } else {
-                            window.open(
-                              `https://www.google.com/maps/dir/${userPosition.lat},${userPosition.lng}/${pops.MachineLat},${pops.MachineLon}`,
-                              '_blank'
-                            );
-                          }
-                        }}
-                        color='inherit'
-                        variant='contained'
-                        startIcon={<DirectionsIcon />}>
-                        Traçar Rota
-                      </Button>
-                    </div>
-                  </Popup>
-                </Marker>
-              );
-            })}
+                    </Popup>
+                  </Marker>
+                );
+              })}
           </MarkerClusterGroup>
           <LocateMyselfMarker setUserPosition={setUserPosition} />
         </MapContainer>
@@ -198,6 +242,11 @@ export default function () {
         setOpenDialog={setOpenDialog}
         pops={popsMachineSelected}
         userPosition={userPosition}
+      />
+      <PopsForms
+        open={openPopsForm}
+        handleClose={() => setOpenPopsForm(false)}
+        machineDetails={machineDetails}
       />
     </Paper>
   );
