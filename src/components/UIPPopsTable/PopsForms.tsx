@@ -42,7 +42,6 @@ export default function ({
   return (
     <Modal
       onSubmit={async (e: any) => {
-        setLoading(true);
         e.preventDefault();
         const checkboxes = e.target.querySelectorAll(
           '.checkbox-reasons-checked'
@@ -52,6 +51,7 @@ export default function ({
           return;
         }
 
+        setLoading(true);
         let form = { StopBusinessReasons: {}, ...machineDetails } as any;
         form.CustomerPersonRole = role;
         form.CustomerPersonName = capitalizeStr(name);
