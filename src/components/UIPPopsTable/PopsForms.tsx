@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
 import { Radio, RadioGroup } from '@mui/material';
-import { roleCustomerOptions } from './constants';
+import { roleCustomerOptions, yesNoOptions } from './constants';
 import { popsReasonsCustomerOptions } from './constants';
 import { submitPopsForms } from '../../services/uipApi';
 import { capitalizeStr } from './utils';
@@ -25,7 +25,7 @@ interface PopsFormsProps {
 
 interface ClosedQuestionProps {
   question: string;
-  options: { value: string; label: string }[];
+  options: any[];
   optionType?: 'radio' | 'checkbox';
   setOption?: any;
 }
@@ -39,6 +39,7 @@ export default function ({
   const [name, setName] = useState('');
   const [commentary, setCommentary] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isProspected, setIsProspected] = useState<any>('');
   return (
     <Modal
       onSubmit={async (e: any) => {
@@ -56,6 +57,7 @@ export default function ({
         form.CustomerPersonRole = role;
         form.CustomerPersonName = capitalizeStr(name);
         form.AdditionalCommentary = commentary;
+        form.IsProspected = isProspected == 'yes' ? true : false;
         form.User = localStorage.getItem('email');
 
         checkboxes.forEach((checkbox: any) => {
@@ -67,6 +69,7 @@ export default function ({
           if (response?.statusCode == 200) {
             alert('Formulário enviado com sucesso!');
             handleClose();
+            window.location.reload();
           } else {
             console.error('Response:', response);
             alert('Erro ao enviar o formulário. Contate o suporte.');
@@ -77,7 +80,6 @@ export default function ({
           );
           console.error('Error when tried to submit the form:', error);
         }
-        window.location.reload();
         setLoading(false);
       }}
       component='form'
@@ -102,6 +104,7 @@ export default function ({
           setRole={setRole}
           setName={setName}
           setCommentary={setCommentary}
+          setIsProspected={setIsProspected}
         />
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
           <Button
@@ -125,10 +128,12 @@ const FormsBody = ({
   setRole,
   setName,
   setCommentary,
+  setIsProspected,
 }: {
   setRole: any;
   setName: any;
   setCommentary: any;
+  setIsProspected: any;
 }) => {
   return (
     <Box sx={{ mt: 2 }}>
@@ -146,6 +151,11 @@ const FormsBody = ({
         question='3. Por que o cliente não faz ou parou de fazer negócios com a Veneza?'
         options={popsReasonsCustomerOptions}
         optionType='checkbox'
+      />
+      <ClosedQuestion
+        question='4. Você conseguiu prospectar alguma oportunidade de negócio com essa visita?'
+        options={yesNoOptions}
+        setOption={setIsProspected}
       />
       <OpenQuestion
         required={false}
@@ -193,17 +203,29 @@ const ClosedQuestion = ({
   optionType = 'radio',
   setOption,
 }: ClosedQuestionProps) => {
+  const optionsLength = options.length;
   return (
     <FormControl sx={{ mt: 1 }} required>
       <FormLabel>{question}</FormLabel>
       {optionType == 'radio' ? (
         <RadioGroup
+          sx={
+            optionsLength == 2
+              ? {
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                }
+              : { flexDirection: 'column' }
+          }
           onChange={({ target }: { target: any }) => setOption(target.value)}>
           {options.map(({ value, label }: { value: string; label: string }) => (
             <FormControlLabel
               required
               key={value}
               value={value}
+              labelPlacement={options.length > 2 ? 'end' : 'bottom'}
               control={<Radio />}
               label={label}
             />
