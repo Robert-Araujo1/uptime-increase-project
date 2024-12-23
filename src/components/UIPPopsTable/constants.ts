@@ -15,3 +15,8 @@ export const popsReasonsCustomerOptions = [
   { label: 'Insatisfeito com a John Deere', value: 'unsatisfiedJohnDeere' },
   { label: 'Outro', value: 'other' },
 ];
+
+export const yesNoOptions = [
+  { label: 'Sim', value: 'yes' },
+  { label: 'Não', value: 'no' },
+];
